@@ -7,12 +7,15 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { createLogoText } from "../util/logo";
+
+const logoText = createLogoText();
 
 export const Navigation: FC = () => {
 
     return (<Navbar>
-        <NavbarBrand>
-            Imbricate Hummingbird
+        <NavbarBrand className="font-mono whitespace-pre">
+            {logoText}
         </NavbarBrand>
         <NavbarContent>
             <NavbarItem>

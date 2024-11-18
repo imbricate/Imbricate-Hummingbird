@@ -1698,10 +1698,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@imbricate/core@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@imbricate/core@npm:3.1.0"
-  checksum: 10c0/a52f73dd5d21b89f1cebf7e557ff13f69b594b1c707cde0136951510263a50af685deb77a5f4987a3933477267b293944f4a7466ef8629d5990e58119b172f86
+"@imbricate/core@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@imbricate/core@npm:3.1.1"
+  checksum: 10c0/47085bbb7505fb7ac53b449a5c39633dbb106e8d222a96135ac52504632b34f1e9e6cf2ca19489d897d7bf947551defec7b71cb7b0173bd7021c53837d0e2f82
   languageName: node
   linkType: hard
 
@@ -1712,8 +1712,8 @@ __metadata:
     "@babel/core": "npm:^7.26.0"
     "@babel/preset-env": "npm:^7.26.0"
     "@babel/preset-typescript": "npm:^7.26.0"
-    "@imbricate/core": "npm:^3.1.0"
-    "@imbricate/origin-stack-api": ../Imbricate-Origin-Stack-API/app
+    "@imbricate/core": "npm:^3.1.1"
+    "@imbricate/origin-stack-api": "npm:^3.0.0"
     "@nextui-org/react": "npm:^2.4.8"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.9.0"
@@ -1738,14 +1738,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@imbricate/origin-stack-api@file:../Imbricate-Origin-Stack-API/app::locator=%40imbricate%2Fhummingbird%40workspace%3A.":
+"@imbricate/origin-stack-api@npm:^3.0.0":
   version: 3.0.0
-  resolution: "@imbricate/origin-stack-api@file:../Imbricate-Origin-Stack-API/app#../Imbricate-Origin-Stack-API/app::hash=b71de2&locator=%40imbricate%2Fhummingbird%40workspace%3A."
+  resolution: "@imbricate/origin-stack-api@npm:3.0.0"
   dependencies:
     axios: "npm:^1.7.7"
   peerDependencies:
     "@imbricate/core": "*"
-  checksum: 10c0/96632985e0cfb74462e8070b91102330f6163d02b53bd10f35c6025ced3b15842d7a3fd536092100cae193ac9ce11dc32150813e685bfa4f4120cc27614b46ea
+  checksum: 10c0/60aef6fab523a317e90d2c8f78a1bd2e528080b108b54d04e5bee393e4570be89523b8383cdbfecaaa8831863d4f510449ab376b5f9b27ccb436fd7ac80893d6
   languageName: node
   linkType: hard
 
