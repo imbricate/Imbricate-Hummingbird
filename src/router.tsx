@@ -8,6 +8,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
 import { Route, Routes, useHref, useNavigate } from "react-router-dom";
 import { Application } from "./application";
+import { DatabasesView } from "./database/databases-view";
 
 export const ApplicationRouter = () => {
 
@@ -17,7 +18,9 @@ export const ApplicationRouter = () => {
         <Routes>
             <Route path="/" element={<Application />} errorElement={<div>
                 Not Found
-            </div>} />
+            </div>}>
+                <Route path="databases" element={<DatabasesView />} />
+            </Route>
         </Routes>
     </NextUIProvider>);
 };
