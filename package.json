@@ -4,21 +4,9 @@
   "version": "1.0.0",
   "description": "The minimal web client for Imbricate",
   "scripts": {
-    "compile:main": "tsc --project typescript/tsconfig.main.dev.json",
-    "build:main": "webpack --config webpack/webpack.config.js",
-    "start:main": "electron build-dev/index.js",
-    "lint:main": "eslint main",
-    "start:renderer:database": "vite renderer/database --port 5711",
-    "lint:renderer:database": "eslint renderer/database",
-    "build:renderer:database": "vite build renderer/database --emptyOutDir --outDir ../../build/_renderer/database --base ./",
-    "lint:script": "eslint script",
-    "build:electron": "ts-node --project typescript/tsconfig.script.json script/build-electron.ts",
-    "build": "ts-node --project typescript/tsconfig.script.json script/build.ts",
-    "coverage": "jest --coverage",
-    "license": "ts-node --project typescript/tsconfig.script.json script/license.ts",
-    "produce": "ts-node --project typescript/tsconfig.script.json script/produce.ts",
-    "clean": "rm -rf app",
-    "test": "jest"
+    "start": "vite --port 5711",
+    "build:renderer:database": "vite build --emptyOutDir --outDir app",
+    "clean": "rm -rf app"
   },
   "repository": {
     "type": "git",
@@ -35,6 +23,9 @@
     "url": "https://github.com/Imbricate/Imbricate-Hummingbird/issues"
   },
   "homepage": "https://imbricate.io",
+  "dependencies": {
+    "@imbricate/core": "^3.1.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
@@ -43,11 +34,11 @@
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.14.0",
-    "@typescript-eslint/parser": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-jest": "^29.7.0",
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
