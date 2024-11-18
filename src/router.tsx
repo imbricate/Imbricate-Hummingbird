@@ -4,14 +4,20 @@
  * @description Router
  */
 
+import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { Route, Routes, useHref, useNavigate } from "react-router-dom";
 import { Application } from "./application";
 
-export const applicationRouter = createBrowserRouter([
-    {
-        path: "/",
-        element: (<Application />),
-        errorElement: (<div>Not Found</div>),
-    },
-]);
+export const ApplicationRouter = () => {
+
+    const navigate = useNavigate();
+
+    return (<NextUIProvider navigate={navigate} useHref={useHref}>
+        <Routes>
+            <Route path="/" element={<Application />} errorElement={<div>
+                Not Found
+            </div>} />
+        </Routes>
+    </NextUIProvider>);
+};

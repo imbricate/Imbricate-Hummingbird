@@ -4,28 +4,30 @@
  * @description Navigation
  */
 
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
-import { createLogoText } from "../util/logo";
-
-const logoText = createLogoText();
+import { NavigationLogo } from "./logo";
 
 export const Navigation: FC = () => {
 
     return (<Navbar>
-        <NavbarBrand className="font-mono whitespace-pre">
-            {logoText}
+        <NavbarBrand>
+            <NavigationLogo />
         </NavbarBrand>
-        <NavbarContent>
+        <NavbarContent className="sm:flex gap-4" justify="center">
             <NavbarItem>
-                <Link to="databases">
+                <Link color="foreground" href="views">
+                    Views
+                </Link>
+            </NavbarItem>
+            <NavbarItem>
+                <Link color="foreground" href="databases">
                     Databases
                 </Link>
             </NavbarItem>
             <NavbarItem>
-                <Link to="databases">
-                    Databases
+                <Link color="foreground" href="Origins">
+                    Origins
                 </Link>
             </NavbarItem>
         </NavbarContent>

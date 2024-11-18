@@ -6,18 +6,15 @@
 
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { applicationRouter } from "./router";
-import { NextUIProvider } from "@nextui-org/react";
+import { ApplicationRouter } from "./router";
+import { BrowserRouter } from "react-router-dom";
 
 const rootElement = document.getElementById("root")!;
 
 createRoot(rootElement).render(
     (<React.StrictMode>
-        <NextUIProvider>
-            <RouterProvider
-                router={applicationRouter}
-            />
-        </NextUIProvider>
+        <BrowserRouter>
+            <ApplicationRouter />
+        </BrowserRouter>
     </React.StrictMode>),
 );
