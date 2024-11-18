@@ -24,9 +24,11 @@
   },
   "homepage": "https://imbricate.io",
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
     "@imbricate/core": "^3.1.0",
+    "@imbricate/origin-stack-api": "../Imbricate-Origin-Stack-API/app",
+    "@nextui-org/react": "^2.4.8",
     "autoprefixer": "^10.4.20",
+    "framer-motion": "^11.11.17",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15"
   },
