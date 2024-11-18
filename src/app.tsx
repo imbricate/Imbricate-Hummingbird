@@ -4,8 +4,8 @@
  * @description App
  */
 
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
+import "./index.css";
 
 export const Application = () => {
     const [count, setCount] = useState(0);
