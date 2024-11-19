@@ -11,8 +11,10 @@ import { Navigation } from "./navigation/navigation";
 
 export const Application = () => {
 
-    return (<div>
+    return (<div className="flex px-1 py-2">
         <Navigation />
-        <Outlet />
+        <div className="flex-1">
+            <Outlet />
+        </div>
     </div>);
 };

@@ -4,32 +4,26 @@
  * @description Navigation
  */
 
-import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { NavigationLogo } from "./logo";
 
 export const Navigation: FC = () => {
 
-    return (<Navbar>
-        <NavbarBrand>
+    return (<div className="w-full max-w-[260px]">
+        <div className="w-full justify-center items-center flex my-2">
             <NavigationLogo />
-        </NavbarBrand>
-        <NavbarContent className="sm:flex gap-4" justify="center">
-            <NavbarItem>
-                <Link color="foreground" href="views">
-                    Views
-                </Link>
-            </NavbarItem>
-            <NavbarItem>
-                <Link color="foreground" href="databases">
-                    Databases
-                </Link>
-            </NavbarItem>
-            <NavbarItem>
-                <Link color="foreground" href="Origins">
-                    Origins
-                </Link>
-            </NavbarItem>
-        </NavbarContent>
-    </Navbar>);
+        </div>
+        <Listbox
+            aria-label="Actions"
+            onAction={(key) => alert(key)}
+        >
+            <ListboxItem key="new">New file</ListboxItem>
+            <ListboxItem key="copy">Copy link</ListboxItem>
+            <ListboxItem key="edit">Edit file</ListboxItem>
+            <ListboxItem key="delete" className="text-danger" color="danger">
+                Delete file
+            </ListboxItem>
+        </Listbox>
+    </div>);
 };
