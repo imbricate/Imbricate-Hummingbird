@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
  * @namespace Database_Hooks
- * @description Databases
+ * @description Use Databases
  */
 
 import { IImbricateDatabase } from "@imbricate/core";

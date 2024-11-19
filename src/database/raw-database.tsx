@@ -22,7 +22,11 @@ export const RawDatabase: FC = () => {
 
     const databases = useDatabases();
 
-    console.log(databases);
+    const targetDatabase = databases.find((database) => database.database.uniqueIdentifier === databaseUniqueIdentifier);
 
-    return <div>{databaseUniqueIdentifier}</div>;
+    if (!targetDatabase) {
+        return null;
+    }
+
+    return <div>{targetDatabase.originName}</div>;
 };
