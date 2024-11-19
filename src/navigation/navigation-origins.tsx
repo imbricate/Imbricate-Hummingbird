@@ -7,12 +7,10 @@
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useOriginInitialization } from "../origin/hooks/use-initialization";
 import { ImbricateOriginObject, useOrigins } from "../origin/hooks/use-origins";
 
 export const NavigationOrigins: FC = () => {
 
-    useOriginInitialization();
     const origins = useOrigins();
 
     return (<div>

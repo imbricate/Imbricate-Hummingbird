@@ -20,7 +20,7 @@ export const Navigation: FC = () => {
         <Tabs
             fullWidth
             variant="solid"
-            defaultSelectedKey="origins"
+            defaultSelectedKey="databases"
         >
             <Tab
                 key="origins"
