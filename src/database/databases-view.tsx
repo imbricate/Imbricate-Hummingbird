@@ -27,6 +27,7 @@ export const DatabasesView: FC = () => {
     return (<div>
         <Table
             selectionMode="single"
+            removeWrapper
             onRowAction={(row) => {
                 alert(JSON.stringify(row));
             }}

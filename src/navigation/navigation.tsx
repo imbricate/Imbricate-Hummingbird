@@ -4,9 +4,11 @@
  * @description Navigation
  */
 
-import { Listbox, ListboxItem } from "@nextui-org/react";
+import { Tab, Tabs } from "@nextui-org/react";
 import React, { FC } from "react";
 import { NavigationLogo } from "./logo";
+import { NavigationDatabases } from "./navigation-databases";
+import { NavigationViews } from "./navigation-views";
 
 export const Navigation: FC = () => {
 
@@ -14,16 +16,16 @@ export const Navigation: FC = () => {
         <div className="w-full justify-center items-center flex my-2">
             <NavigationLogo />
         </div>
-        <Listbox
-            aria-label="Actions"
-            onAction={(key) => alert(key)}
+        <Tabs
+            fullWidth
+            variant="light"
         >
-            <ListboxItem key="new">New file</ListboxItem>
-            <ListboxItem key="copy">Copy link</ListboxItem>
-            <ListboxItem key="edit">Edit file</ListboxItem>
-            <ListboxItem key="delete" className="text-danger" color="danger">
-                Delete file
-            </ListboxItem>
-        </Listbox>
+            <Tab key="views" title="Views">
+                <NavigationViews />
+            </Tab>
+            <Tab key="databases" title="Databases">
+                <NavigationDatabases />
+            </Tab>
+        </Tabs>
     </div>);
 };
