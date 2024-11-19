@@ -6,7 +6,11 @@
 
 import { IImbricateDatabase } from "@imbricate/core";
 import { useEffect, useState } from "react";
+import { findCache, saveCache } from "../../common/cache/cache";
 import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origins";
+import { executeDeduplicate } from "../../common/ongoing/ongoing";
+
+const DATABASE_CACHE_IDENTIFIER: string = "databases-use-databases";
 
 export type ImbricateDatabasesObject = {
 
@@ -20,23 +24,40 @@ export const useDatabases = (): ImbricateDatabasesObject[] => {
     const origins: ImbricateOriginObject[] = useOrigins();
     const [databases, setDatabases] = useState<ImbricateDatabasesObject[]>([]);
 
+    const deps: string = origins
+        .map((origin: ImbricateOriginObject) => origin.origin.uniqueIdentifier)
+        .join("|");
+
     useEffect(() => {
 
         if (origins.length === 0) {
             return;
         }
 
-        const execute = async () => {
+        const cache = findCache<ImbricateDatabasesObject[]>(
+            DATABASE_CACHE_IDENTIFIER,
+            [deps],
+        );
+        if (cache) {
 
-            console.debug("[Hummingbird] List Databases", origins);
+            console.debug("[Hummingbird] List Databases (Cache)", origins);
+
+            setDatabases(cache);
+            return;
+        }
+
+        const execute = async () => {
 
             const response: ImbricateDatabasesObject[] = [];
 
             for (const origin of origins) {
 
-                const databases = await origin.origin
-                    .getDatabaseManager()
-                    .listDatabases();
+                const databases = await executeDeduplicate(
+                    `list-databases-${origin.origin.uniqueIdentifier}`,
+                    () => origin.origin
+                        .getDatabaseManager()
+                        .listDatabases(),
+                );
 
                 for (const database of databases) {
                     response.push({
@@ -47,10 +68,11 @@ export const useDatabases = (): ImbricateDatabasesObject[] => {
                 }
             }
 
+            saveCache(DATABASE_CACHE_IDENTIFIER, [deps], response);
             setDatabases(response);
         };
         execute();
-    }, [origins]);
+    }, [deps]);
 
     return databases;
 };

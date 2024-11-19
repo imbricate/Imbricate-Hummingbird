@@ -6,6 +6,8 @@
 
 import { IImbricateDatabase } from "@imbricate/core";
 import React, { FC } from "react";
+import { useParams } from "react-router-dom";
+import { useDatabases } from "./hooks/use-databases";
 
 export type RawDatabaseProps = {
 
@@ -14,5 +16,13 @@ export type RawDatabaseProps = {
 
 export const RawDatabase: FC = () => {
 
-    return <div>Database</div>;
+    const params = useParams();
+    const databaseUniqueIdentifier: string =
+        params["database-unique-identifier"] as string;
+
+    const databases = useDatabases();
+
+    console.log(databases);
+
+    return <div>{databaseUniqueIdentifier}</div>;
 };
