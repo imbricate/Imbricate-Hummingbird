@@ -14,5 +14,5 @@ export type RawDatabaseProps = {
 
 export const RawDatabase: FC = () => {
 
-    return <div></div>;
+    return <div>Database</div>;
 };
