@@ -7,10 +7,16 @@
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useOrigins } from "../origin/origin-hooks";
+import { useOriginInitialization } from "../origin/hooks/initialization";
+import { OriginSliceState, useOriginSlice } from "../store/feature/origin";
+
 export const NavigationOrigins: FC = () => {
 
-    useOrigins();
+    useOriginInitialization();
+
+    const originState: OriginSliceState = useOriginSlice();
+
+    console.log(originState);
 
     return (<Listbox>
         <ListboxItem

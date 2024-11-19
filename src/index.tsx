@@ -6,15 +6,19 @@
 
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { ApplicationRouter } from "./router";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ApplicationRouter } from "./router";
+import { applicationStore } from "./store/store";
 
 const rootElement = document.getElementById("root")!;
 
 createRoot(rootElement).render(
     (<React.StrictMode>
-        <BrowserRouter>
-            <ApplicationRouter />
-        </BrowserRouter>
+        <Provider store={applicationStore}>
+            <BrowserRouter>
+                <ApplicationRouter />
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>),
 );
