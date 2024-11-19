@@ -6,15 +6,20 @@
 
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
-
+import { FaPlus } from "react-icons/fa";
+import { useOrigins } from "../origin/origin-hooks";
 export const NavigationOrigins: FC = () => {
 
-    return (<Listbox
-        aria-label="Actions"
-        onAction={(key) => alert(key)}
-    >
-        <ListboxItem key="new">
-            New file Database
+    useOrigins();
+
+    return (<Listbox>
+        <ListboxItem
+            key="new"
+            startContent={<FaPlus />}
+            className="text-primary"
+            color="primary"
+        >
+            Add Origin
         </ListboxItem>
         <ListboxItem key="copy">Copy link</ListboxItem>
         <ListboxItem key="edit">Edit file</ListboxItem>
