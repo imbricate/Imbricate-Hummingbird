@@ -8,6 +8,7 @@ import { Tab, Tabs } from "@nextui-org/react";
 import React, { FC } from "react";
 import { NavigationLogo } from "./logo";
 import { NavigationDatabases } from "./navigation-databases";
+import { NavigationOrigins } from "./navigation-origins";
 import { NavigationViews } from "./navigation-views";
 
 export const Navigation: FC = () => {
@@ -18,12 +19,25 @@ export const Navigation: FC = () => {
         </div>
         <Tabs
             fullWidth
-            variant="light"
+            variant="solid"
+            defaultSelectedKey="origins"
         >
-            <Tab key="views" title="Views">
+            <Tab
+                key="origins"
+                title="Origins"
+            >
+                <NavigationOrigins />
+            </Tab>
+            <Tab
+                key="views"
+                title="Views"
+            >
                 <NavigationViews />
             </Tab>
-            <Tab key="databases" title="Databases">
+            <Tab
+                key="databases"
+                title="Databases"
+            >
                 <NavigationDatabases />
             </Tab>
         </Tabs>
