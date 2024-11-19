@@ -4,18 +4,20 @@
  * @description Origin
  */
 
-import { IImbricateOrigin } from "@imbricate/core";
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+import { OriginStorageInstance } from "../../origin/origin-storage";
 
 export type OriginSliceState = {
 
-    readonly origins: IImbricateOrigin[];
+    readonly originInstance: OriginStorageInstance;
 };
 
 export type OriginSliceReducers = {
 
-    readonly setOrigins: (state: OriginSliceState, action: { payload: IImbricateOrigin[] }) => OriginSliceState;
+    readonly setOriginInstance: (state: OriginSliceState, action: {
+        payload: OriginStorageInstance,
+    }) => OriginSliceState;
 };
 
 export const originSlice = createSlice<
@@ -26,13 +28,17 @@ export const originSlice = createSlice<
 >({
     name: "origin",
     initialState: {
-        origins: [],
+        originInstance: {
+            origins: [],
+        },
     },
     reducers: {
-        setOrigins: (state: OriginSliceState, action: { payload: IImbricateOrigin[] }) => {
+        setOriginInstance: (state: OriginSliceState, action: {
+            payload: OriginStorageInstance,
+        }) => {
             return {
                 ...state,
-                origins: action.payload,
+                originInstance: action.payload,
             };
         },
     },

@@ -4,7 +4,6 @@
  * @description Initialization
  */
 
-import { ImbricateStackAPIOrigin } from "@imbricate/origin-stack-api";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { originSlice } from "../../store/feature/origin";
@@ -22,16 +21,17 @@ export const useOriginInitialization = () => {
             console.log(origin);
         }
 
-        dispatch(originSlice.actions.setOrigins(
-            [
-                ImbricateStackAPIOrigin.create({
+        dispatch(
+            originSlice.actions.setOriginInstance({
+                origins: [{
+                    type: "@imbricate/origin-stack-api",
                     basePath: "http://localhost:3000/3aed7b5d30561f970002248479705a4684d9d451/",
                     authentication: {
                         type: "Bearer",
                         value: "test",
                     },
-                }),
-            ],
-        ));
+                }],
+            }),
+        );
     }, []);
 };

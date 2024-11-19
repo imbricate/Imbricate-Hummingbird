@@ -7,30 +7,35 @@
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useOriginInitialization } from "../origin/hooks/initialization";
-import { OriginSliceState, useOriginSlice } from "../store/feature/origin";
+import { useOriginInitialization } from "../origin/hooks/use-initialization";
+import { ImbricateOriginObject, useOrigins } from "../origin/hooks/use-origins";
 
 export const NavigationOrigins: FC = () => {
 
     useOriginInitialization();
+    const origins = useOrigins();
 
-    const originState: OriginSliceState = useOriginSlice();
+    console.log(origins);
 
-    console.log(originState);
-
-    return (<Listbox>
-        <ListboxItem
-            key="new"
-            startContent={<FaPlus />}
-            className="text-primary"
-            color="primary"
+    return (<div>
+        <Listbox>
+            <ListboxItem
+                key="new"
+                startContent={<FaPlus />}
+                className="text-primary"
+                color="primary"
+            >
+                Add Origin
+            </ListboxItem>
+        </Listbox>
+        <Listbox
+            items={origins}
         >
-            Add Origin
-        </ListboxItem>
-        <ListboxItem key="copy">Copy link</ListboxItem>
-        <ListboxItem key="edit">Edit file</ListboxItem>
-        <ListboxItem key="delete" className="text-danger" color="danger">
-            Delete file
-        </ListboxItem>
-    </Listbox>);
+            {(origin: ImbricateOriginObject) => {
+                return (<ListboxItem key={origin.origin.uniqueIdentifier}>
+                    {origin.originName}
+                </ListboxItem>);
+            }}
+        </Listbox>
+    </div>);
 };
