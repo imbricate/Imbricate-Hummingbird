@@ -15,8 +15,6 @@ export const NavigationOrigins: FC = () => {
     useOriginInitialization();
     const origins = useOrigins();
 
-    console.log(origins);
-
     return (<div>
         <Listbox>
             <ListboxItem
