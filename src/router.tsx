@@ -10,8 +10,8 @@ import { Route, Routes, useHref, useNavigate } from "react-router-dom";
 import { Application } from "./application";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
-import { EditRoute } from "./edit/edit";
-import { ViewRoute } from "./view/view";
+import { EditView } from "./edit/edit-view";
+import { ViewView } from "./view/view-view";
 
 export const ApplicationRouter = () => {
 
@@ -33,11 +33,11 @@ export const ApplicationRouter = () => {
             </Route>
             <Route
                 path="/view/:text-unique-identifier"
-                element={<ViewRoute />}
+                element={<ViewView />}
             />
             <Route
                 path="/edit/:database-unique-identifier/document/:document-unique-identifier/property/:property-unique-identifier"
-                element={<EditRoute />}
+                element={<EditView />}
             />
         </Routes>
     </NextUIProvider>);

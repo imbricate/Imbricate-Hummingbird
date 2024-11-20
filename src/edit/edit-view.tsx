@@ -1,17 +1,17 @@
 /**
  * @author WMXPY
- * @namespace View
- * @description View
+ * @namespace Edit
+ * @description Edit View
  */
 
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 
-export const ViewRoute: FC = () => {
+export const EditView: FC = () => {
 
     const params = useParams();
 
     console.log(params);
 
-    return <div>View</div>;
+    return <div>Edit</div>;
 };
