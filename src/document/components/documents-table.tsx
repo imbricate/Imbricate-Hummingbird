@@ -5,7 +5,7 @@
  */
 
 import { IImbricateDatabase, IImbricateDocument, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
-import { Table, TableBody, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import React, { FC } from "react";
 
 export type DocumentsTableProps = {
@@ -42,11 +42,11 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                     {props.database.schema.properties.map((
                         schemaProperty: ImbricateDatabaseSchemaProperty,
                     ) => {
-                        return <TableColumn
+                        return <TableCell
                             key={schemaProperty.propertyIdentifier}
                         >
                             {123}
-                        </TableColumn>;
+                        </TableCell>;
                     })}
                 </TableRow>);
             })}
