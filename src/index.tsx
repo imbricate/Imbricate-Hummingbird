@@ -11,6 +11,8 @@ import { BrowserRouter } from "react-router-dom";
 import { ApplicationRouter } from "./router";
 import { applicationStore } from "./store/store";
 
+window.global = globalThis;
+
 const rootElement = document.getElementById("root")!;
 
 createRoot(rootElement).render(
