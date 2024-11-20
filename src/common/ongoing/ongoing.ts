@@ -13,5 +13,12 @@ export const executeDeduplicate = async <T>(
 
     const ongoingManager: OngoingManager = OngoingManager.getInstance();
 
-    return ongoingManager.execute<T>(identifier, execute);
+    try {
+
+        return ongoingManager.execute<T>(identifier, execute);
+    } catch (err) {
+
+        console.error(err);
+        throw err;
+    }
 };

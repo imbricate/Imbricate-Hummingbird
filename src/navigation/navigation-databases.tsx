@@ -18,7 +18,7 @@ export const NavigationDatabases: FC = () => {
     return (<Listbox
         items={databases}
         onAction={(key) => {
-            navigate(`/database/${key}`);
+            navigate(`/database/${key}/documents`);
         }}
     >
         {(item: ImbricateDatabasesObject) => {

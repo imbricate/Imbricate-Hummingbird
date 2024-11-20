@@ -27,7 +27,7 @@ export const ApplicationRouter = () => {
                     element={<DatabasesView />}
                 />
                 <Route
-                    path="database/:database-unique-identifier"
+                    path="database/:database-unique-identifier/documents"
                     element={<RawDatabase />}
                 />
             </Route>
