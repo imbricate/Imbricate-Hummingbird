@@ -10,6 +10,7 @@ import { Route, Routes, useHref, useNavigate } from "react-router-dom";
 import { Application } from "./application";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
+import { ViewRoute } from "./view/view";
 
 export const ApplicationRouter = () => {
 
@@ -20,9 +21,19 @@ export const ApplicationRouter = () => {
             <Route path="/" element={<Application />} errorElement={<div>
                 Not Found
             </div>}>
-                <Route path="databases" element={<DatabasesView />} />
-                <Route path="database/:database-unique-identifier" element={<RawDatabase />} />
+                <Route
+                    path="databases"
+                    element={<DatabasesView />}
+                />
+                <Route
+                    path="database/:database-unique-identifier"
+                    element={<RawDatabase />}
+                />
             </Route>
+            <Route
+                path="/view/:text-unique-identifier"
+                element={<ViewRoute />}
+            />
         </Routes>
     </NextUIProvider>);
 };
