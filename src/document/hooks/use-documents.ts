@@ -7,19 +7,20 @@
 import { IImbricateDocument } from "@imbricate/core";
 import { useEffect, useState } from "react";
 import { executeDeduplicate } from "../../common/ongoing/ongoing";
-import { useDatabases } from "../../database/hooks/use-databases";
+import { ImbricateDatabasesObject, useDatabases } from "../../database/hooks/use-databases";
 
-export type ImbricateDocumentObject = {
+export type ImbricateDocumentResponse = {
 
-    readonly document: IImbricateDocument;
+    readonly database: ImbricateDatabasesObject | null;
+    readonly documents: IImbricateDocument[];
 };
 
 export const useDocuments = (
     databaseUniqueIdentifier: string,
-): ImbricateDocumentObject[] => {
+): ImbricateDocumentResponse => {
 
     const databases = useDatabases();
-    const [documents, setDocuments] = useState<ImbricateDocumentObject[]>([]);
+    const [documents, setDocuments] = useState<IImbricateDocument[]>([]);
 
     const targetDatabase = databases.find((database) => {
         return database.database.uniqueIdentifier === databaseUniqueIdentifier;
@@ -40,18 +41,14 @@ export const useDocuments = (
                 },
             );
 
-            const response: ImbricateDocumentObject[] = documents.map((document: IImbricateDocument) => {
-
-                return {
-                    document,
-                };
-            });
-
-            setDocuments(response);
+            setDocuments(documents);
         };
 
         execute();
     }, [databaseUniqueIdentifier, targetDatabase]);
 
-    return documents;
+    return {
+        database: targetDatabase ?? null,
+        documents,
+    };
 };

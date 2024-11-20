@@ -4,15 +4,10 @@
  * @description Raw Database
  */
 
-import { IImbricateDatabase } from "@imbricate/core";
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
+import { DocumentsTable } from "../document/components/documents-table";
 import { useDocuments } from "../document/hooks/use-documents";
-
-export type RawDatabaseProps = {
-
-    databases: IImbricateDatabase[];
-};
 
 export const RawDatabase: FC = () => {
 
@@ -24,9 +19,19 @@ export const RawDatabase: FC = () => {
         databaseUniqueIdentifier,
     );
 
-    if (!documents) {
+    if (!documents.database) {
         return null;
     }
 
-    return <div>{documents.length}</div>;
+    return <div>
+        <h2
+            className="text-2xl"
+        >
+            {documents.database.database.databaseName}
+        </h2>
+        <DocumentsTable
+            database={documents.database.database}
+            documents={documents.documents}
+        />
+    </div>;
 };
