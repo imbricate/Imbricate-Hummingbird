@@ -4,14 +4,18 @@
  * @description String Cell
  */
 
-import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
 import { getDefaultValueOfProperty } from "../../util/default-value";
+import { DocumentEditingController } from "../../controller/editing-controller";
 
 export type DocumentTableStringCellProps = {
 
+    readonly document: IImbricateDocument;
+    readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>;
+    readonly editingController: DocumentEditingController;
     readonly editing: boolean;
 };
 
@@ -25,13 +29,22 @@ export const DocumentTableStringCell: FC<DocumentTableStringCellProps> = (
 
     if (props.editing) {
 
+        const updatedProperty = props.editingController.getUpdatedProperties(props.document);
+
+        console.log(updatedProperty);
+        if (!updatedProperty) {
+            return null;
+        }
+
         return (<Input
             value={propertyValue}
             fullWidth={false}
         />);
     }
 
-    return (<React.Fragment>
+    return (<div
+        className="select-text"
+    >
         {propertyValue}
-    </React.Fragment>);
+    </div>);
 };

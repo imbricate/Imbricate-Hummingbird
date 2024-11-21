@@ -42,7 +42,10 @@ export const createDocumentsTableCells = (
                         key={propertyIdentifier}
                     >
                         <DocumentTableStringCell
+                            document={props.document.document}
+                            propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            editingController={props.editingController}
                             editing={props.document.editing}
                         />
                     </TableCell>);

@@ -60,6 +60,26 @@ export class DocumentEditingController {
         this._notify();
     }
 
+    public getUpdatedProperties(document: IImbricateDocument): DocumentProperties | null {
+
+        return this._editingDocuments.get(document.uniqueIdentifier)?.updatedProperties ?? null;
+    }
+
+    public setUpdatingProperty(document: IImbricateDocument, propertyIdentifier: string, value: any): void {
+
+        const editingDocument: DocumentEditingControllerEditingDocument | undefined = this._editingDocuments.get(document.uniqueIdentifier);
+        if (!editingDocument) {
+            return;
+        }
+
+        editingDocument.updatedProperties[propertyIdentifier] = {
+            type: editingDocument.updatedProperties[propertyIdentifier].type,
+            value,
+        };
+
+        this._editingDocuments.set(document.uniqueIdentifier, editingDocument);
+    }
+
     public cancelEditingDocument(document: IImbricateDocument): void {
 
         this._editingDocuments.delete(document.uniqueIdentifier);
