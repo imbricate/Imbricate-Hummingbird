@@ -35,6 +35,9 @@ export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
                 color="success"
                 variant="solid"
                 size="sm"
+                onClick={() => {
+                    props.editingController.saveEditingDocument(props.item.document);
+                }}
             >
                 <IoCheckmarkSharp />
             </Button>

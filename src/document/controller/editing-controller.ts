@@ -87,6 +87,19 @@ export class DocumentEditingController {
         this._notify();
     }
 
+    public async saveEditingDocument(document: IImbricateDocument): Promise<void> {
+
+        const editingDocument: DocumentEditingControllerEditingDocument | undefined = this._editingDocuments.get(document.uniqueIdentifier);
+        if (!editingDocument) {
+            return;
+        }
+
+        await document.putProperties(editingDocument.updatedProperties);
+
+        this._editingDocuments.delete(document.uniqueIdentifier);
+        this._notify();
+    }
+
     public isDocumentEditing(document: IImbricateDocument): boolean {
 
         return this._editingDocuments.has(document.uniqueIdentifier);

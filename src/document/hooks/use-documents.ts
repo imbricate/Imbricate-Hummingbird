@@ -38,8 +38,9 @@ export const useDocuments = (
 
             const documents: IImbricateDocument[] = await executeDeduplicate(
                 `list-documents-${targetDatabase.database.uniqueIdentifier}`,
-                () => {
-                    return targetDatabase.database.queryDocuments({});
+                async () => {
+                    const result = await targetDatabase.database.queryDocuments({});
+                    return result;
                 },
             );
 
