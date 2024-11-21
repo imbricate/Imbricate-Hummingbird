@@ -7,7 +7,9 @@
 import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import React, { FC } from "react";
+import { MdMore } from "react-icons/md";
 import { arrangeDocuments } from "../util/arrange-documents";
+import { DocumentsTableExtraCell } from "./table-cells/extra";
 
 export type DocumentsTableProps = {
 
@@ -28,34 +30,46 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         props.documents,
     );
 
-    console.log(arrangedDocuments);
-
     return (<Table
         removeWrapper
     >
         <TableHeader>
-            {arrangedDocuments.propertyIdentifiers.map((
-                propertyIdentifier: string,
-            ) => {
-                return <TableColumn
-                    key={propertyIdentifier}
-                >
-                    {arrangedDocuments.propertyNameMap[propertyIdentifier]}
-                </TableColumn>;
-            })}
+            <React.Fragment>
+                {arrangedDocuments.propertyIdentifiers.map((
+                    propertyIdentifier: string,
+                ) => {
+                    return <TableColumn
+                        key={propertyIdentifier}
+                    >
+                        {arrangedDocuments.propertyNameMap[propertyIdentifier]}
+                    </TableColumn>;
+                })}
+            </React.Fragment>
+            <TableColumn
+                className="flex items-center"
+            >
+                Extra&nbsp;<MdMore />
+            </TableColumn>
         </TableHeader>
         <TableBody>
             {arrangedDocuments.documents.map((document) => {
                 return (<TableRow key={document.documentIdentifier}>
-                    {arrangedDocuments.propertyIdentifiers.map((
-                        propertyIdentifier: string,
-                    ) => {
-                        return (<TableCell
-                            key={propertyIdentifier}
-                        >
-                            {document.propertyValueMap[propertyIdentifier].value}
-                        </TableCell>);
-                    })}
+                    <React.Fragment>
+                        {arrangedDocuments.propertyIdentifiers.map((
+                            propertyIdentifier: string,
+                        ) => {
+                            return (<TableCell
+                                key={propertyIdentifier}
+                            >
+                                {document.propertyValueMap[propertyIdentifier]?.value ?? "IDN"}
+                            </TableCell>);
+                        })}
+                    </React.Fragment>
+                    <TableCell>
+                        <DocumentsTableExtraCell
+                            item={document}
+                        />
+                    </TableCell>
                 </TableRow>);
             })}
         </TableBody>

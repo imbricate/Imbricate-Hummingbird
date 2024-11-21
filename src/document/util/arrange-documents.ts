@@ -12,7 +12,7 @@ type ArrangeDocumentsResultItemFloatingProperty = {
     readonly propertyValue: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
 };
 
-type ArrangeDocumentsResultItem = {
+export type ArrangeDocumentsResultItem = {
 
     readonly documentIdentifier: string;
     readonly propertyValueMap: Record<string, DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>>;
