@@ -4,9 +4,10 @@
  * @description Documents Table
  */
 
-import { IImbricateDatabase, IImbricateDocument, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
+import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import React, { FC } from "react";
+import { arrangeDocuments } from "../util/arrange-documents";
 
 export type DocumentsTableProps = {
 
@@ -22,31 +23,38 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         return null;
     }
 
+    const arrangedDocuments = arrangeDocuments(
+        props.database,
+        props.documents,
+    );
+
+    console.log(arrangedDocuments);
+
     return (<Table
         removeWrapper
     >
         <TableHeader>
-            {props.database.schema.properties.map((
-                schemaProperty: ImbricateDatabaseSchemaProperty,
+            {arrangedDocuments.propertyIdentifiers.map((
+                propertyIdentifier: string,
             ) => {
                 return <TableColumn
-                    key={schemaProperty.propertyIdentifier}
+                    key={propertyIdentifier}
                 >
-                    {schemaProperty.propertyName}
+                    {arrangedDocuments.propertyNameMap[propertyIdentifier]}
                 </TableColumn>;
             })}
         </TableHeader>
         <TableBody>
-            {props.documents.map((document: IImbricateDocument) => {
-                return (<TableRow key={document.uniqueIdentifier}>
-                    {props.database.schema.properties.map((
-                        schemaProperty: ImbricateDatabaseSchemaProperty,
+            {arrangedDocuments.documents.map((document) => {
+                return (<TableRow key={document.documentIdentifier}>
+                    {arrangedDocuments.propertyIdentifiers.map((
+                        propertyIdentifier: string,
                     ) => {
-                        return <TableCell
-                            key={schemaProperty.propertyIdentifier}
+                        return (<TableCell
+                            key={propertyIdentifier}
                         >
-                            {123}
-                        </TableCell>;
+                            {document.propertyValueMap[propertyIdentifier].value}
+                        </TableCell>);
                     })}
                 </TableRow>);
             })}
