@@ -8,7 +8,7 @@ import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
 import { Button, Table, TableBody, TableColumn, TableHeader, TableRow, Tooltip } from "@nextui-org/react";
 import React, { FC } from "react";
 import { MdMore, MdOutlineContentCopy } from "react-icons/md";
-import { ArrangeDocumentsResult, arrangeDocuments } from "../util/arrange-documents";
+import { ArrangeDocumentsResult, ArrangeDocumentsResultItem, arrangeDocuments } from "../util/arrange-documents";
 import { createDocumentsTableCells } from "./table-cells";
 
 export type DocumentsTableProps = {
@@ -59,7 +59,6 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                             placement="bottom"
                         >
                             {arrangedDocuments.propertyNameMap[propertyIdentifier]}
-
                         </Tooltip>
                     </TableColumn>;
                 })}
@@ -71,13 +70,18 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
             </TableColumn>
         </TableHeader>
         <TableBody>
-            {arrangedDocuments.documents.map((document) => {
+            {arrangedDocuments.documents.map((
+                document: ArrangeDocumentsResultItem,
+            ) => {
+
                 const cells = createDocumentsTableCells({
                     propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
                     propertyTypesMap: arrangedDocuments.propertyTypesMap,
                     document,
                 });
-                return (<TableRow key={document.documentIdentifier}>
+                return (<TableRow
+                    key={document.documentIdentifier}
+                >
                     {cells}
                 </TableRow>);
             })}
