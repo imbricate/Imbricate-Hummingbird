@@ -9,7 +9,7 @@ import { Button, Table, TableBody, TableColumn, TableHeader, TableRow, Tooltip }
 import React, { FC } from "react";
 import { MdMore, MdOutlineContentCopy } from "react-icons/md";
 import { arrangeDocuments } from "../util/arrange-documents";
-import { createDocumentsTableViewCells } from "./table-rows/view-cells";
+import { createDocumentsTableCells } from "./table-cells";
 
 export type DocumentsTableProps = {
 
@@ -72,7 +72,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         </TableHeader>
         <TableBody>
             {arrangedDocuments.documents.map((document) => {
-                const cells = createDocumentsTableViewCells({
+                const cells = createDocumentsTableCells({
                     propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
                     document,
                 });

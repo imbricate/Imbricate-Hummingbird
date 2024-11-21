@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
- * @namespace Document_Components_TableRows
- * @description Documents Table Editing Row
+ * @namespace Document_Components_TableCells
+ * @description String Cell
  */
 
 import { TableCell } from "@nextui-org/react";
@@ -15,7 +15,7 @@ export type DocumentsTableEditingCellsProps = {
     readonly document: ArrangeDocumentsResultItem;
 };
 
-export const createDocumentsTableEditingCells = (
+export const createDocumentStringCell = (
     props: DocumentsTableEditingCellsProps,
 ): JSX.Element[] => {
 
