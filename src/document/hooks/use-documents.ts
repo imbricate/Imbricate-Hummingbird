@@ -17,6 +17,7 @@ export type ImbricateDocumentResponse = {
 
 export const useDocuments = (
     databaseUniqueIdentifier: string,
+    version: number,
 ): ImbricateDocumentResponse => {
 
     const databases = useDatabases();
@@ -49,7 +50,7 @@ export const useDocuments = (
         };
 
         execute();
-    }, [databaseUniqueIdentifier, targetDatabase]);
+    }, [databaseUniqueIdentifier, targetDatabase, version]);
 
     if (documentsRef.current !== databaseUniqueIdentifier) {
         return {

@@ -5,12 +5,15 @@
  */
 
 import { Button } from "@nextui-org/react";
-import React, { FC } from "react";
+import React, { FC, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
 import { useDocuments } from "../document/hooks/use-documents";
 
 export const RawDatabase: FC = () => {
+
+    const [version, updateVersion] = useReducer((x) => x + 1, 0);
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const params = useParams();
     const databaseUniqueIdentifier: string =
@@ -18,6 +21,7 @@ export const RawDatabase: FC = () => {
 
     const documents = useDocuments(
         databaseUniqueIdentifier,
+        version,
     );
 
     if (!documents.database) {
@@ -40,6 +44,8 @@ export const RawDatabase: FC = () => {
         <DocumentsTable
             database={documents.database.database}
             documents={documents.documents}
+            forceUpdate={forceUpdate}
+            updateVersion={updateVersion}
         />
     </div>;
 };

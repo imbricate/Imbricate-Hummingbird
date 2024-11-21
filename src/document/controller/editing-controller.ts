@@ -24,7 +24,8 @@ export class DocumentEditingController {
 
     private readonly _database: IImbricateDatabase;
 
-    private readonly _listening: Set<(count: number) => void> = new Set();
+    private readonly _listeningStatusChange: Set<(count: number) => void> = new Set();
+    private readonly _listeningVersionChange: Set<() => void> = new Set();
     private readonly _editingDocuments: Map<string, DocumentEditingControllerEditingDocument>;
 
     private constructor(
@@ -33,17 +34,25 @@ export class DocumentEditingController {
 
         this._database = database;
 
-        this._listening = new Set();
+        this._listeningStatusChange = new Set();
+        this._listeningVersionChange = new Set();
         this._editingDocuments = new Map();
     }
 
-    public listen(onChange: (count: number) => void): () => void {
+    public listenStatusChange(onChange: (count: number) => void): () => void {
 
-        this._listening.add(onChange);
+        this._listeningStatusChange.add(onChange);
         return () => {
+            this._listeningStatusChange.delete(onChange);
+        };
+    }
 
-            console.log("dispose");
-            this._listening.delete(onChange);
+    public listenVersionChange(onChange: () => void): () => void {
+
+        this._listeningVersionChange.add(onChange);
+
+        return () => {
+            this._listeningVersionChange.delete(onChange);
         };
     }
 
@@ -97,7 +106,7 @@ export class DocumentEditingController {
         await document.putProperties(editingDocument.updatedProperties);
 
         this._editingDocuments.delete(document.uniqueIdentifier);
-        this._notify();
+        this._notifyVersionChange();
     }
 
     public isDocumentEditing(document: IImbricateDocument): boolean {
@@ -107,8 +116,15 @@ export class DocumentEditingController {
 
     private _notify(): void {
 
-        for (const listener of this._listening) {
+        for (const listener of this._listeningStatusChange) {
             listener(this._editingDocuments.size);
+        }
+    }
+
+    private _notifyVersionChange(): void {
+
+        for (const listener of this._listeningVersionChange) {
+            listener();
         }
     }
 }
