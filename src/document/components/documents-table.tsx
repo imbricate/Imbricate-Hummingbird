@@ -5,7 +5,7 @@
  */
 
 import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip } from "@nextui-org/react";
 import React, { FC } from "react";
 import { MdMore } from "react-icons/md";
 import { arrangeDocuments } from "../util/arrange-documents";
@@ -41,7 +41,11 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                     return <TableColumn
                         key={propertyIdentifier}
                     >
-                        {arrangedDocuments.propertyNameMap[propertyIdentifier]}
+                        <Tooltip
+                            content={propertyIdentifier}
+                        >
+                            {arrangedDocuments.propertyNameMap[propertyIdentifier]}
+                        </Tooltip>
                     </TableColumn>;
                 })}
             </React.Fragment>

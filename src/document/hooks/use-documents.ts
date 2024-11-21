@@ -5,7 +5,7 @@
  */
 
 import { IImbricateDocument } from "@imbricate/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { executeDeduplicate } from "../../common/ongoing/ongoing";
 import { ImbricateDatabasesObject, useDatabases } from "../../database/hooks/use-databases";
 
@@ -21,6 +21,8 @@ export const useDocuments = (
 
     const databases = useDatabases();
     const [documents, setDocuments] = useState<IImbricateDocument[]>([]);
+
+    const documentsRef = useRef<string>(databaseUniqueIdentifier);
 
     const targetDatabase = databases.find((database) => {
         return database.database.uniqueIdentifier === databaseUniqueIdentifier;
@@ -41,11 +43,19 @@ export const useDocuments = (
                 },
             );
 
+            documentsRef.current = databaseUniqueIdentifier;
             setDocuments(documents);
         };
 
         execute();
     }, [databaseUniqueIdentifier, targetDatabase]);
+
+    if (documentsRef.current !== databaseUniqueIdentifier) {
+        return {
+            database: targetDatabase ?? null,
+            documents: [],
+        };
+    }
 
     return {
         database: targetDatabase ?? null,
