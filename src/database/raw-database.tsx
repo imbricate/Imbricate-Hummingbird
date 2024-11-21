@@ -4,6 +4,7 @@
  * @description Raw Database
  */
 
+import { Button } from "@nextui-org/react";
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
@@ -24,11 +25,18 @@ export const RawDatabase: FC = () => {
     }
 
     return <div>
-        <h2
-            className="text-2xl"
+        <div
+            className="m-2"
         >
-            {documents.database.database.databaseName}
-        </h2>
+            <h2
+                className="text-2xl"
+            >
+                {documents.database.database.databaseName}
+            </h2>
+            <Button>
+                Create Document
+            </Button>
+        </div>
         <DocumentsTable
             database={documents.database.database}
             documents={documents.documents}

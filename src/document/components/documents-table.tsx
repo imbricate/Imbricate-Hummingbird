@@ -5,11 +5,11 @@
  */
 
 import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip } from "@nextui-org/react";
+import { Button, Table, TableBody, TableColumn, TableHeader, TableRow, Tooltip } from "@nextui-org/react";
 import React, { FC } from "react";
-import { MdMore } from "react-icons/md";
+import { MdMore, MdOutlineContentCopy } from "react-icons/md";
 import { arrangeDocuments } from "../util/arrange-documents";
-import { DocumentsTableExtraCell } from "./table-cells/extra";
+import { createDocumentsTableViewCells } from "./table-rows/view-cells";
 
 export type DocumentsTableProps = {
 
@@ -42,9 +42,24 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                         key={propertyIdentifier}
                     >
                         <Tooltip
-                            content={propertyIdentifier}
+                            content={<div className="flex gap-1 justify-center items-center">
+                                {propertyIdentifier}
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    variant="light"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(propertyIdentifier);
+                                    }}
+                                >
+                                    <MdOutlineContentCopy />
+                                </Button>
+                            </div>}
+                            delay={1000}
+                            placement="bottom"
                         >
                             {arrangedDocuments.propertyNameMap[propertyIdentifier]}
+
                         </Tooltip>
                     </TableColumn>;
                 })}
@@ -57,23 +72,12 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         </TableHeader>
         <TableBody>
             {arrangedDocuments.documents.map((document) => {
+                const cells = createDocumentsTableViewCells({
+                    propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
+                    document,
+                });
                 return (<TableRow key={document.documentIdentifier}>
-                    <React.Fragment>
-                        {arrangedDocuments.propertyIdentifiers.map((
-                            propertyIdentifier: string,
-                        ) => {
-                            return (<TableCell
-                                key={propertyIdentifier}
-                            >
-                                {document.propertyValueMap[propertyIdentifier]?.value ?? "IDN"}
-                            </TableCell>);
-                        })}
-                    </React.Fragment>
-                    <TableCell>
-                        <DocumentsTableExtraCell
-                            item={document}
-                        />
-                    </TableCell>
+                    {cells}
                 </TableRow>);
             })}
         </TableBody>
