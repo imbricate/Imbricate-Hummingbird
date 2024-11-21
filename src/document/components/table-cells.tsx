@@ -4,15 +4,18 @@
  * @description Documents Table Cells
  */
 
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
 import React from "react";
 import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
 import { getDefaultValueOfProperty } from "../util/default-value";
 import { DocumentsTableExtraCell } from "./table-cells/extra";
+import { DocumentTableStringCell } from "./table-cells/string-cell";
 
 export type DocumentsTableCellsProps = {
 
     readonly propertyIdentifiers: string[];
+    readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
     readonly document: ArrangeDocumentsResultItem;
 };
 
@@ -26,17 +29,31 @@ export const createDocumentsTableCells = (
         ) => {
 
             const property = props.document.propertyValueMap[propertyIdentifier];
-            const propertyValue: string = property
-                ? property.value
-                    ? property.value
-                    : getDefaultValueOfProperty(property.type)
-                : null;
+            const propertyType: IMBRICATE_PROPERTY_TYPE = property
+                ? property.type
+                : props.propertyTypesMap[propertyIdentifier];
 
-            return (<TableCell
-                key={propertyIdentifier}
-            >
-                {propertyValue}
-            </TableCell>);
+            switch (propertyType) {
+
+                case IMBRICATE_PROPERTY_TYPE.STRING:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableStringCell
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            editing={Math.random() > 0.5}
+                        />
+                    </TableCell>);
+
+                case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        {property && typeof property.value !== "undefined"
+                            ? property.value
+                            : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.MARKDOWN)}
+                    </TableCell>);
+            }
         }),
         <TableCell
             key="$extra"

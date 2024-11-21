@@ -23,6 +23,7 @@ export type ArrangeDocumentsResult = {
 
     readonly propertyIdentifiers: string[];
     readonly propertyNameMap: Record<string, string>;
+    readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
     readonly documents: ArrangeDocumentsResultItem[];
 };
 
@@ -39,6 +40,14 @@ export const arrangeDocuments = (
             return {
                 ...previous,
                 [current.propertyIdentifier]: current.propertyName,
+            };
+        }, {});
+
+    const propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE> = database.schema.properties
+        .reduce((previous: Record<string, IMBRICATE_PROPERTY_TYPE>, current) => {
+            return {
+                ...previous,
+                [current.propertyIdentifier]: current.propertyType,
             };
         }, {});
 
@@ -73,6 +82,7 @@ export const arrangeDocuments = (
     return {
         propertyIdentifiers,
         propertyNameMap,
+        propertyTypesMap,
         documents: documentsResult,
     };
 };

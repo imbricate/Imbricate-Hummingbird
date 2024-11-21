@@ -4,37 +4,34 @@
  * @description String Cell
  */
 
-import { TableCell } from "@nextui-org/react";
-import React from "react";
-import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
-import { DocumentsTableExtraCell } from "../table-cells/extra";
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { Input } from "@nextui-org/react";
+import React, { FC } from "react";
+import { getDefaultValueOfProperty } from "../../util/default-value";
 
-export type DocumentsTableEditingCellsProps = {
+export type DocumentTableStringCellProps = {
 
-    readonly propertyIdentifiers: string[];
-    readonly document: ArrangeDocumentsResultItem;
+    readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>;
+    readonly editing: boolean;
 };
 
-export const createDocumentStringCell = (
-    props: DocumentsTableEditingCellsProps,
-): JSX.Element[] => {
+export const DocumentTableStringCell: FC<DocumentTableStringCellProps> = (
+    props: DocumentTableStringCellProps,
+) => {
 
-    return [
-        ...props.propertyIdentifiers.map((
-            propertyIdentifier: string,
-        ) => {
-            return (<TableCell
-                key={propertyIdentifier}
-            >
-                {props.document.propertyValueMap[propertyIdentifier]?.value ?? "IDN"}
-            </TableCell>);
-        }),
-        <TableCell
-            key="$extra"
-        >
-            <DocumentsTableExtraCell
-                item={props.document}
-            />
-        </TableCell>,
-    ];
+    const propertyValue: string = (props.property && typeof props.property.value !== "undefined")
+        ? props.property.value
+        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.STRING);
+
+    if (props.editing) {
+
+        return (<Input
+            value={propertyValue}
+            fullWidth={false}
+        />);
+    }
+
+    return (<React.Fragment>
+        {propertyValue}
+    </React.Fragment>);
 };
