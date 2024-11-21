@@ -15,7 +15,7 @@ type ArrangeDocumentsResultItemFloatingProperty = {
 
 export type ArrangeDocumentsResultItem = {
 
-    readonly documentIdentifier: string;
+    readonly document: IImbricateDocument;
     readonly propertyValueMap: Record<string, DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>>;
     readonly floatingProperties: ArrangeDocumentsResultItemFloatingProperty[];
     readonly editing: boolean;
@@ -76,7 +76,7 @@ export const arrangeDocuments = (
                 }));
 
             return {
-                documentIdentifier: document.uniqueIdentifier,
+                document,
                 propertyValueMap,
                 floatingProperties,
                 editing: editingController.isDocumentEditing(document),

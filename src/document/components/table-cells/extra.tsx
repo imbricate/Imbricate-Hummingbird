@@ -7,11 +7,10 @@
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
 import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
-import { MdOutlineInfo } from "react-icons/md";
+import { MdEdit, MdOutlineInfo } from "react-icons/md";
 import { TbMoodPuzzled } from "react-icons/tb";
 import { DocumentEditingController } from "../../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
-import { MdEdit } from "react-icons/md";
 
 export type DocumentsTableExtraCellProps = {
 
@@ -44,6 +43,9 @@ export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
                 color="danger"
                 variant="solid"
                 size="sm"
+                onClick={() => {
+                    props.editingController.cancelEditingDocument(props.item.document);
+                }}
             >
                 <IoClose />
             </Button>
@@ -59,6 +61,9 @@ export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
                 color="secondary"
                 variant="solid"
                 size="sm"
+                onClick={() => {
+                    props.editingController.startEditingDocument(props.item.document);
+                }}
             >
                 <MdEdit />
             </Button>
@@ -80,7 +85,7 @@ export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
                 </Button>
             </PopoverTrigger>
             <PopoverContent>
-                {props.item.documentIdentifier}
+                {props.item.document.uniqueIdentifier}
             </PopoverContent>
         </Popover>
     </div>);

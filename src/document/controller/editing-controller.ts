@@ -24,6 +24,7 @@ export class DocumentEditingController {
 
     private readonly _database: IImbricateDatabase;
 
+    private readonly _listening: Set<(count: number) => void> = new Set();
     private readonly _editingDocuments: Map<string, DocumentEditingControllerEditingDocument>;
 
     private constructor(
@@ -32,7 +33,18 @@ export class DocumentEditingController {
 
         this._database = database;
 
+        this._listening = new Set();
         this._editingDocuments = new Map();
+    }
+
+    public listen(onChange: (count: number) => void): () => void {
+
+        this._listening.add(onChange);
+        return () => {
+
+            console.log("dispose");
+            this._listening.delete(onChange);
+        };
     }
 
     public startEditingDocument(document: IImbricateDocument): void {
@@ -44,10 +56,25 @@ export class DocumentEditingController {
                 updatedProperties: cloneDocumentProperties(document.properties),
             },
         );
+
+        this._notify();
+    }
+
+    public cancelEditingDocument(document: IImbricateDocument): void {
+
+        this._editingDocuments.delete(document.uniqueIdentifier);
+        this._notify();
     }
 
     public isDocumentEditing(document: IImbricateDocument): boolean {
 
         return this._editingDocuments.has(document.uniqueIdentifier);
+    }
+
+    private _notify(): void {
+
+        for (const listener of this._listening) {
+            listener(this._editingDocuments.size);
+        }
     }
 }
