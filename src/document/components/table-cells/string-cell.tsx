@@ -31,14 +31,27 @@ export const DocumentTableStringCell: FC<DocumentTableStringCellProps> = (
 
         const updatedProperty = props.editingController.getUpdatedProperties(props.document);
 
-        console.log(updatedProperty);
         if (!updatedProperty) {
-            return null;
+            throw new Error("[Imbricate] Updated property not found");
+        }
+
+        const value = updatedProperty[props.propertyKey]?.value ?? undefined;
+
+        if (typeof value === "undefined") {
+            throw new Error("[Imbricate] Updated property value not found");
         }
 
         return (<Input
-            value={propertyValue}
+            value={value}
             fullWidth={false}
+            onChange={(event) => {
+
+                props.editingController.setUpdatingProperty(
+                    props.document,
+                    props.propertyKey,
+                    event.target.value,
+                );
+            }}
         />);
     }
 

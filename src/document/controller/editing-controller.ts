@@ -78,6 +78,7 @@ export class DocumentEditingController {
         };
 
         this._editingDocuments.set(document.uniqueIdentifier, editingDocument);
+        this._notify();
     }
 
     public cancelEditingDocument(document: IImbricateDocument): void {

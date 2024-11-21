@@ -6,7 +6,7 @@
 
 import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
 import { Button, Table, TableBody, TableColumn, TableHeader, TableRow, Tooltip } from "@nextui-org/react";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useReducer } from "react";
 import { MdMore, MdOutlineContentCopy } from "react-icons/md";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResult, ArrangeDocumentsResultItem, arrangeDocuments } from "../util/arrange-documents";
@@ -22,15 +22,14 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
     props: DocumentsTableProps,
 ) => {
 
-    const [, setCount] = React.useState(0);
-
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
     const editingControllerRef = React.useRef<DocumentEditingController>();
 
     useEffect(() => {
 
         editingControllerRef.current = DocumentEditingController.create(props.database);
-        const dispose = editingControllerRef.current.listen((editingCount: number) => {
-            setCount(editingCount);
+        const dispose = editingControllerRef.current.listen(() => {
+            forceUpdate();
         });
 
         return () => {
