@@ -6,13 +6,17 @@
 
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
-import { TbMoodPuzzled } from "react-icons/tb";
-import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
+import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
 import { MdOutlineInfo } from "react-icons/md";
+import { TbMoodPuzzled } from "react-icons/tb";
+import { DocumentEditingController } from "../../controller/editing-controller";
+import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
+import { MdEdit } from "react-icons/md";
 
 export type DocumentsTableExtraCellProps = {
 
     readonly item: ArrangeDocumentsResultItem;
+    readonly editingController: DocumentEditingController;
 };
 
 export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
@@ -20,6 +24,46 @@ export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
 ) => {
 
     const items: React.ReactElement[] = [];
+
+    if (props.item.editing) {
+
+        items.push(<div
+            key="editing-status"
+            className="flex gap-1"
+        >
+            <Button
+                isIconOnly
+                color="success"
+                variant="solid"
+                size="sm"
+            >
+                <IoCheckmarkSharp />
+            </Button>
+            <Button
+                isIconOnly
+                color="danger"
+                variant="solid"
+                size="sm"
+            >
+                <IoClose />
+            </Button>
+        </div>);
+
+    } else {
+
+        items.push(<div
+            key="editing-status"
+        >
+            <Button
+                isIconOnly
+                color="secondary"
+                variant="solid"
+                size="sm"
+            >
+                <MdEdit />
+            </Button>
+        </div>);
+    }
 
     items.push(<div key="document-information">
         <Popover

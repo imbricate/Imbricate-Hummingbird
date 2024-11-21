@@ -10,6 +10,7 @@ import React, { FC } from "react";
 import { MdMore, MdOutlineContentCopy } from "react-icons/md";
 import { ArrangeDocumentsResult, ArrangeDocumentsResultItem, arrangeDocuments } from "../util/arrange-documents";
 import { createDocumentsTableCells } from "./table-cells";
+import { DocumentEditingController } from "../controller/editing-controller";
 
 export type DocumentsTableProps = {
 
@@ -21,6 +22,10 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
     props: DocumentsTableProps,
 ) => {
 
+    const editingControllerRef = React.useRef(
+        DocumentEditingController.create(props.database),
+    );
+
     if (!props.database.schema) {
         return null;
     }
@@ -28,6 +33,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
     const arrangedDocuments: ArrangeDocumentsResult = arrangeDocuments(
         props.database,
         props.documents,
+        editingControllerRef.current,
     );
 
     return (<Table
@@ -78,6 +84,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                     propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
                     propertyTypesMap: arrangedDocuments.propertyTypesMap,
                     document,
+                    editingController: editingControllerRef.current,
                 });
                 return (<TableRow
                     key={document.documentIdentifier}

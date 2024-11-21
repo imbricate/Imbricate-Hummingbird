@@ -5,6 +5,7 @@
  */
 
 import { DocumentPropertyValue, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentEditingController } from "../controller/editing-controller";
 
 type ArrangeDocumentsResultItemFloatingProperty = {
 
@@ -17,6 +18,7 @@ export type ArrangeDocumentsResultItem = {
     readonly documentIdentifier: string;
     readonly propertyValueMap: Record<string, DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>>;
     readonly floatingProperties: ArrangeDocumentsResultItemFloatingProperty[];
+    readonly editing: boolean;
 };
 
 export type ArrangeDocumentsResult = {
@@ -30,6 +32,7 @@ export type ArrangeDocumentsResult = {
 export const arrangeDocuments = (
     database: IImbricateDatabase,
     documents: IImbricateDocument[],
+    editingController: DocumentEditingController,
 ): ArrangeDocumentsResult => {
 
     const propertyIdentifiers: string[] = database.schema.properties
@@ -76,6 +79,7 @@ export const arrangeDocuments = (
                 documentIdentifier: document.uniqueIdentifier,
                 propertyValueMap,
                 floatingProperties,
+                editing: editingController.isDocumentEditing(document),
             };
         });
 

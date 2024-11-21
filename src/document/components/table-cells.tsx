@@ -7,6 +7,7 @@
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
 import React from "react";
+import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
 import { getDefaultValueOfProperty } from "../util/default-value";
 import { DocumentsTableExtraCell } from "./table-cells/extra";
@@ -17,6 +18,7 @@ export type DocumentsTableCellsProps = {
     readonly propertyIdentifiers: string[];
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
     readonly document: ArrangeDocumentsResultItem;
+    readonly editingController: DocumentEditingController;
 };
 
 export const createDocumentsTableCells = (
@@ -41,7 +43,7 @@ export const createDocumentsTableCells = (
                     >
                         <DocumentTableStringCell
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                            editing={Math.random() > 0.5}
+                            editing={props.document.editing}
                         />
                     </TableCell>);
 
@@ -60,6 +62,7 @@ export const createDocumentsTableCells = (
         >
             <DocumentsTableExtraCell
                 item={props.document}
+                editingController={props.editingController}
             />
         </TableCell>,
     ];

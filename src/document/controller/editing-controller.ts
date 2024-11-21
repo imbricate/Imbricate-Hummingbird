@@ -5,6 +5,7 @@
  */
 
 import { DocumentProperties, IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
+import { cloneDocumentProperties } from "../util/clone-properties";
 
 export type DocumentEditingControllerEditingDocument = {
 
@@ -40,8 +41,13 @@ export class DocumentEditingController {
             document.uniqueIdentifier,
             {
                 document,
-                updatedProperties: document.properties,
+                updatedProperties: cloneDocumentProperties(document.properties),
             },
         );
+    }
+
+    public isDocumentEditing(document: IImbricateDocument): boolean {
+
+        return this._editingDocuments.has(document.uniqueIdentifier);
     }
 }
