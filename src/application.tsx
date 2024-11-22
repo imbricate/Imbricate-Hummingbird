@@ -19,7 +19,7 @@ export const Application = () => {
     return (<main
         className={`${darkMode.value ? "dark" : ""} text-foreground bg-background`}
     >
-        <div className="flex px-1 py-2">
+        <div className="flex px-1 py-2 gap-1">
             <Navigation />
             <div className="flex-1">
                 <Outlet />
