@@ -9,8 +9,8 @@ import { TableCell } from "@nextui-org/react";
 import React from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
-import { getDefaultValueOfProperty } from "../util/default-value";
 import { DocumentsTableExtraCell } from "./table-cells/extra";
+import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
 
 export type DocumentsTableCellsProps = {
@@ -54,9 +54,13 @@ export const createDocumentsTableCells = (
                     return (<TableCell
                         key={propertyIdentifier}
                     >
-                        {property && typeof property.value !== "undefined"
-                            ? property.value
-                            : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.MARKDOWN)}
+                        <DocumentTableMarkdownCell
+                            document={props.document.document}
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
+                            editingController={props.editingController}
+                            editing={props.document.editing}
+                        />
                     </TableCell>);
             }
         }),

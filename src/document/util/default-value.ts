@@ -10,7 +10,7 @@ export const getDefaultValueOfProperty = (type: IMBRICATE_PROPERTY_TYPE): any =>
 
     switch (type) {
         case IMBRICATE_PROPERTY_TYPE.STRING: return "";
-        case IMBRICATE_PROPERTY_TYPE.MARKDOWN: return null;
+        case IMBRICATE_PROPERTY_TYPE.MARKDOWN: return "";
     }
 
     return null;
