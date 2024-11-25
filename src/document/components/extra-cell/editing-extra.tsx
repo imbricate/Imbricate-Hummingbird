@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
- * @namespace Document_Components_TableCells
- * @description Extra
+ * @namespace Document_Components_ExtraCell
+ * @description Editing Extra
  */
 
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
@@ -12,14 +12,14 @@ import { TbMoodPuzzled } from "react-icons/tb";
 import { DocumentEditingController } from "../../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
 
-export type DocumentsTableExtraCellProps = {
+export type DocumentsTableEditingExtraCellProps = {
 
     readonly item: ArrangeDocumentsResultItem;
     readonly editingController: DocumentEditingController;
 };
 
-export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
-    props: DocumentsTableExtraCellProps,
+export const DocumentsTableEditingExtraCell: FC<DocumentsTableEditingExtraCellProps> = (
+    props: DocumentsTableEditingExtraCellProps,
 ) => {
 
     const items: React.ReactElement[] = [];

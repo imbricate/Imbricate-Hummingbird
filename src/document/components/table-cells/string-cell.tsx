@@ -4,14 +4,13 @@
  * @description String Cell
  */
 
-import { DocumentPropertyValue, DocumentPropertyValueObject, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
 import { getDefaultValueOfProperty } from "../../util/default-value";
 
 export type DocumentTableStringCellProps = {
 
-    readonly document: IImbricateDocument;
     readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>;
     readonly getEditingProperty: () => DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.STRING> | undefined;

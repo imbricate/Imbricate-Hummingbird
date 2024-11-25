@@ -4,14 +4,13 @@
  * @description Markdown Cell
  */
 
-import { DocumentPropertyValue, DocumentPropertyValueObject, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
 import { getDefaultValueOfProperty } from "../../util/default-value";
 
 export type DocumentTableMarkdownCellProps = {
 
-    readonly document: IImbricateDocument;
     readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>;
     readonly getEditingProperty: () => DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.MARKDOWN> | undefined;

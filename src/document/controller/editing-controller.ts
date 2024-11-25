@@ -86,6 +86,27 @@ export class DocumentEditingController {
         return this._creatingDocuments.get(uuid) ?? null;
     }
 
+    public updateCreatingDocument(
+        uuid: string,
+        propertyIdentifier: string,
+        value: any,
+    ): void {
+
+        const creatingDocument: DocumentProperties | undefined = this._creatingDocuments.get(uuid);
+        if (!creatingDocument) {
+            return;
+        }
+
+        creatingDocument[propertyIdentifier] = {
+            type: creatingDocument[propertyIdentifier].type,
+            value,
+        };
+
+        this._creatingDocuments.set(uuid, creatingDocument);
+
+        this._notify();
+    }
+
     public saveCreatingDocument(
         uuid: string,
     ): void {

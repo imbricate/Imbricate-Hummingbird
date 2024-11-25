@@ -11,6 +11,7 @@ import { MdMore, MdOutlineContentCopy } from "react-icons/md";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResult, ArrangeDocumentsResultItem, arrangeDocuments } from "../util/arrange-documents";
 import { createDocumentsTableCells } from "./table-cells";
+import { createDocumentsTableCellsCreate } from "./table-cells-create";
 
 export type DocumentsTableProps = {
 
@@ -110,21 +111,37 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                 </TableColumn>
             </TableHeader>
             <TableBody>
-                {arrangedDocuments.documents.map((
-                    document: ArrangeDocumentsResultItem,
-                ) => {
-                    const cells = createDocumentsTableCells({
-                        propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
-                        propertyTypesMap: arrangedDocuments.propertyTypesMap,
-                        document,
-                        editingController: editingControllerRef.current!,
-                    });
-                    return (<TableRow
-                        key={document.document.uniqueIdentifier}
-                    >
-                        {cells}
-                    </TableRow>);
-                })}
+                {[
+                    ...arrangedDocuments.creatingDocuments.map(([documentKey, documentProperties]) => {
+                        const cells = createDocumentsTableCellsCreate({
+                            propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
+                            propertyTypesMap: arrangedDocuments.propertyTypesMap,
+                            creatingDocumentKey: documentKey,
+                            creatingDocumentProperties: documentProperties,
+                            editingController: editingControllerRef.current!,
+                        });
+                        return (<TableRow
+                            key={documentKey}
+                        >
+                            {cells}
+                        </TableRow>);
+                    }),
+                    ...arrangedDocuments.documents.map((
+                        document: ArrangeDocumentsResultItem,
+                    ) => {
+                        const cells = createDocumentsTableCells({
+                            propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
+                            propertyTypesMap: arrangedDocuments.propertyTypesMap,
+                            document,
+                            editingController: editingControllerRef.current!,
+                        });
+                        return (<TableRow
+                            key={document.document.uniqueIdentifier}
+                        >
+                            {cells}
+                        </TableRow>);
+                    }),
+                ]}
             </TableBody>
         </Table>
     </div>);

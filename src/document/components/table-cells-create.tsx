@@ -1,30 +1,30 @@
 /**
  * @author WMXPY
  * @namespace Document_Components
- * @description Documents Table Cells
+ * @description Documents Table Cells Create
  */
 
-import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentProperties, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
 import React from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
-import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
-import { DocumentsTableEditingExtraCell } from "./extra-cell/editing-extra";
 import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
 import { DocumentTableNumberCell } from "./table-cells/number-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
+import { DocumentsTableCreatingExtraCell } from "./extra-cell/creating-extra";
 
-export type DocumentsTableCellsProps = {
+export type DocumentsTableCellsCreateProps = {
 
     readonly propertyIdentifiers: string[];
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
-    readonly document: ArrangeDocumentsResultItem;
+    readonly creatingDocumentKey: string;
+    readonly creatingDocumentProperties: DocumentProperties;
     readonly editingController: DocumentEditingController;
 };
 
-export const createDocumentsTableCells = (
-    props: DocumentsTableCellsProps,
+export const createDocumentsTableCellsCreate = (
+    props: DocumentsTableCellsCreateProps,
 ): JSX.Element[] => {
 
     return [
@@ -32,14 +32,14 @@ export const createDocumentsTableCells = (
             propertyIdentifier: string,
         ) => {
 
-            const property = props.document.propertyValueMap[propertyIdentifier];
+            const property = props.creatingDocumentProperties[propertyIdentifier];
             const propertyType: IMBRICATE_PROPERTY_TYPE = property
                 ? property.type
                 : props.propertyTypesMap[propertyIdentifier];
 
             const getEditingProperty = () => {
 
-                const updatedProperties = props.editingController.getUpdatedProperties(props.document.document);
+                const updatedProperties = props.editingController.getCreatingDocument(props.creatingDocumentKey);
 
                 if (!updatedProperties) {
                     throw new Error("[Imbricate] Updated property not found");
@@ -50,8 +50,8 @@ export const createDocumentsTableCells = (
 
             const updateEditingProperty = (value: any) => {
 
-                props.editingController.setUpdatingProperty(
-                    props.document.document,
+                props.editingController.updateCreatingDocument(
+                    props.creatingDocumentKey,
                     propertyIdentifier,
                     value,
                 );
@@ -69,7 +69,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing={props.document.editing}
+                            editing
                         />
                     </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.STRING:
@@ -81,7 +81,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing={props.document.editing}
+                            editing
                         />
                     </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.NUMBER:
@@ -93,7 +93,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.NUMBER>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing={props.document.editing}
+                            editing
                         />
                     </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
@@ -105,7 +105,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing={props.document.editing}
+                            editing
                         />
                     </TableCell>);
                 default:
@@ -117,7 +117,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing={props.document.editing}
+                            editing
                         />
                     </TableCell>);
             }
@@ -125,8 +125,8 @@ export const createDocumentsTableCells = (
         <TableCell
             key="$extra"
         >
-            <DocumentsTableEditingExtraCell
-                item={props.document}
+            <DocumentsTableCreatingExtraCell
+                creatingKey={props.creatingDocumentKey}
                 editingController={props.editingController}
             />
         </TableCell>,
