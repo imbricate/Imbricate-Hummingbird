@@ -24,8 +24,8 @@
   },
   "homepage": "https://imbricate.io",
   "dependencies": {
-    "@imbricate/core": "^3.2.0",
-    "@imbricate/origin-stack-api": "^3.1.0",
+    "@imbricate/core": "^3.2.1",
+    "@imbricate/origin-stack-api": "^3.2.0",
     "@nextui-org/react": "^2.4.8",
     "@reduxjs/toolkit": "^2.3.0",
     "autoprefixer": "^10.4.20",
