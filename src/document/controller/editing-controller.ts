@@ -5,6 +5,7 @@
  */
 
 import { DocumentProperties, IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
+import { UUIDVersion1 } from "@sudoo/uuid";
 import { cloneAndFillDocumentProperties } from "../util/clone-properties";
 
 export type DocumentEditingControllerEditingDocument = {
@@ -27,6 +28,7 @@ export class DocumentEditingController {
     private readonly _listeningStatusChange: Set<(count: number) => void> = new Set();
     private readonly _listeningVersionChange: Set<() => void> = new Set();
     private readonly _editingDocuments: Map<string, DocumentEditingControllerEditingDocument>;
+    private readonly _creatingDocuments: Map<string, DocumentProperties>;
 
     private constructor(
         database: IImbricateDatabase,
@@ -37,6 +39,7 @@ export class DocumentEditingController {
         this._listeningStatusChange = new Set();
         this._listeningVersionChange = new Set();
         this._editingDocuments = new Map();
+        this._creatingDocuments = new Map();
     }
 
     public listenStatusChange(onChange: (count: number) => void): () => void {
@@ -54,6 +57,40 @@ export class DocumentEditingController {
         return () => {
             this._listeningVersionChange.delete(onChange);
         };
+    }
+
+    public startCreatingDocument(): string {
+
+        const uuid: string = UUIDVersion1.generateString();
+
+        this._creatingDocuments.set(
+            uuid,
+            cloneAndFillDocumentProperties(
+                {},
+                this._database.schema,
+            ),
+        );
+
+        this._notify();
+
+        return uuid;
+    }
+
+    public getCreatingDocuments(): Array<[string, DocumentProperties]> {
+
+        return Array.from(this._creatingDocuments.entries());
+    }
+
+    public getCreatingDocument(uuid: string): DocumentProperties | null {
+
+        return this._creatingDocuments.get(uuid) ?? null;
+    }
+
+    public saveCreatingDocument(
+        uuid: string,
+    ): void {
+
+        console.log(uuid);
     }
 
     public startEditingDocument(document: IImbricateDocument): void {

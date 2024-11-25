@@ -25,7 +25,6 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
     props: DocumentsTableProps,
 ) => {
 
-    // const [, forceUpdate] = useReducer((x) => x + 1, 0);
     const editingControllerRef = React.useRef<DocumentEditingController>();
 
     useEffect(() => {
@@ -60,61 +59,73 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         editingControllerRef.current,
     );
 
-    return (<Table
-        removeWrapper
-    >
-        <TableHeader>
-            <React.Fragment>
-                {arrangedDocuments.propertyIdentifiers.map((
-                    propertyIdentifier: string,
-                ) => {
-                    return <TableColumn
-                        key={propertyIdentifier}
-                    >
-                        <Tooltip
-                            content={<div className="flex gap-1 justify-center items-center">
-                                {propertyIdentifier}
-                                <Button
-                                    isIconOnly
-                                    size="sm"
-                                    variant="light"
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(propertyIdentifier);
-                                    }}
-                                >
-                                    <MdOutlineContentCopy />
-                                </Button>
-                            </div>}
-                            delay={1000}
-                            placement="bottom"
+    return (<div>
+        <Button
+            className="m-2"
+            variant="bordered"
+            color="primary"
+            onClick={() => {
+                editingControllerRef.current!.startCreatingDocument();
+            }}
+        >
+            Create Document
+        </Button>
+        <Table
+            removeWrapper
+        >
+            <TableHeader>
+                <React.Fragment>
+                    {arrangedDocuments.propertyIdentifiers.map((
+                        propertyIdentifier: string,
+                    ) => {
+                        return <TableColumn
+                            key={propertyIdentifier}
                         >
-                            {arrangedDocuments.propertyNameMap[propertyIdentifier]}
-                        </Tooltip>
-                    </TableColumn>;
-                })}
-            </React.Fragment>
-            <TableColumn
-                className="flex items-center"
-            >
-                Extra&nbsp;<MdMore />
-            </TableColumn>
-        </TableHeader>
-        <TableBody>
-            {arrangedDocuments.documents.map((
-                document: ArrangeDocumentsResultItem,
-            ) => {
-                const cells = createDocumentsTableCells({
-                    propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
-                    propertyTypesMap: arrangedDocuments.propertyTypesMap,
-                    document,
-                    editingController: editingControllerRef.current!,
-                });
-                return (<TableRow
-                    key={document.document.uniqueIdentifier}
+                            <Tooltip
+                                content={<div className="flex gap-1 justify-center items-center">
+                                    {propertyIdentifier}
+                                    <Button
+                                        isIconOnly
+                                        size="sm"
+                                        variant="light"
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(propertyIdentifier);
+                                        }}
+                                    >
+                                        <MdOutlineContentCopy />
+                                    </Button>
+                                </div>}
+                                delay={1000}
+                                placement="bottom"
+                            >
+                                {arrangedDocuments.propertyNameMap[propertyIdentifier]}
+                            </Tooltip>
+                        </TableColumn>;
+                    })}
+                </React.Fragment>
+                <TableColumn
+                    className="flex items-center"
                 >
-                    {cells}
-                </TableRow>);
-            })}
-        </TableBody>
-    </Table>);
+                    Extra&nbsp;<MdMore />
+                </TableColumn>
+            </TableHeader>
+            <TableBody>
+                {arrangedDocuments.documents.map((
+                    document: ArrangeDocumentsResultItem,
+                ) => {
+                    const cells = createDocumentsTableCells({
+                        propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
+                        propertyTypesMap: arrangedDocuments.propertyTypesMap,
+                        document,
+                        editingController: editingControllerRef.current!,
+                    });
+                    return (<TableRow
+                        key={document.document.uniqueIdentifier}
+                    >
+                        {cells}
+                    </TableRow>);
+                })}
+            </TableBody>
+        </Table>
+    </div>);
 };

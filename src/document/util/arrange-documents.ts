@@ -4,7 +4,7 @@
  * @description Arrange Documents
  */
 
-import { DocumentPropertyValue, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentProperties, DocumentPropertyValue, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { DocumentEditingController } from "../controller/editing-controller";
 
 type ArrangeDocumentsResultItemFloatingProperty = {
@@ -27,6 +27,7 @@ export type ArrangeDocumentsResult = {
     readonly propertyNameMap: Record<string, string>;
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
     readonly documents: ArrangeDocumentsResultItem[];
+    readonly creatingDocuments: Array<[string, DocumentProperties]>;
 };
 
 export const arrangeDocuments = (
@@ -83,10 +84,13 @@ export const arrangeDocuments = (
             };
         });
 
+    const creatingDocuments: Array<[string, DocumentProperties]> = editingController.getCreatingDocuments();
+
     return {
         propertyIdentifiers,
         propertyNameMap,
         propertyTypesMap,
         documents: documentsResult,
+        creatingDocuments,
     };
 };

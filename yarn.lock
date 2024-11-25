@@ -1716,6 +1716,7 @@ __metadata:
     "@imbricate/origin-stack-api": "npm:^3.2.0"
     "@nextui-org/react": "npm:^2.4.8"
     "@reduxjs/toolkit": "npm:^2.3.0"
+    "@sudoo/uuid": "npm:^1.1.0"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.9.3"
     "@types/react": "npm:^18.3.12"
@@ -5502,6 +5503,13 @@ __metadata:
   dependencies:
     "@sinonjs/commons": "npm:^3.0.0"
   checksum: 10c0/2e2fb6cc57f227912814085b7b01fede050cd4746ea8d49a1e44d5a0e56a804663b0340ae2f11af7559ea9bf4d087a11f2f646197a660ea3cb04e19efc04aa63
+  languageName: node
+  linkType: hard
+
+"@sudoo/uuid@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@sudoo/uuid@npm:1.1.0"
+  checksum: 10c0/5f92b03fe8a759d714099ee03d6cd9b57867cfaa52cc213d8b48380857998833e2316dcba2c7b2ef8de3ebc9e03ffbbb31078643272e2511df060dac0d17cfd0
   languageName: node
   linkType: hard
 

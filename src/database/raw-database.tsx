@@ -4,7 +4,6 @@
  * @description Raw Database
  */
 
-import { Button } from "@nextui-org/react";
 import React, { FC, useReducer } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
@@ -36,9 +35,6 @@ export const RawDatabase: FC = () => {
         <div
             className="m-2"
         >
-            <Button>
-                Create Document
-            </Button>
             <Link
                 to={`/database/${databaseUniqueIdentifier}/schema`}
             >
