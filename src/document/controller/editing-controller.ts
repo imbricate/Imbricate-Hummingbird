@@ -4,7 +4,7 @@
  * @description Editing Controller
  */
 
-import { DocumentProperties, IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
+import { DocumentProperties, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { UUIDVersion1 } from "@sudoo/uuid";
 import { cloneAndFillDocumentProperties } from "../util/clone-properties";
 
@@ -144,7 +144,12 @@ export class DocumentEditingController {
         return this._editingDocuments.get(document.uniqueIdentifier)?.updatedProperties ?? null;
     }
 
-    public setUpdatingProperty(document: IImbricateDocument, propertyIdentifier: string, value: any): void {
+    public setUpdatingProperty(
+        document: IImbricateDocument,
+        propertyIdentifier: string,
+        propertyType: IMBRICATE_PROPERTY_TYPE,
+        value: any,
+    ): void {
 
         const editingDocument: DocumentEditingControllerEditingDocument | undefined = this._editingDocuments.get(document.uniqueIdentifier);
         if (!editingDocument) {
@@ -152,7 +157,7 @@ export class DocumentEditingController {
         }
 
         editingDocument.updatedProperties[propertyIdentifier] = {
-            type: editingDocument.updatedProperties[propertyIdentifier].type,
+            type: propertyType,
             value,
         };
 

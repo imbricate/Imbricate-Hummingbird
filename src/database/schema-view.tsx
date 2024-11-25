@@ -8,6 +8,8 @@ import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema } from "@imbricate/cor
 import { Button, Card, CardBody, CardHeader, Divider, Select, SelectItem } from "@nextui-org/react";
 import React, { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { clearCache } from "../common/cache/cache";
+import { DATABASE_CACHE_IDENTIFIER } from "../common/cache/static";
 import { DatabaseHeader } from "./components/database-header";
 import { useDatabase } from "./hooks/use-database";
 import { cloneImbricateSchema } from "./utils/clone-schema";
@@ -95,7 +97,9 @@ export const DatabasesSchemaView: FC = () => {
         >
             {editedRef.current && <Button
                 onClick={async () => {
+
                     await database.database.putSchema(schema);
+                    clearCache(DATABASE_CACHE_IDENTIFIER);
                 }}
             >
                 Save

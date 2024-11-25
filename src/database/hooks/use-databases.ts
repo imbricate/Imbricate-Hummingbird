@@ -7,10 +7,9 @@
 import { IImbricateDatabase } from "@imbricate/core";
 import { useEffect, useState } from "react";
 import { findCache, saveCache } from "../../common/cache/cache";
-import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origins";
+import { DATABASE_CACHE_IDENTIFIER } from "../../common/cache/static";
 import { executeDeduplicate } from "../../common/ongoing/ongoing";
-
-const DATABASE_CACHE_IDENTIFIER: string = "databases-use-databases";
+import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origins";
 
 export type ImbricateDatabasesObject = {
 
@@ -71,6 +70,7 @@ export const useDatabases = (): ImbricateDatabasesObject[] => {
             saveCache(DATABASE_CACHE_IDENTIFIER, [deps], response);
             setDatabases(response);
         };
+
         execute();
     }, [deps]);
 

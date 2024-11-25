@@ -51,6 +51,7 @@ export const createDocumentsTableCells = (
                 props.editingController.setUpdatingProperty(
                     props.document.document,
                     propertyIdentifier,
+                    propertyType,
                     value,
                 );
             };

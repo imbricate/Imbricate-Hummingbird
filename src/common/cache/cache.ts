@@ -16,6 +16,15 @@ export const findCache = <T>(
     return cacheManager.get<T>(identifier, dependencies);
 };
 
+export const clearCache = (
+    identifier: string,
+): void => {
+
+    const cacheManager: CacheManager = CacheManager.getInstance();
+
+    cacheManager.reset(identifier);
+};
+
 export const saveCache = <T>(
     identifier: string,
     dependencies: string[],
