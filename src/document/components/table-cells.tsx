@@ -9,8 +9,10 @@ import { TableCell } from "@nextui-org/react";
 import React from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
+import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
 import { DocumentsTableExtraCell } from "./table-cells/extra";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
+import { DocumentTableNumberCell } from "./table-cells/number-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
 
 export type DocumentsTableCellsProps = {
@@ -37,6 +39,18 @@ export const createDocumentsTableCells = (
 
             switch (propertyType) {
 
+                case IMBRICATE_PROPERTY_TYPE.BOOLEAN:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableBooleanCell
+                            document={props.document.document}
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>}
+                            editingController={props.editingController}
+                            editing={props.document.editing}
+                        />
+                    </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.STRING:
                     return (<TableCell
                         key={propertyIdentifier}
@@ -49,7 +63,18 @@ export const createDocumentsTableCells = (
                             editing={props.document.editing}
                         />
                     </TableCell>);
-
+                case IMBRICATE_PROPERTY_TYPE.NUMBER:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableNumberCell
+                            document={props.document.document}
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.NUMBER>}
+                            editingController={props.editingController}
+                            editing={props.document.editing}
+                        />
+                    </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
                     return (<TableCell
                         key={propertyIdentifier}
@@ -58,6 +83,18 @@ export const createDocumentsTableCells = (
                             document={props.document.document}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
+                            editingController={props.editingController}
+                            editing={props.document.editing}
+                        />
+                    </TableCell>);
+                default:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableStringCell
+                            document={props.document.document}
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
                             editingController={props.editingController}
                             editing={props.document.editing}
                         />
