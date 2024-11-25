@@ -11,7 +11,7 @@ import { Application } from "./application";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
-import { EditView } from "./edit/edit-view";
+import { EditApplication } from "./edit/edit-application";
 import { ViewView } from "./view/view-view";
 
 export const ApplicationRouter = () => {
@@ -42,7 +42,7 @@ export const ApplicationRouter = () => {
             />
             <Route
                 path="/edit/:database-unique-identifier/document/:document-unique-identifier/property/:property-unique-identifier"
-                element={<EditView />}
+                element={<EditApplication />}
             />
         </Routes>
     </NextUIProvider>);

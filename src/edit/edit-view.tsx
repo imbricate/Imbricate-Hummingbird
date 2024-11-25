@@ -8,21 +8,22 @@ import { Button, Divider } from "@nextui-org/react";
 import * as monaco from "monaco-editor";
 import React, { FC, useEffect } from "react";
 import { FaRegSave } from "react-icons/fa";
-import { useParams } from "react-router-dom";
 import { useText } from "../text/hooks/use-text";
-import { useOriginInitialization } from "../origin/hooks/use-initialization";
 
-export const EditView: FC = () => {
+export type EditViewProps = {
 
-    useOriginInitialization();
+    readonly databaseUniqueIdentifier: string;
+    readonly documentUniqueIdentifier: string;
+    readonly propertyUniqueIdentifier: string;
+};
 
-    const params = useParams();
+export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
 
-    const databaseUniqueIdentifier: string = params["database-unique-identifier"] as string;
-    const documentUniqueIdentifier: string = params["document-unique-identifier"] as string;
-    const propertyUniqueIdentifier: string = params["property-unique-identifier"] as string;
-
-    const text = useText(databaseUniqueIdentifier, documentUniqueIdentifier, propertyUniqueIdentifier);
+    const text = useText(
+        props.databaseUniqueIdentifier,
+        props.documentUniqueIdentifier,
+        props.propertyUniqueIdentifier,
+    );
 
     console.log(text);
 
