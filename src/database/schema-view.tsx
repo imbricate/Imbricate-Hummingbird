@@ -7,7 +7,7 @@
 import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema } from "@imbricate/core";
 import { Button, Card, CardBody, CardHeader, Divider, Select, SelectItem } from "@nextui-org/react";
 import React, { FC, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { clearCache } from "../common/cache/cache";
 import { DATABASE_CACHE_IDENTIFIER } from "../common/cache/static";
 import { DatabaseHeader } from "./components/database-header";
@@ -28,6 +28,9 @@ export const DatabasesSchemaView: FC = () => {
     const editedRef = React.useRef(false);
 
     const database = useDatabase(databaseUniqueIdentifier);
+    const navigate = useNavigate();
+
+    const [saving, setSaving] = React.useState<boolean>(false);
 
     useEffect(() => {
 
@@ -81,11 +84,17 @@ export const DatabasesSchemaView: FC = () => {
                                 });
                             }}
                         >
+                            <SelectItem key={IMBRICATE_PROPERTY_TYPE.BOOLEAN}>
+                                Boolean
+                            </SelectItem>
                             <SelectItem key={IMBRICATE_PROPERTY_TYPE.STRING}>
                                 String
                             </SelectItem>
                             <SelectItem key={IMBRICATE_PROPERTY_TYPE.NUMBER}>
                                 Number
+                            </SelectItem>
+                            <SelectItem key={IMBRICATE_PROPERTY_TYPE.MARKDOWN}>
+                                Markdown
                             </SelectItem>
                         </Select>
                     </CardBody>
@@ -96,10 +105,17 @@ export const DatabasesSchemaView: FC = () => {
             className="mt-1"
         >
             {editedRef.current && <Button
+                disabled={saving}
+                variant="flat"
+                color="primary"
                 onClick={async () => {
 
-                    await database.database.putSchema(schema);
+                    setSaving(true);
+
                     clearCache(DATABASE_CACHE_IDENTIFIER);
+                    await database.database.putSchema(schema);
+
+                    navigate(`/database/${databaseUniqueIdentifier}/documents`);
                 }}
             >
                 Save
