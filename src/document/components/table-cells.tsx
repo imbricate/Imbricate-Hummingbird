@@ -37,6 +37,26 @@ export const createDocumentsTableCells = (
                 ? property.type
                 : props.propertyTypesMap[propertyIdentifier];
 
+            const getEditingProperty = () => {
+
+                const updatedProperties = props.editingController.getUpdatedProperties(props.document.document);
+
+                if (!updatedProperties) {
+                    throw new Error("[Imbricate] Updated property not found");
+                }
+
+                return updatedProperties[propertyIdentifier]?.value as any;
+            };
+
+            const updateEditingProperty = (value: any) => {
+
+                props.editingController.setUpdatingProperty(
+                    props.document.document,
+                    propertyIdentifier,
+                    value,
+                );
+            };
+
             // IMBRICATE_PROPERTY_TYPE SWITCH
             switch (propertyType) {
 
@@ -48,7 +68,8 @@ export const createDocumentsTableCells = (
                             document={props.document.document}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>}
-                            editingController={props.editingController}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
                         />
                     </TableCell>);
@@ -60,7 +81,8 @@ export const createDocumentsTableCells = (
                             document={props.document.document}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                            editingController={props.editingController}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
                         />
                     </TableCell>);
@@ -72,7 +94,8 @@ export const createDocumentsTableCells = (
                             document={props.document.document}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.NUMBER>}
-                            editingController={props.editingController}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
                         />
                     </TableCell>);
@@ -84,7 +107,8 @@ export const createDocumentsTableCells = (
                             document={props.document.document}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
-                            editingController={props.editingController}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
                         />
                     </TableCell>);
@@ -96,7 +120,8 @@ export const createDocumentsTableCells = (
                             document={props.document.document}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                            editingController={props.editingController}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
                         />
                     </TableCell>);

@@ -7,7 +7,6 @@
 import { DocumentPropertyValue, DocumentPropertyValueObject, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
-import { DocumentEditingController } from "../../controller/editing-controller";
 import { getDefaultValueOfProperty } from "../../util/default-value";
 
 export type DocumentTableBooleanCellProps = {
@@ -15,7 +14,8 @@ export type DocumentTableBooleanCellProps = {
     readonly document: IImbricateDocument;
     readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>;
-    readonly editingController: DocumentEditingController;
+    readonly getEditingProperty: () => DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.BOOLEAN> | undefined;
+    readonly updateEditingProperty: (value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.BOOLEAN>) => void;
     readonly editing: boolean;
 };
 
@@ -23,40 +23,29 @@ export const DocumentTableBooleanCell: FC<DocumentTableBooleanCellProps> = (
     props: DocumentTableBooleanCellProps,
 ) => {
 
-    const propertyValue: boolean = (props.property && typeof props.property.value !== "undefined")
-        ? props.property.value
-        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.BOOLEAN);
-
     if (props.editing) {
 
-        const updatedProperties = props.editingController.getUpdatedProperties(props.document);
+        const updatedProperty = props.getEditingProperty();
 
-        if (!updatedProperties) {
-            throw new Error("[Imbricate] Updated property not found");
-        }
-
-        const updatedProperty = updatedProperties[props.propertyKey] as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN> | undefined;
-
-        const value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.BOOLEAN> | undefined =
-            updatedProperty?.value ?? undefined;
-
-        if (typeof value === "undefined") {
+        if (typeof updatedProperty === "undefined") {
             throw new Error("[Imbricate] Updated property value not found");
         }
 
         return (<Input
-            value={String(value)}
+            value={String(updatedProperty)}
             fullWidth={false}
             onChange={(event) => {
 
-                props.editingController.setUpdatingProperty(
-                    props.document,
-                    props.propertyKey,
-                    event.target.value,
+                props.updateEditingProperty(
+                    Boolean(event.target.value),
                 );
             }}
         />);
     }
+
+    const propertyValue: boolean = (props.property && typeof props.property.value !== "undefined")
+        ? props.property.value
+        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.BOOLEAN);
 
     return (<div
         className="select-text"
