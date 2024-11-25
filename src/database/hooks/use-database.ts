@@ -3,3 +3,18 @@
  * @namespace Database_Hooks
  * @description Use Database
  */
+
+import { ImbricateDatabasesObject, useDatabases } from "../../database/hooks/use-databases";
+
+export const useDatabase = (
+    databaseUniqueIdentifier: string,
+): ImbricateDatabasesObject | null => {
+
+    const databases = useDatabases();
+
+    const targetDatabase = databases.find((database) => {
+        return database.database.uniqueIdentifier === databaseUniqueIdentifier;
+    });
+
+    return targetDatabase ?? null;
+};

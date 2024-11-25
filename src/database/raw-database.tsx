@@ -6,9 +6,9 @@
 
 import { Button } from "@nextui-org/react";
 import React, { FC, useReducer } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
-import { useDocuments } from "../document/hooks/use-documents";
+import { ImbricateDocumentResponse, useDocuments } from "../document/hooks/use-documents";
 
 export const RawDatabase: FC = () => {
 
@@ -19,7 +19,7 @@ export const RawDatabase: FC = () => {
     const databaseUniqueIdentifier: string =
         params["database-unique-identifier"] as string;
 
-    const documents = useDocuments(
+    const documents: ImbricateDocumentResponse = useDocuments(
         databaseUniqueIdentifier,
         version,
     );
@@ -40,6 +40,11 @@ export const RawDatabase: FC = () => {
             <Button>
                 Create Document
             </Button>
+            <Link
+                to={`/database/${databaseUniqueIdentifier}/schema`}
+            >
+                Edit Schema
+            </Link>
         </div>
         <DocumentsTable
             database={documents.database.database}
