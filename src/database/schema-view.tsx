@@ -14,10 +14,6 @@ import { DatabaseHeader } from "./components/database-header";
 import { useDatabase } from "./hooks/use-database";
 import { cloneImbricateSchema } from "./utils/clone-schema";
 
-export type DatabasesSchemaViewProps = {
-
-};
-
 export const DatabasesSchemaView: FC = () => {
 
     const params = useParams();

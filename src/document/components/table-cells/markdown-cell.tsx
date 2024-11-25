@@ -5,11 +5,15 @@
  */
 
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { Input } from "@nextui-org/react";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
+import { MdEdit, MdOutlineInfo } from "react-icons/md";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableMarkdownCellProps = {
+
+    readonly databaseUniqueIdentifier?: string;
+    readonly documentUniqueIdentifier?: string;
 
     readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>;
@@ -24,26 +28,55 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
 
     if (props.editing) {
 
-        const updatedProperty = props.getEditingProperty();
-
-        if (typeof updatedProperty === "undefined") {
-            throw new Error("[Imbricate] Updated property value not found");
-        }
-
-        return (<Input
-            value={updatedProperty}
-            fullWidth={false}
-            onChange={(event) => {
-
-                props.updateEditingProperty(
-                    event.target.value,
-                );
-            }}
-        />);
+        return (<div
+            className="flex items-center gap-1"
+        >
+            <div>
+                N/A
+            </div>
+            <Popover
+                placement="left"
+            >
+                <PopoverTrigger>
+                    <Button
+                        isIconOnly
+                        color="primary"
+                        variant="light"
+                        size="sm"
+                    >
+                        <MdOutlineInfo />
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                    Markdown property is not editable, please edit the markdown file directly after saving the document.
+                </PopoverContent>
+            </Popover>
+        </div>);
     }
 
     return (<DocumentTableCellContent
         schemaType={IMBRICATE_PROPERTY_TYPE.MARKDOWN}
         property={props.property}
+        render={(_value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
+
+            return (<Button
+                startContent={<MdEdit />}
+                size="sm"
+                variant="flat"
+                onClick={() => {
+
+                    if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
+                        throw new Error("[Imbricate] Database or document unique identifier not found");
+                    }
+
+                    const win = window as Window | null;
+                    if (win) {
+                        win.open(`/edit/${props.databaseUniqueIdentifier}/document/${props.documentUniqueIdentifier}/property/${props.propertyKey}`, "_blank")?.focus();
+                    }
+                }}
+            >
+                Markdown
+            </Button>);
+        }}
     />);
 };

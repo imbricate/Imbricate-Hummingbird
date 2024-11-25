@@ -130,6 +130,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                         document: ArrangeDocumentsResultItem,
                     ) => {
                         const cells = createDocumentsTableCells({
+                            databaseUniqueIdentifier: props.database.uniqueIdentifier,
                             propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
                             propertyTypesMap: arrangedDocuments.propertyTypesMap,
                             document,

@@ -4,7 +4,7 @@
  * @description Cell Content
  */
 
-import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
 import { IoIosWarning } from "react-icons/io";
@@ -14,6 +14,8 @@ export type DocumentTableCellContentProps = {
 
     readonly schemaType: IMBRICATE_PROPERTY_TYPE;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
+
+    readonly render?: (value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => React.ReactNode;
 };
 
 export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
@@ -47,6 +49,8 @@ export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
                     {`Type Mismatch: ${props.schemaType} !== ${props.property.type}`}
                 </div>
             </PopoverContent>
-        </Popover>} {propertyValue}
+        </Popover>}
+
+        {props.render ? props.render(propertyValue) : propertyValue}
     </div>);
 };

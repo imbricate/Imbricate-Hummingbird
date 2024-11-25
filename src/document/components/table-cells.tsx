@@ -17,6 +17,7 @@ import { DocumentTableStringCell } from "./table-cells/string-cell";
 
 export type DocumentsTableCellsProps = {
 
+    readonly databaseUniqueIdentifier: string;
     readonly propertyIdentifiers: string[];
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
     readonly document: ArrangeDocumentsResultItem;
@@ -100,6 +101,8 @@ export const createDocumentsTableCells = (
                         key={propertyIdentifier}
                     >
                         <DocumentTableMarkdownCell
+                            databaseUniqueIdentifier={props.databaseUniqueIdentifier}
+                            documentUniqueIdentifier={props.document.document.uniqueIdentifier}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
                             getEditingProperty={getEditingProperty}
