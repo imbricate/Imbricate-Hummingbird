@@ -8,7 +8,7 @@ import { Button, Divider } from "@nextui-org/react";
 import * as monaco from "monaco-editor";
 import React, { FC, useEffect } from "react";
 import { FaRegSave } from "react-icons/fa";
-import { useText } from "../text/hooks/use-text";
+import { useProperty } from "../property/hooks/use-property";
 
 export type EditViewProps = {
 
@@ -19,13 +19,13 @@ export type EditViewProps = {
 
 export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
 
-    const text = useText(
+    const property = useProperty(
         props.databaseUniqueIdentifier,
         props.documentUniqueIdentifier,
         props.propertyUniqueIdentifier,
     );
 
-    console.log(text);
+    console.log(property);
 
     const editorRef = React.useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const onboardedRef = React.useRef(false);

@@ -12,14 +12,15 @@ import { ImbricateDatabasesObject } from "../../database/hooks/use-databases";
 
 export type UseDocumentResponse = {
 
-    readonly database: ImbricateDatabasesObject | null;
-    readonly document: IImbricateDocument | null;
+    readonly originUniqueIdentifier: string;
+    readonly database: ImbricateDatabasesObject;
+    readonly document: IImbricateDocument;
 };
 
 export const useDocument = (
     databaseUniqueIdentifier: string,
     documentUniqueIdentifier: string,
-): UseDocumentResponse => {
+): UseDocumentResponse | null => {
 
     const database = useDatabase(
         databaseUniqueIdentifier,
@@ -51,7 +52,12 @@ export const useDocument = (
         execute();
     }, [database]);
 
+    if (!document || !database) {
+        return null;
+    }
+
     return {
+        originUniqueIdentifier: database?.originUniqueIdentifier,
         database,
         document,
     };

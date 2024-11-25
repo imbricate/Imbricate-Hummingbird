@@ -1,45 +1,59 @@
 /**
  * @author WMXPY
- * @namespace Text_Hooks
+ * @namespace Property_Hooks
  * @description Use Text
  */
 
-import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
-import { UseDocumentResponse, useDocument } from "../../document/hooks/use-document";
+import { IImbricateText } from "@imbricate/core";
+import { useEffect, useState } from "react";
+import { executeDeduplicate } from "../../common/ongoing/ongoing";
+import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origins";
 
 export type UseTextResponse = {
 
-    readonly schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>;
-    readonly documentProperty: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
+    readonly text: IImbricateText;
 };
 
 export const useText = (
-    databaseUniqueIdentifier: string,
-    documentUniqueIdentifier: string,
-    propertyUniqueIdentifier: string,
+    originUniqueIdentifier: string,
+    textUniqueIdentifier: string,
 ): UseTextResponse | null => {
 
-    const document: UseDocumentResponse = useDocument(
-        databaseUniqueIdentifier,
-        documentUniqueIdentifier,
-    );
+    const origins: ImbricateOriginObject[] = useOrigins();
+    const targetOrigin = origins.find((origin: ImbricateOriginObject) => origin.origin.uniqueIdentifier === originUniqueIdentifier);
 
-    if (!document.document || !document.database) {
+    const [text, setText] = useState<IImbricateText | null>(null);
+
+    if (!targetOrigin) {
         return null;
     }
 
-    const targetProperty = document.database.database.schema.properties.find((property) => {
-        return property.propertyIdentifier === propertyUniqueIdentifier;
-    });
+    useEffect(() => {
 
-    if (!targetProperty) {
+        const execute = async () => {
+
+            if (!targetOrigin) {
+                return;
+            }
+
+            const text: IImbricateText | null = await executeDeduplicate(
+                `get-text-${textUniqueIdentifier}`,
+                () => targetOrigin.origin
+                    .getTextManager()
+                    .getText(textUniqueIdentifier),
+            );
+
+            setText(text);
+        };
+
+        execute();
+    }, [originUniqueIdentifier, textUniqueIdentifier]);
+
+    if (!text) {
         return null;
     }
-
-    const relatedProperty = document.document.properties[targetProperty.propertyIdentifier];
 
     return {
-        schemaProperty: targetProperty,
-        documentProperty: relatedProperty,
+        text,
     };
 };
