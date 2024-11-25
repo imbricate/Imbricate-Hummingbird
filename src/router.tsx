@@ -10,6 +10,7 @@ import { Route, Routes, useHref, useNavigate } from "react-router-dom";
 import { Application } from "./application";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
+import { DatabasesSchemaView } from "./database/schema-view";
 import { EditView } from "./edit/edit-view";
 import { ViewView } from "./view/view-view";
 
@@ -29,6 +30,10 @@ export const ApplicationRouter = () => {
                 <Route
                     path="database/:database-unique-identifier/documents"
                     element={<RawDatabase />}
+                />
+                <Route
+                    path="database/:database-unique-identifier/schema"
+                    element={<DatabasesSchemaView />}
                 />
             </Route>
             <Route

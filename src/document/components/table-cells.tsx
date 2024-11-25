@@ -37,6 +37,7 @@ export const createDocumentsTableCells = (
                 ? property.type
                 : props.propertyTypesMap[propertyIdentifier];
 
+            // IMBRICATE_PROPERTY_TYPE SWITCH
             switch (propertyType) {
 
                 case IMBRICATE_PROPERTY_TYPE.BOOLEAN:
