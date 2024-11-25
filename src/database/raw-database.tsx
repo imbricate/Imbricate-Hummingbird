@@ -9,6 +9,7 @@ import React, { FC, useReducer } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
 import { ImbricateDocumentResponse, useDocuments } from "../document/hooks/use-documents";
+import { DatabaseHeader } from "./components/database-header";
 
 export const RawDatabase: FC = () => {
 
@@ -29,14 +30,12 @@ export const RawDatabase: FC = () => {
     }
 
     return <div>
+        <DatabaseHeader
+            database={documents.database.database}
+        />
         <div
             className="m-2"
         >
-            <h2
-                className="text-2xl"
-            >
-                {documents.database.database.databaseName}
-            </h2>
             <Button>
                 Create Document
             </Button>
