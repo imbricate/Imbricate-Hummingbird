@@ -7,7 +7,7 @@
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getDefaultValueOfProperty } from "../../util/default-value";
+import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableNumberCellProps = {
 
@@ -33,6 +33,7 @@ export const DocumentTableNumberCell: FC<DocumentTableNumberCellProps> = (
         return (<Input
             value={String(updatedProperty)}
             fullWidth={false}
+            type="number"
             onChange={(event) => {
 
                 props.updateEditingProperty(
@@ -42,13 +43,8 @@ export const DocumentTableNumberCell: FC<DocumentTableNumberCellProps> = (
         />);
     }
 
-    const propertyValue: number = (props.property && typeof props.property.value !== "undefined")
-        ? props.property.value
-        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.NUMBER);
-
-    return (<div
-        className="select-text"
-    >
-        {propertyValue}
-    </div>);
+    return (<DocumentTableCellContent
+        schemaType={IMBRICATE_PROPERTY_TYPE.NUMBER}
+        property={props.property}
+    />);
 };

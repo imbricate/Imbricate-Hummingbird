@@ -33,9 +33,7 @@ export const createDocumentsTableCells = (
         ) => {
 
             const property = props.document.propertyValueMap[propertyIdentifier];
-            const propertyType: IMBRICATE_PROPERTY_TYPE = property
-                ? property.type
-                : props.propertyTypesMap[propertyIdentifier];
+            const propertyType: IMBRICATE_PROPERTY_TYPE = props.propertyTypesMap[propertyIdentifier];
 
             const getEditingProperty = () => {
 

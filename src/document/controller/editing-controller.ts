@@ -111,7 +111,16 @@ export class DocumentEditingController {
         uuid: string,
     ): void {
 
-        console.log(uuid);
+        const properties: DocumentProperties | undefined = this._creatingDocuments.get(uuid);
+
+        if (!properties) {
+            return;
+        }
+
+        this._database.createDocument(properties);
+        this._creatingDocuments.delete(uuid);
+
+        this._notifyVersionChange();
     }
 
     public startEditingDocument(document: IImbricateDocument): void {

@@ -93,7 +93,11 @@ export const DatabasesSchemaView: FC = () => {
         <div
             className="mt-1"
         >
-            {editedRef.current && <Button>
+            {editedRef.current && <Button
+                onClick={async () => {
+                    await database.database.putSchema(schema);
+                }}
+            >
                 Save
             </Button>}
         </div>

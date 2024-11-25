@@ -7,7 +7,7 @@
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getDefaultValueOfProperty } from "../../util/default-value";
+import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableStringCellProps = {
 
@@ -42,13 +42,8 @@ export const DocumentTableStringCell: FC<DocumentTableStringCellProps> = (
         />);
     }
 
-    const propertyValue: string = (props.property && typeof props.property.value !== "undefined")
-        ? props.property.value
-        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.STRING);
-
-    return (<div
-        className="select-text"
-    >
-        {propertyValue}
-    </div>);
+    return (<DocumentTableCellContent
+        schemaType={IMBRICATE_PROPERTY_TYPE.STRING}
+        property={props.property}
+    />);
 };

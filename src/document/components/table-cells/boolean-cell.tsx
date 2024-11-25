@@ -7,7 +7,7 @@
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getDefaultValueOfProperty } from "../../util/default-value";
+import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableBooleanCellProps = {
 
@@ -42,13 +42,8 @@ export const DocumentTableBooleanCell: FC<DocumentTableBooleanCellProps> = (
         />);
     }
 
-    const propertyValue: boolean = (props.property && typeof props.property.value !== "undefined")
-        ? props.property.value
-        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.BOOLEAN);
-
-    return (<div
-        className="select-text"
-    >
-        {propertyValue}
-    </div>);
+    return (<DocumentTableCellContent
+        schemaType={IMBRICATE_PROPERTY_TYPE.BOOLEAN}
+        property={props.property}
+    />);
 };
