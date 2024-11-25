@@ -7,12 +7,12 @@
 import { IImbricateDatabase } from "@imbricate/core";
 import React, { FC } from "react";
 
-export type DatabaseHeaderProps = {
+export type DatabaseExtraOptionsReferenceProps = {
 
     readonly database: IImbricateDatabase;
 };
 
-export const DatabaseHeader: FC<DatabaseHeaderProps> = (props: DatabaseHeaderProps) => {
+export const DatabaseExtraOptionsReference: FC<DatabaseExtraOptionsReferenceProps> = (props: DatabaseExtraOptionsReferenceProps) => {
 
     return <div
         className="m-2"
