@@ -9,10 +9,22 @@ import * as monaco from "monaco-editor";
 import React, { FC, useEffect } from "react";
 import { FaRegSave } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { useText } from "../text/hooks/use-text";
+import { useOriginInitialization } from "../origin/hooks/use-initialization";
 
 export const EditView: FC = () => {
 
+    useOriginInitialization();
+
     const params = useParams();
+
+    const databaseUniqueIdentifier: string = params["database-unique-identifier"] as string;
+    const documentUniqueIdentifier: string = params["document-unique-identifier"] as string;
+    const propertyUniqueIdentifier: string = params["property-unique-identifier"] as string;
+
+    const text = useText(databaseUniqueIdentifier, documentUniqueIdentifier, propertyUniqueIdentifier);
+
+    console.log(text);
 
     const editorRef = React.useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const onboardedRef = React.useRef(false);
@@ -38,6 +50,13 @@ export const EditView: FC = () => {
         });
 
         editorRef.current = editor;
+
+        return () => {
+            editor.dispose();
+
+            editorRef.current = null;
+            onboardedRef.current = false;
+        };
     }, []);
 
     return <div className="h-screen flex flex-col">

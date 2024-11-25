@@ -39,8 +39,6 @@ export const DatabasesSchemaView: FC = () => {
         return null;
     }
 
-
-    console.log(schema, editedRef.current);
     return (<div>
         <DatabaseHeader
             database={database.database}
