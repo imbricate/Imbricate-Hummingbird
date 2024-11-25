@@ -4,11 +4,11 @@
  * @description Markdown Cell
  */
 
-import { DocumentPropertyValue, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, DocumentPropertyValueObject, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getDefaultValueOfProperty } from "../../util/default-value";
 import { DocumentEditingController } from "../../controller/editing-controller";
+import { getDefaultValueOfProperty } from "../../util/default-value";
 
 export type DocumentTableMarkdownCellProps = {
 
@@ -29,14 +29,16 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
 
     if (props.editing) {
 
-        const updatedProperty = props.editingController
-            .getUpdatedProperties(props.document);
+        const updatedProperties = props.editingController.getUpdatedProperties(props.document);
 
-        if (!updatedProperty) {
+        if (!updatedProperties) {
             throw new Error("[Imbricate] Updated property not found");
         }
 
-        const value = updatedProperty[props.propertyKey]?.value ?? undefined;
+        const updatedProperty = updatedProperties[props.propertyKey] as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING> | undefined;
+
+        const value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.MARKDOWN> | undefined =
+            updatedProperty?.value ?? undefined;
 
         if (typeof value === "undefined") {
             throw new Error("[Imbricate] Updated property value not found");

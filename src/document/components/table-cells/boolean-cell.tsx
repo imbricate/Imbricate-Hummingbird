@@ -4,11 +4,11 @@
  * @description Boolean Cell
  */
 
-import { DocumentPropertyValue, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, DocumentPropertyValueObject, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Input } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getDefaultValueOfProperty } from "../../util/default-value";
 import { DocumentEditingController } from "../../controller/editing-controller";
+import { getDefaultValueOfProperty } from "../../util/default-value";
 
 export type DocumentTableBooleanCellProps = {
 
@@ -23,19 +23,22 @@ export const DocumentTableBooleanCell: FC<DocumentTableBooleanCellProps> = (
     props: DocumentTableBooleanCellProps,
 ) => {
 
-    const propertyValue: string = (props.property && typeof props.property.value !== "undefined")
+    const propertyValue: boolean = (props.property && typeof props.property.value !== "undefined")
         ? props.property.value
-        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.STRING);
+        : getDefaultValueOfProperty(IMBRICATE_PROPERTY_TYPE.BOOLEAN);
 
     if (props.editing) {
 
-        const updatedProperty = props.editingController.getUpdatedProperties(props.document);
+        const updatedProperties = props.editingController.getUpdatedProperties(props.document);
 
-        if (!updatedProperty) {
+        if (!updatedProperties) {
             throw new Error("[Imbricate] Updated property not found");
         }
 
-        const value = updatedProperty[props.propertyKey]?.value ?? undefined;
+        const updatedProperty = updatedProperties[props.propertyKey] as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN> | undefined;
+
+        const value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.BOOLEAN> | undefined =
+            updatedProperty?.value ?? undefined;
 
         if (typeof value === "undefined") {
             throw new Error("[Imbricate] Updated property value not found");

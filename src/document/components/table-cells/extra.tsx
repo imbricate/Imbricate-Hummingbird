@@ -119,7 +119,7 @@ export const DocumentsTableExtraCell: FC<DocumentsTableExtraCellProps> = (
                                 {floatingProperty.propertyIdentifier}
                             </div>
                             <div className="text-tiny">
-                                {floatingProperty.propertyValue.value}
+                                {String(floatingProperty.propertyValue.value)}
                             </div>
                         </div>);
                     })}
