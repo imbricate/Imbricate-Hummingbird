@@ -12,6 +12,7 @@ import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
 import { EditApplication } from "./edit/edit-application";
+import { NewOriginView } from "./origin/new-origin-view";
 import { OriginView } from "./origin/origin-view";
 import { ViewView } from "./view/view-view";
 
@@ -24,6 +25,10 @@ export const ApplicationRouter = () => {
             <Route path="/" element={<Application />} errorElement={<div>
                 Not Found
             </div>}>
+                <Route
+                    path="origin-new"
+                    element={<NewOriginView />}
+                />
                 <Route
                     path="origin/:origin-unique-identifier"
                     element={<OriginView />}

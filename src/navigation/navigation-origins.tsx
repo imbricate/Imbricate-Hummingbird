@@ -24,6 +24,9 @@ export const NavigationOrigins: FC = () => {
                 startContent={<FaPlus />}
                 className="text-primary"
                 color="primary"
+                onClick={() => {
+                    navigate("/origin-new");
+                }}
             >
                 Add Origin
             </ListboxItem>
