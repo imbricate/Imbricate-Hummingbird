@@ -13,8 +13,7 @@ import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origin
 
 export type ImbricateDatabasesObject = {
 
-    readonly originUniqueIdentifier: string;
-    readonly originName: string;
+    readonly origin: ImbricateOriginObject;
     readonly database: IImbricateDatabase;
 };
 
@@ -60,8 +59,7 @@ export const useDatabases = (): ImbricateDatabasesObject[] => {
 
                 for (const database of databases) {
                     response.push({
-                        originUniqueIdentifier: origin.origin.uniqueIdentifier,
-                        originName: origin.originName,
+                        origin,
                         database,
                     });
                 }

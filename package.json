@@ -5,7 +5,8 @@
   "description": "The minimal web client for Imbricate",
   "scripts": {
     "start": "vite --port 5711",
-    "build:renderer:database": "vite build --emptyOutDir --outDir app",
+    "build:validate": "tsc src --noEmit",
+    "build": "vite build --emptyOutDir --outDir app",
     "clean": "rm -rf app"
   },
   "repository": {

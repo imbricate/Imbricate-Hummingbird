@@ -7,7 +7,7 @@
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
-import { MdEdit, MdOutlineInfo } from "react-icons/md";
+import { MdAddCircleOutline, MdEdit, MdOutlineInfo } from "react-icons/md";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableMarkdownCellProps = {
@@ -57,10 +57,14 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
     return (<DocumentTableCellContent
         schemaType={IMBRICATE_PROPERTY_TYPE.MARKDOWN}
         property={props.property}
-        render={(_value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
+        render={(value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
+
+            const markdownAlreadyExists = typeof value === "string" && value.length > 0;
+            const startContent = markdownAlreadyExists ? <MdEdit /> : <MdAddCircleOutline />;
 
             return (<Button
-                startContent={<MdEdit />}
+                startContent={startContent}
+                color={markdownAlreadyExists ? "default" : "primary"}
                 size="sm"
                 variant="flat"
                 onClick={() => {

@@ -4,7 +4,13 @@
  * @description Use Database
  */
 
+import { IImbricateOrigin } from "@imbricate/core";
 import { ImbricateDatabasesObject, useDatabases } from "../../database/hooks/use-databases";
+
+export type UseDatabaseResponse = {
+    readonly database: ImbricateDatabasesObject;
+    readonly origin: IImbricateOrigin;
+}
 
 export const useDatabase = (
     databaseUniqueIdentifier: string,

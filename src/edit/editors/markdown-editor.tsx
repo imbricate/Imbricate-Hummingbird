@@ -6,12 +6,14 @@
 
 import * as monaco from "monaco-editor";
 import React, { FC, useEffect } from "react";
+import { ImbricateOriginObject } from "../../origin/hooks/use-origins";
 import { useText } from "../../text/hooks/use-text";
+import { GetValueRef } from "../types/editor-refs";
 
 export type EditMarkdownEditorProps = {
 
-    readonly getValueRef: React.MutableRefObject<(() => any) | null>;
-    readonly originUniqueIdentifier: string;
+    readonly getValueRef: GetValueRef;
+    readonly origin: ImbricateOriginObject;
     readonly textUniqueIdentifier?: string;
 };
 
@@ -21,7 +23,7 @@ export const EditMarkdownEditor: FC<EditMarkdownEditorProps> = (props: EditMarkd
     const onboardedRef = React.useRef(false);
 
     const textContent = useText(
-        props.originUniqueIdentifier,
+        props.origin.origin.uniqueIdentifier,
         props.textUniqueIdentifier,
     );
 
@@ -52,7 +54,15 @@ export const EditMarkdownEditor: FC<EditMarkdownEditorProps> = (props: EditMarkd
 
         editorRef.current = editor;
 
-        props.getValueRef.current = () => editor.getValue();
+        props.getValueRef.current = async () => {
+
+            const updatedTextContent = editor.getValue();
+
+            const createdText = await props.origin.origin.getTextManager()
+                .createText(updatedTextContent);
+
+            return createdText.uniqueIdentifier;
+        };
 
         return () => {
             editor.dispose();

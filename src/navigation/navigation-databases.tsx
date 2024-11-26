@@ -25,7 +25,7 @@ export const NavigationDatabases: FC = () => {
             return (<ListboxItem
                 key={item.database.uniqueIdentifier}
                 description={<div className="flex items-center">
-                    <TbWorld />&nbsp;{item.originName}
+                    <TbWorld />&nbsp;{item.origin.originName}
                 </div>}
             >
                 {item.database.databaseName}

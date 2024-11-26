@@ -9,10 +9,11 @@ import { useEffect, useState } from "react";
 import { executeDeduplicate } from "../../common/ongoing/ongoing";
 import { useDatabase } from "../../database/hooks/use-database";
 import { ImbricateDatabasesObject } from "../../database/hooks/use-databases";
+import { ImbricateOriginObject } from "../../origin/hooks/use-origins";
 
 export type UseDocumentResponse = {
 
-    readonly originUniqueIdentifier: string;
+    readonly origin: ImbricateOriginObject;
     readonly database: ImbricateDatabasesObject;
     readonly document: IImbricateDocument;
 };
@@ -57,7 +58,7 @@ export const useDocument = (
     }
 
     return {
-        originUniqueIdentifier: database?.originUniqueIdentifier,
+        origin: database.origin,
         database,
         document,
     };

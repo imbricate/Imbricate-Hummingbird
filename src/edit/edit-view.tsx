@@ -9,6 +9,8 @@ import React, { FC } from "react";
 import { FaRegSave } from "react-icons/fa";
 import { useProperty } from "../property/hooks/use-property";
 import { EditEditors } from "./edit-editors";
+import { GetValueRef } from "./types/editor-refs";
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 
 export type EditViewProps = {
 
@@ -25,7 +27,7 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
         props.propertyUniqueIdentifier,
     );
 
-    const getValueRef = React.useRef<(() => any) | null>(null);
+    const getValueRef: GetValueRef = React.useRef<(() => Promise<any>) | null>(null);
 
     if (!property) {
         return null;
@@ -43,12 +45,23 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
                 size="sm"
                 color="primary"
                 startContent={<FaRegSave />}
-                onClick={() => {
+                onClick={async () => {
                     if (!getValueRef.current) {
                         return null;
                     }
 
-                    console.log(getValueRef.current());
+                    const valueContent = await getValueRef.current();
+                    const updatePropertyValue: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE> = {
+                        type: property.schemaProperty.propertyType,
+                        value: valueContent,
+                    };
+
+                    const editRecords = await property.document.document.putProperty(
+                        property.schemaProperty.propertyIdentifier,
+                        updatePropertyValue,
+                    );
+
+                    console.log(editRecords);
                 }}
             >
                 Save

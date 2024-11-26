@@ -6,10 +6,13 @@
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
 import { UseDocumentResponse, useDocument } from "../../document/hooks/use-document";
+import { ImbricateOriginObject } from "../../origin/hooks/use-origins";
 
 export type UsePropertyResponse = {
 
-    readonly originUniqueIdentifier: string;
+    readonly origin: ImbricateOriginObject;
+    readonly document: UseDocumentResponse;
+
     readonly schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>;
     readonly documentProperty: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
 };
@@ -40,7 +43,8 @@ export const useProperty = (
     const relatedProperty = document.document.properties[targetProperty.propertyIdentifier];
 
     return {
-        originUniqueIdentifier: document.originUniqueIdentifier,
+        origin: document.origin,
+        document: document,
         schemaProperty: targetProperty,
         documentProperty: relatedProperty,
     };

@@ -4,15 +4,16 @@
  * @description Edit Editors
  */
 
+import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import React, { FC } from "react";
 import { UsePropertyResponse } from "../property/hooks/use-property";
 import { EditMarkdownEditor } from "./editors/markdown-editor";
-import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { GetValueRef } from "./types/editor-refs";
 
 export type EditEditorsProps = {
 
     readonly usePropertyResponse: UsePropertyResponse;
-    readonly getValueRef: React.MutableRefObject<(() => any) | null>;
+    readonly getValueRef: GetValueRef;
 };
 
 export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
@@ -22,7 +23,7 @@ export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return (<EditMarkdownEditor
                 getValueRef={props.getValueRef}
-                originUniqueIdentifier={props.usePropertyResponse.originUniqueIdentifier}
+                origin={props.usePropertyResponse.origin}
                 textUniqueIdentifier={props.usePropertyResponse.documentProperty.value as string | undefined}
             />);
     }

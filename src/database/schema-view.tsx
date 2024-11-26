@@ -33,7 +33,7 @@ export const DatabasesSchemaView: FC = () => {
         if (database) {
             setSchema(cloneImbricateSchema(database.database.schema));
         }
-    }, [database?.originUniqueIdentifier]);
+    }, [database?.origin.origin.uniqueIdentifier]);
 
     if (database === null || schema === null) {
         return null;
