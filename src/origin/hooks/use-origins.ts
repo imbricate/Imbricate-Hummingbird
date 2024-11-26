@@ -8,10 +8,12 @@ import { IImbricateOrigin } from "@imbricate/core";
 import { useMemo } from "react";
 import { useOriginSlice } from "../../store/feature/origin";
 import { ImbricateStackAPIOrigin } from "@imbricate/origin-stack-api";
+import { OriginStorageInstanceOrigin } from "../origin-storage";
 
 export type ImbricateOriginObject = {
 
     readonly originName: string;
+    readonly originInstance: OriginStorageInstanceOrigin;
     readonly origin: IImbricateOrigin;
 };
 
@@ -30,7 +32,8 @@ export const useOrigins = (): ImbricateOriginObject[] => {
                 case "@imbricate/origin-stack-api": {
 
                     result.push({
-                        originName: "API",
+                        originName: origin.originName,
+                        originInstance: origin,
                         origin: ImbricateStackAPIOrigin.create({
                             basePath: origin.basePath,
                             authentication: origin.authentication,

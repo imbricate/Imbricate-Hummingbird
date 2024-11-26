@@ -8,7 +8,7 @@ import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
 import { NewOriginSelect } from "./components/origin-new/origin-new-select";
 import { NewOriginSwitch } from "./components/origin-new/origin-new-switch";
-import { OriginStorageInstanceStackAPIOrigin } from "./origin-storage";
+import { OriginStorageInstance, OriginStorageInstanceStackAPIOrigin, getOriginStorageInstance, putOriginStorageInstance } from "./origin-storage";
 import { ORIGIN_TYPE } from "./types/origin-types";
 
 export type NewOriginViewProps = {
@@ -32,6 +32,7 @@ export const NewOriginView: FC<NewOriginViewProps> = (
 
                     case ORIGIN_TYPE.STACK_API: {
                         setOriginInstance({
+                            originName: "new origin",
                             type: "@imbricate/origin-stack-api",
                             basePath: "",
                             authentication: {
@@ -66,7 +67,12 @@ export const NewOriginView: FC<NewOriginViewProps> = (
                     variant="flat"
                     color="primary"
                     onClick={() => {
-                        console.log(originInstance);
+
+                        const currentOrigins: OriginStorageInstance = getOriginStorageInstance();
+
+                        currentOrigins.origins.push(originInstance);
+
+                        putOriginStorageInstance(currentOrigins);
                     }}
                 >
                     Create Origin

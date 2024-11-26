@@ -17,21 +17,8 @@ export const useOriginInitialization = () => {
 
         const originInstances = getOriginStorageInstance();
 
-        for (const origin of originInstances.origins) {
-            console.log(origin);
-        }
-
         dispatch(
-            originSlice.actions.setOriginInstance({
-                origins: [{
-                    type: "@imbricate/origin-stack-api",
-                    basePath: "http://localhost:3000/3aed7b5d30561f970002248479705a4684d9d451/",
-                    authentication: {
-                        type: "Bearer",
-                        value: "test",
-                    },
-                }],
-            }),
+            originSlice.actions.setOriginInstance(originInstances),
         );
     }, []);
 };

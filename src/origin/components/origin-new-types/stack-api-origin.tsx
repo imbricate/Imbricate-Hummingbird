@@ -22,6 +22,16 @@ export const NewOriginStackAPIOrigin: FC<NewOriginStackAPIOriginProps> = (
         className="flex flex-col gap-2"
     >
         <Input
+            label="Origin Name"
+            value={props.originInstance.originName}
+            onChange={(event) => {
+                props.onOriginChange({
+                    ...props.originInstance,
+                    originName: event.target.value,
+                });
+            }}
+        />
+        <Input
             label="Base Path"
             value={props.originInstance.basePath}
             onChange={(event) => {

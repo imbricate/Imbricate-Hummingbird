@@ -8,6 +8,7 @@ import { ImbricateStackAPIAuthentication } from "@imbricate/origin-stack-api/def
 
 export type OriginStorageInstanceStackAPIOrigin = {
 
+    readonly originName: string;
     readonly type: "@imbricate/origin-stack-api";
     readonly basePath: string;
     readonly authentication: ImbricateStackAPIAuthentication;

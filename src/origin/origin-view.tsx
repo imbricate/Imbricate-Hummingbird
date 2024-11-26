@@ -7,6 +7,7 @@
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import { OriginDatabaseListView } from "./components/origin-database-list-view";
+import { OriginInformationView } from "./components/origin-information-view";
 import { ImbricateOriginObject, useOrigins } from "./hooks/use-origins";
 
 export type OriginViewProps = {
@@ -30,8 +31,15 @@ export const OriginView: FC<OriginViewProps> = (
         return null;
     }
 
-    return (<OriginDatabaseListView
-        originName={targetOrigin.originName}
-        origin={targetOrigin.origin}
-    />);
+    return (<div
+        className="flex flex-col gap-2"
+    >
+        <OriginInformationView
+            originInstance={targetOrigin.originInstance}
+        />
+        <OriginDatabaseListView
+            originName={targetOrigin.originName}
+            origin={targetOrigin.origin}
+        />
+    </div>);
 };

@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
  * @namespace Origin_Components
- * @description Origin View
+ * @description Origin Database List View
  */
 
 import { IImbricateOrigin } from "@imbricate/core";
