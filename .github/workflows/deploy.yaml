@@ -25,6 +25,8 @@ jobs:
         with:
           node-version: 20
           cache: "yarn"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - name: Install Dependencies
         run: |
           yarn
@@ -32,7 +34,7 @@ jobs:
         run: |
           yarn build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: app
   deploy:
@@ -45,8 +47,6 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
