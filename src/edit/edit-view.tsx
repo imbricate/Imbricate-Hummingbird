@@ -5,10 +5,10 @@
  */
 
 import { Button, Divider } from "@nextui-org/react";
-import * as monaco from "monaco-editor";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { FaRegSave } from "react-icons/fa";
 import { useProperty } from "../property/hooks/use-property";
+import { EditEditors } from "./edit-editors";
 
 export type EditViewProps = {
 
@@ -25,40 +25,11 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
         props.propertyUniqueIdentifier,
     );
 
-    console.log(property);
+    const getValueRef = React.useRef<(() => any) | null>(null);
 
-    const editorRef = React.useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
-    const onboardedRef = React.useRef(false);
-
-    useEffect(() => {
-
-        const container = document.getElementById("edit-view-monaco");
-        if (!container) {
-            return;
-        }
-
-        if (onboardedRef.current) {
-            return;
-        }
-        onboardedRef.current = true;
-        const editor = monaco.editor.create(container, {
-            value: "test",
-            language: "markdown",
-            automaticLayout: true,
-            minimap: {
-                enabled: false,
-            },
-        });
-
-        editorRef.current = editor;
-
-        return () => {
-            editor.dispose();
-
-            editorRef.current = null;
-            onboardedRef.current = false;
-        };
-    }, []);
+    if (!property) {
+        return null;
+    }
 
     return <div className="h-screen flex flex-col">
         <div
@@ -73,20 +44,20 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
                 color="primary"
                 startContent={<FaRegSave />}
                 onClick={() => {
-                    if (!editorRef.current) {
+                    if (!getValueRef.current) {
                         return null;
                     }
 
-                    console.log(editorRef.current.getValue());
+                    console.log(getValueRef.current());
                 }}
             >
                 Save
             </Button>
         </div>
         <Divider />
-        <div
-            id="edit-view-monaco"
-            className="flex-1"
+        <EditEditors
+            usePropertyResponse={property}
+            getValueRef={getValueRef}
         />
     </div>;
 };

@@ -11,18 +11,18 @@ import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origin
 
 export type UseTextResponse = {
 
-    readonly text: IImbricateText;
+    readonly textContent: string;
 };
 
 export const useText = (
     originUniqueIdentifier: string,
-    textUniqueIdentifier: string,
+    textUniqueIdentifier?: string,
 ): UseTextResponse | null => {
 
     const origins: ImbricateOriginObject[] = useOrigins();
     const targetOrigin = origins.find((origin: ImbricateOriginObject) => origin.origin.uniqueIdentifier === originUniqueIdentifier);
 
-    const [text, setText] = useState<IImbricateText | null>(null);
+    const [text, setText] = useState<string | null>(null);
 
     if (!targetOrigin) {
         return null;
@@ -31,6 +31,11 @@ export const useText = (
     useEffect(() => {
 
         const execute = async () => {
+
+            if (!textUniqueIdentifier) {
+                setText("Text document not initialized");
+                return;
+            }
 
             if (!targetOrigin) {
                 return;
@@ -43,17 +48,23 @@ export const useText = (
                     .getText(textUniqueIdentifier),
             );
 
-            setText(text);
+            if (!text) {
+                setText("Text document not found");
+                return;
+            }
+
+            const textContent: string = await text.getContent();
+            setText(textContent);
         };
 
         execute();
     }, [originUniqueIdentifier, textUniqueIdentifier]);
 
-    if (!text) {
+    if (text === null) {
         return null;
     }
 
     return {
-        text,
+        textContent: text,
     };
 };
