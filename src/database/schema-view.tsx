@@ -5,8 +5,10 @@
  */
 
 import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema } from "@imbricate/core";
-import { Button, Card, CardBody, CardHeader, Divider, Select, SelectItem } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Divider, Input, Select, SelectItem } from "@nextui-org/react";
+import { UUIDVersion1 } from "@sudoo/uuid";
 import React, { FC, useEffect } from "react";
+import { MdDelete } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearCache } from "../common/cache/cache";
 import { DATABASE_CACHE_IDENTIFIER } from "../common/cache/static";
@@ -53,7 +55,51 @@ export const DatabasesSchemaView: FC = () => {
                     shadow="none"
                 >
                     <CardHeader>
-                        {property.propertyName}
+                        <div
+                            className="flex w-full gap-1 items-center justify-center"
+                        >
+                            <Input
+                                label="Property Name"
+                                color="primary"
+                                value={property.propertyName}
+                                className="flex-1"
+                                onChange={(event) => {
+
+                                    editedRef.current = true;
+                                    const newValue: string = event.target.value;
+
+                                    setSchema({
+                                        properties: schema.properties.map((each) => {
+                                            if (each.propertyIdentifier === property.propertyIdentifier) {
+                                                return {
+                                                    ...each,
+                                                    propertyName: newValue,
+                                                };
+                                            }
+                                            return each;
+                                        }),
+                                    });
+                                }}
+                            />
+                            <Button
+                                className="h-14"
+                                variant="flat"
+                                color="danger"
+                                isIconOnly
+                                size="lg"
+                                onClick={() => {
+
+                                    editedRef.current = true;
+                                    setSchema({
+                                        properties: schema.properties.filter((each) => each.propertyIdentifier !== property.propertyIdentifier),
+                                    });
+                                }}
+                            >
+                                <MdDelete
+                                    className="text-large"
+                                />
+                            </Button>
+                        </div>
                     </CardHeader>
                     <Divider />
                     <CardBody>
@@ -94,9 +140,36 @@ export const DatabasesSchemaView: FC = () => {
                     </CardBody>
                 </Card>);
             })}
+            <Card
+                className="border-1"
+                shadow="none"
+            >
+                <CardHeader>
+                    <Button
+                        variant="flat"
+                        onClick={() => {
+
+                            editedRef.current = true;
+                            setSchema({
+                                properties: [
+                                    ...schema.properties,
+                                    {
+                                        propertyIdentifier: UUIDVersion1.generateString(),
+                                        propertyName: "New Property",
+                                        propertyType: IMBRICATE_PROPERTY_TYPE.STRING,
+                                        propertyOptions: {},
+                                    },
+                                ],
+                            });
+                        }}
+                    >
+                        Add Property
+                    </Button>
+                </CardHeader>
+            </Card>
         </div>
         <div
-            className="mt-1"
+            className="mt-2"
         >
             {editedRef.current && <Button
                 disabled={saving}

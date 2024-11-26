@@ -5,13 +5,14 @@
  */
 
 import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
-import { Button, Table, TableBody, TableColumn, TableHeader, TableRow, Tooltip } from "@nextui-org/react";
+import { Button, Table, TableBody, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import React, { FC, useEffect } from "react";
-import { MdMore, MdOutlineContentCopy } from "react-icons/md";
+import { MdMore } from "react-icons/md";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResult, ArrangeDocumentsResultItem, arrangeDocuments } from "../util/arrange-documents";
 import { createDocumentsTableCells } from "./table-cells";
 import { createDocumentsTableCellsCreate } from "./table-cells-create";
+import { DocumentsTableHeaderCell } from "./table-headers/document-table-header-cell";
 
 export type DocumentsTableProps = {
 
@@ -79,29 +80,14 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                     {arrangedDocuments.propertyIdentifiers.map((
                         propertyIdentifier: string,
                     ) => {
-                        return <TableColumn
+                        return (<TableColumn
                             key={propertyIdentifier}
                         >
-                            <Tooltip
-                                content={<div className="flex gap-1 justify-center items-center">
-                                    {propertyIdentifier}
-                                    <Button
-                                        isIconOnly
-                                        size="sm"
-                                        variant="light"
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(propertyIdentifier);
-                                        }}
-                                    >
-                                        <MdOutlineContentCopy />
-                                    </Button>
-                                </div>}
-                                delay={1000}
-                                placement="bottom"
-                            >
-                                {arrangedDocuments.propertyNameMap[propertyIdentifier]}
-                            </Tooltip>
-                        </TableColumn>;
+                            <DocumentsTableHeaderCell
+                                propertyIdentifier={propertyIdentifier}
+                                arrangedDocuments={arrangedDocuments}
+                            />
+                        </TableColumn>);
                     })}
                 </React.Fragment>
                 <TableColumn

@@ -5,9 +5,10 @@
  */
 
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from "@nextui-org/react";
 import React, { FC } from "react";
 import { MdAddCircleOutline, MdEdit, MdOutlineInfo } from "react-icons/md";
+import { CommonCopyItem } from "../../../common/components/copy-item";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableMarkdownCellProps = {
@@ -60,11 +61,42 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
         render={(value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
 
             const markdownAlreadyExists = typeof value === "string" && value.length > 0;
-            const startContent = markdownAlreadyExists ? <MdEdit /> : <MdAddCircleOutline />;
+
+            if (markdownAlreadyExists) {
+
+                return (<Tooltip
+                    content={<CommonCopyItem
+                        startContent="Text Unique Identifier"
+                        content={value as string}
+                    />}
+                    delay={1000}
+                    placement="bottom"
+                >
+                    <Button
+                        startContent={<MdEdit />}
+                        color="default"
+                        size="sm"
+                        variant="flat"
+                        onClick={() => {
+
+                            if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
+                                throw new Error("[Imbricate] Database or document unique identifier not found");
+                            }
+
+                            const win = window as Window | null;
+                            if (win) {
+                                win.open(`/edit/${props.databaseUniqueIdentifier}/document/${props.documentUniqueIdentifier}/property/${props.propertyKey}`, "_blank")?.focus();
+                            }
+                        }}
+                    >
+                        Markdown
+                    </Button>
+                </Tooltip>);
+            }
 
             return (<Button
-                startContent={startContent}
-                color={markdownAlreadyExists ? "default" : "primary"}
+                startContent={<MdAddCircleOutline />}
+                color="primary"
                 size="sm"
                 variant="flat"
                 onClick={() => {

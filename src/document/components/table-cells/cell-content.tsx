@@ -26,6 +26,10 @@ export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
         ? props.property.value
         : getDefaultValueOfProperty(props.schemaType);
 
+    if (typeof props.property === "undefined") {
+        return null;
+    }
+
     const isDiff: boolean = props.schemaType !== props.property.type;
 
     return (<div

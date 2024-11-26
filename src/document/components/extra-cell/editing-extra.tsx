@@ -7,8 +7,9 @@
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
 import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
-import { MdEdit, MdOutlineContentCopy, MdOutlineInfo } from "react-icons/md";
+import { MdEdit, MdOutlineInfo } from "react-icons/md";
 import { TbMoodPuzzled } from "react-icons/tb";
+import { CommonCopyItem } from "../../../common/components/copy-item";
 import { DocumentEditingController } from "../../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
 
@@ -88,19 +89,10 @@ export const DocumentsTableEditingExtraCell: FC<DocumentsTableEditingExtraCellPr
                 </Button>
             </PopoverTrigger>
             <PopoverContent>
-                <div className="flex gap-1 justify-center items-center">
-                    {props.item.document.uniqueIdentifier}
-                    <Button
-                        isIconOnly
-                        size="sm"
-                        variant="light"
-                        onClick={() => {
-                            navigator.clipboard.writeText(props.item.document.uniqueIdentifier);
-                        }}
-                    >
-                        <MdOutlineContentCopy />
-                    </Button>
-                </div>
+                <CommonCopyItem
+                    startContent="Document Unique Identifier"
+                    content={props.item.document.uniqueIdentifier}
+                />
             </PopoverContent>
         </Popover>
     </div>);
