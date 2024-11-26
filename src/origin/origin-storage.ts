@@ -13,9 +13,11 @@ export type OriginStorageInstanceStackAPIOrigin = {
     readonly authentication: ImbricateStackAPIAuthentication;
 };
 
+export type OriginStorageInstanceOrigin = OriginStorageInstanceStackAPIOrigin;
+
 export type OriginStorageInstance = {
 
-    readonly origins: OriginStorageInstanceStackAPIOrigin[];
+    readonly origins: OriginStorageInstanceOrigin[];
 };
 
 export const putOriginStorageInstance = (instance: OriginStorageInstance): void => {
