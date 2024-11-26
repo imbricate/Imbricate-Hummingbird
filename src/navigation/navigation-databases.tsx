@@ -16,6 +16,7 @@ export const NavigationDatabases: FC = () => {
     const navigate = useNavigate();
 
     return (<Listbox
+        aria-label="database-list"
         items={databases}
         onAction={(key) => {
             navigate(`/database/${key}/documents`);

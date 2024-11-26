@@ -20,12 +20,19 @@ export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
 
     switch (props.usePropertyResponse.schemaProperty.propertyType) {
 
-        case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
+        case IMBRICATE_PROPERTY_TYPE.MARKDOWN: {
+
+            const textUniqueIdentifier: string | undefined =
+                props.usePropertyResponse.documentProperty
+                    ? props.usePropertyResponse.documentProperty.value as string
+                    : undefined;
+
             return (<EditMarkdownEditor
                 getValueRef={props.getValueRef}
                 origin={props.usePropertyResponse.origin}
-                textUniqueIdentifier={props.usePropertyResponse.documentProperty.value as string | undefined}
+                textUniqueIdentifier={textUniqueIdentifier}
             />);
+        }
     }
 
     return (<div>

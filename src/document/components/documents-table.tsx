@@ -73,6 +73,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
             Create Document
         </Button>
         <Table
+            aria-label="document-list"
             removeWrapper
         >
             <TableHeader>

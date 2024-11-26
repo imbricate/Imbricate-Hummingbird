@@ -10,7 +10,7 @@ import React, { FC } from "react";
 export const NavigationViews: FC = () => {
 
     return (<Listbox
-        aria-label="Actions"
+        aria-label="view-list"
         onAction={(key) => alert(key)}
     >
         <ListboxItem key="new">New file</ListboxItem>

@@ -19,13 +19,13 @@ const columns = [
 ];
 
 export type DatabasesViewProps = {
-
 };
 
 export const DatabasesView: FC = () => {
 
     return (<div>
         <Table
+            aria-label="database-list"
             selectionMode="single"
             removeWrapper
             onRowAction={(row) => {

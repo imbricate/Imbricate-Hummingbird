@@ -4,13 +4,13 @@
  * @description Edit View
  */
 
-import { Button, Divider } from "@nextui-org/react";
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { Divider } from "@nextui-org/react";
 import React, { FC } from "react";
-import { FaRegSave } from "react-icons/fa";
 import { useProperty } from "../property/hooks/use-property";
+import { EditSaveButton } from "./components/save-button";
 import { EditEditors } from "./edit-editors";
 import { GetValueRef } from "./types/editor-refs";
-import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 
 export type EditViewProps = {
 
@@ -40,14 +40,10 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
             <div className="flex-1">
                 Edit
             </div>
-            <Button
-                variant="solid"
-                size="sm"
-                color="primary"
-                startContent={<FaRegSave />}
-                onClick={async () => {
+            <EditSaveButton
+                saveProperty={async () => {
                     if (!getValueRef.current) {
-                        return null;
+                        return;
                     }
 
                     const valueContent = await getValueRef.current();
@@ -63,9 +59,7 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
 
                     console.log(editRecords);
                 }}
-            >
-                Save
-            </Button>
+            />
         </div>
         <Divider />
         <EditEditors

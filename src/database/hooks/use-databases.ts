@@ -17,7 +17,9 @@ export type ImbricateDatabasesObject = {
     readonly database: IImbricateDatabase;
 };
 
-export const useDatabases = (): ImbricateDatabasesObject[] => {
+export const useDatabases = (
+    originUniqueIdentifier?: string,
+): ImbricateDatabasesObject[] => {
 
     const origins: ImbricateOriginObject[] = useOrigins();
     const [databases, setDatabases] = useState<ImbricateDatabasesObject[]>([]);
@@ -48,7 +50,11 @@ export const useDatabases = (): ImbricateDatabasesObject[] => {
 
             const response: ImbricateDatabasesObject[] = [];
 
-            for (const origin of origins) {
+            const targetOrigins: ImbricateOriginObject[] = originUniqueIdentifier
+                ? origins.filter((origin: ImbricateOriginObject) => origin.origin.uniqueIdentifier === originUniqueIdentifier)
+                : origins;
+
+            for (const origin of targetOrigins) {
 
                 const databases = await executeDeduplicate(
                     `list-databases-${origin.origin.uniqueIdentifier}`,

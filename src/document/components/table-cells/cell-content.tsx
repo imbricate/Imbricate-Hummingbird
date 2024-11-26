@@ -26,11 +26,10 @@ export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
         ? props.property.value
         : getDefaultValueOfProperty(props.schemaType);
 
-    if (typeof props.property === "undefined") {
-        return null;
-    }
-
-    const isDiff: boolean = props.schemaType !== props.property.type;
+    const propsPropertyType: IMBRICATE_PROPERTY_TYPE = props.property
+        ? props.property.type
+        : props.schemaType;
+    const isDiff: boolean = props.schemaType !== propsPropertyType;
 
     return (<div
         className="select-text flex gap-1 items-center"
@@ -50,7 +49,7 @@ export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
             </PopoverTrigger>
             <PopoverContent>
                 <div>
-                    {`Type Mismatch: ${props.schemaType} !== ${props.property.type}`}
+                    {`Type Mismatch: ${props.schemaType} !== ${propsPropertyType}`}
                 </div>
             </PopoverContent>
         </Popover>}

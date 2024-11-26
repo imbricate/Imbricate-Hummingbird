@@ -5,8 +5,9 @@
  */
 
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from "@nextui-org/react";
+import { Button, ButtonGroup, Popover, PopoverContent, PopoverTrigger, Tooltip } from "@nextui-org/react";
 import React, { FC } from "react";
+import { FaEye } from "react-icons/fa6";
 import { MdAddCircleOutline, MdEdit, MdOutlineInfo } from "react-icons/md";
 import { CommonCopyItem } from "../../../common/components/copy-item";
 import { DocumentTableCellContent } from "./cell-content";
@@ -72,25 +73,45 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
                     delay={1000}
                     placement="bottom"
                 >
-                    <Button
-                        startContent={<MdEdit />}
+                    <ButtonGroup
                         color="default"
                         size="sm"
                         variant="flat"
-                        onClick={() => {
-
-                            if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
-                                throw new Error("[Imbricate] Database or document unique identifier not found");
-                            }
-
-                            const win = window as Window | null;
-                            if (win) {
-                                win.open(`/edit/${props.databaseUniqueIdentifier}/document/${props.documentUniqueIdentifier}/property/${props.propertyKey}`, "_blank")?.focus();
-                            }
-                        }}
                     >
-                        Markdown
-                    </Button>
+                        <Button
+                            startContent={<MdEdit />}
+                            color="secondary"
+                            onClick={() => {
+
+                                if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
+                                    throw new Error("[Imbricate] Database or document unique identifier not found");
+                                }
+
+                                const win = window as Window | null;
+                                if (win) {
+                                    win.open(`/edit/${props.databaseUniqueIdentifier}/document/${props.documentUniqueIdentifier}/property/${props.propertyKey}`, "_blank")?.focus();
+                                }
+                            }}
+                        >
+                            Markdown
+                        </Button>
+                        <Button
+                            isIconOnly
+                            onClick={() => {
+
+                                if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
+                                    throw new Error("[Imbricate] Database or document unique identifier not found");
+                                }
+
+                                const win = window as Window | null;
+                                if (win) {
+                                    win.open(`/view/test/text/${value}`, "_blank")?.focus();
+                                }
+                            }}
+                        >
+                            <FaEye />
+                        </Button>
+                    </ButtonGroup>
                 </Tooltip>);
             }
 
