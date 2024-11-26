@@ -1,7 +1,7 @@
 {
   "name": "@imbricate/hummingbird",
   "packageManager": "yarn@4.5.1",
-  "version": "1.0.0",
+  "private": true,
   "description": "The minimal web client for Imbricate",
   "scripts": {
     "start": "vite --port 5711",
