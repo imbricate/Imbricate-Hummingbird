@@ -13,6 +13,7 @@ import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
 import { DocumentTableNumberCell } from "./table-cells/number-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
 import { DocumentsTableCreatingExtraCell } from "./extra-cell/creating-extra";
+import { DocumentTableDateCell } from "./table-cells/date-cell";
 
 export type DocumentsTableCellsCreateProps = {
 
@@ -100,9 +101,9 @@ export const createDocumentsTableCellsCreate = (
                     return (<TableCell
                         key={propertyIdentifier}
                     >
-                        <DocumentTableStringCell
+                        <DocumentTableDateCell
                             propertyKey={propertyIdentifier}
-                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.DATE>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
                             editing

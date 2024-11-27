@@ -11,6 +11,7 @@ import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
 import { DocumentsTableEditingExtraCell } from "./extra-cell/editing-extra";
 import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
+import { DocumentTableDateCell } from "./table-cells/date-cell";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
 import { DocumentTableNumberCell } from "./table-cells/number-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
@@ -100,12 +101,12 @@ export const createDocumentsTableCells = (
                     return (<TableCell
                         key={propertyIdentifier}
                     >
-                        <DocumentTableStringCell
+                        <DocumentTableDateCell
                             propertyKey={propertyIdentifier}
-                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.DATE>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing
+                            editing={props.document.editing}
                         />
                     </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
@@ -131,7 +132,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing
+                            editing={props.document.editing}
                         />
                     </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.REFERENCE:
@@ -143,7 +144,7 @@ export const createDocumentsTableCells = (
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
-                            editing
+                            editing={props.document.editing}
                         />
                     </TableCell>);
                 default:

@@ -133,6 +133,9 @@ export const DatabasesSchemaView: FC = () => {
                             <SelectItem key={IMBRICATE_PROPERTY_TYPE.NUMBER}>
                                 Number
                             </SelectItem>
+                            <SelectItem key={IMBRICATE_PROPERTY_TYPE.DATE}>
+                                Date
+                            </SelectItem>
                             <SelectItem key={IMBRICATE_PROPERTY_TYPE.MARKDOWN}>
                                 Markdown
                             </SelectItem>
