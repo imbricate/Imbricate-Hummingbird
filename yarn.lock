@@ -1737,6 +1737,7 @@ __metadata:
     eslint: "npm:^9.15.0"
     framer-motion: "npm:^11.12.0"
     jest: "npm:^29.7.0"
+    marked: "npm:^15.0.2"
     monaco-editor: "npm:^0.52.0"
     postcss: "npm:^8.4.49"
     react: "npm:^18.3.1"
@@ -8438,6 +8439,15 @@ __metadata:
   dependencies:
     tmpl: "npm:1.0.5"
   checksum: 10c0/b0e6e599780ce6bab49cc413eba822f7d1f0dfebd1c103eaa3785c59e43e22c59018323cf9e1708f0ef5329e94a745d163fcbb6bff8e4c6742f9be9e86f3500c
+  languageName: node
+  linkType: hard
+
+"marked@npm:^15.0.2":
+  version: 15.0.2
+  resolution: "marked@npm:15.0.2"
+  bin:
+    marked: bin/marked.js
+  checksum: 10c0/6c288ac2b41f1b75671b6a06eea4d5f37bf49d42e93a4a175a7e0331d2fc339cdaef937429cf5e4d0e85b2a65926385cab28bdb4c90ac9f96fdc52cab4018466
   languageName: node
   linkType: hard
 
