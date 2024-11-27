@@ -8,6 +8,7 @@ import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import useDarkMode from "use-dark-mode";
 import { useOriginInitialization } from "../origin/hooks/use-initialization";
+import { ViewView } from "./view-view";
 
 // LAZY LOAD ONLY
 const ViewApplication: FC = () => {
@@ -23,7 +24,13 @@ const ViewApplication: FC = () => {
 
     console.log(params);
 
-    return <div>View</div>;
+    return (<main className={`${darkMode.value ? "dark" : ""} h-screen flex flex-col overflow-hidden`}>
+        <ViewView
+            databaseUniqueIdentifier={databaseUniqueIdentifier}
+            documentUniqueIdentifier={documentUniqueIdentifier}
+            propertyUniqueIdentifier={propertyUniqueIdentifier}
+        />
+    </main>);
 };
 
 export default ViewApplication;
