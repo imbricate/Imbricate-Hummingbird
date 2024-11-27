@@ -5,7 +5,7 @@
  */
 
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { Input } from "@nextui-org/react";
+import { Checkbox } from "@nextui-org/react";
 import React, { FC } from "react";
 import { DocumentTableCellContent } from "./cell-content";
 
@@ -30,13 +30,13 @@ export const DocumentTableBooleanCell: FC<DocumentTableBooleanCellProps> = (
             throw new Error("[Imbricate] Updated property value not found");
         }
 
-        return (<Input
-            value={String(updatedProperty)}
-            fullWidth={false}
+        return (<Checkbox
+            size="lg"
+            isSelected={updatedProperty}
             onChange={(event) => {
 
                 props.updateEditingProperty(
-                    Boolean(event.target.value),
+                    event.target.checked,
                 );
             }}
         />);
@@ -45,5 +45,15 @@ export const DocumentTableBooleanCell: FC<DocumentTableBooleanCellProps> = (
     return (<DocumentTableCellContent
         schemaType={IMBRICATE_PROPERTY_TYPE.BOOLEAN}
         property={props.property}
+        render={(value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
+
+            const propertyValue: boolean = value as boolean;
+
+            return (<Checkbox
+                size="lg"
+                isSelected={propertyValue}
+                isDisabled
+            />);
+        }}
     />);
 };
