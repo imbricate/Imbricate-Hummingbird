@@ -32,8 +32,12 @@ const getIcon = (propertyType: IMBRICATE_PROPERTY_TYPE): React.ReactNode => {
             return <PiTextTBold />;
         case IMBRICATE_PROPERTY_TYPE.NUMBER:
             return <RiNumbersFill />;
+        case IMBRICATE_PROPERTY_TYPE.DATE:
+            return <PiTextTBold />;
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return <FaMarkdown />;
+        case IMBRICATE_PROPERTY_TYPE.LABEL:
+            return <PiTextTBold />;
         case IMBRICATE_PROPERTY_TYPE.REFERENCE:
             return <FaExternalLinkSquareAlt />;
     }

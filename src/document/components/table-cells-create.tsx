@@ -96,6 +96,18 @@ export const createDocumentsTableCellsCreate = (
                             editing
                         />
                     </TableCell>);
+                case IMBRICATE_PROPERTY_TYPE.DATE:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableStringCell
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
+                            editing
+                        />
+                    </TableCell>);
                 case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
                     return (<TableCell
                         key={propertyIdentifier}
@@ -103,6 +115,30 @@ export const createDocumentsTableCellsCreate = (
                         <DocumentTableMarkdownCell
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
+                            editing
+                        />
+                    </TableCell>);
+                case IMBRICATE_PROPERTY_TYPE.LABEL:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableStringCell
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
+                            editing
+                        />
+                    </TableCell>);
+                case IMBRICATE_PROPERTY_TYPE.REFERENCE:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableStringCell
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
                             editing
