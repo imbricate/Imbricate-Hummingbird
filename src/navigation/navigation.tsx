@@ -7,12 +7,15 @@
 import { Button, Tab, Tabs } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { NavigationLogo } from "./logo";
 import { NavigationDatabases } from "./navigation-databases";
 import { NavigationOrigins } from "./navigation-origins";
 import { NavigationViews } from "./navigation-views";
 
 export const Navigation: FC = () => {
+
+    const navigate = useNavigate();
 
     return (<div className="w-full max-w-[260px]">
         <div className="w-full justify-center items-center flex my-2">
@@ -24,6 +27,9 @@ export const Navigation: FC = () => {
                 color="secondary"
                 variant="solid"
                 fullWidth
+                onClick={() => {
+                    navigate("/search");
+                }}
             >
                 Search
             </Button>
