@@ -11,7 +11,7 @@ import { Application } from "./application";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
-import { EditApplication } from "./edit/edit-application";
+import { EditWrapper } from "./edit/edit-wrapper";
 import { NewOriginView } from "./origin/new-origin-view";
 import { OriginView } from "./origin/origin-view";
 import { SearchView } from "./search/search-view";
@@ -57,7 +57,7 @@ export const ApplicationRouter = () => {
             />
             <Route
                 path="/edit/:database-unique-identifier/document/:document-unique-identifier/property/:property-unique-identifier"
-                element={<EditApplication />}
+                element={<EditWrapper />}
             />
         </Routes>
     </NextUIProvider>);

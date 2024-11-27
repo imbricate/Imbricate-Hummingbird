@@ -11,7 +11,8 @@ import "../index.css";
 import { useOriginInitialization } from "../origin/hooks/use-initialization";
 import { EditView } from "./edit-view";
 
-export const EditApplication: FC = () => {
+// LAZY LOAD ONLY
+const EditApplication: FC = () => {
 
     const darkMode = useDarkMode(true);
     useOriginInitialization();
@@ -30,3 +31,5 @@ export const EditApplication: FC = () => {
         />
     </main>);
 };
+
+export default EditApplication;
