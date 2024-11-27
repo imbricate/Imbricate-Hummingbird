@@ -7,7 +7,7 @@
 import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
 import { Route, Routes, useHref, useNavigate } from "react-router-dom";
-import { Application } from "./application";
+import { ApplicationWrapper } from "./application/application-wrapper";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
@@ -23,7 +23,7 @@ export const ApplicationRouter = () => {
 
     return (<NextUIProvider navigate={navigate} useHref={useHref}>
         <Routes>
-            <Route path="/" element={<Application />} errorElement={<div>
+            <Route path="/" element={<ApplicationWrapper />} errorElement={<div>
                 Not Found
             </div>}>
                 <Route

@@ -1,17 +1,18 @@
 /**
  * @author WMXPY
- * @namespace Hummingbird
+ * @namespace Application
  * @description Application
  */
 
 import React from "react";
 import { Outlet } from "react-router-dom";
 import useDarkMode from "use-dark-mode";
-import "./index.css";
-import { Navigation } from "./navigation/navigation";
-import { useOriginInitialization } from "./origin/hooks/use-initialization";
+import "../index.css";
+import { Navigation } from "../navigation/navigation";
+import { useOriginInitialization } from "../origin/hooks/use-initialization";
 
-export const Application = () => {
+// LAZY LOAD ONLY
+const Application = () => {
 
     const darkMode = useDarkMode(false);
     useOriginInitialization();
@@ -27,3 +28,5 @@ export const Application = () => {
         </div>
     </main>);
 };
+
+export default Application;
