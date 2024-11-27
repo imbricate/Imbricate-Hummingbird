@@ -1705,10 +1705,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@imbricate/core@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "@imbricate/core@npm:3.2.1"
-  checksum: 10c0/85cd6e5f0c6fbba552893cbff9c3b3c4be7cbbe7784477b65e70d87ea8d4468f256cb9387c48c594800854c35f2c1b994b4d5fdfc998644d157b7d67589626cb
+"@imbricate/core@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "@imbricate/core@npm:3.3.1"
+  checksum: 10c0/8f2e97cf301ef1ef0b2d385aab6269b849f84eafdbb99bab750838242af8320c0464b0a3a356dad9d36563cb341f19a32f0692005297dbdf69c5d04f9c2d4440
   languageName: node
   linkType: hard
 
@@ -1719,7 +1719,7 @@ __metadata:
     "@babel/core": "npm:^7.26.0"
     "@babel/preset-env": "npm:^7.26.0"
     "@babel/preset-typescript": "npm:^7.26.0"
-    "@imbricate/core": "npm:^3.2.1"
+    "@imbricate/core": "npm:^3.3.1"
     "@imbricate/origin-stack-api": "npm:^3.2.0"
     "@nextui-org/react": "npm:^2.4.8"
     "@reduxjs/toolkit": "npm:^2.3.0"
@@ -1735,7 +1735,7 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     babel-jest: "npm:^29.7.0"
     eslint: "npm:^9.15.0"
-    framer-motion: "npm:^11.11.17"
+    framer-motion: "npm:^11.12.0"
     jest: "npm:^29.7.0"
     monaco-editor: "npm:^0.52.0"
     postcss: "npm:^8.4.49"
@@ -1748,7 +1748,7 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.7.2"
     use-dark-mode: "npm:^2.3.1"
-    vite: "npm:^6.0.0"
+    vite: "npm:^6.0.1"
   languageName: unknown
   linkType: soft
 
@@ -7196,9 +7196,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^11.11.17":
-  version: 11.11.17
-  resolution: "framer-motion@npm:11.11.17"
+"framer-motion@npm:^11.12.0":
+  version: 11.12.0
+  resolution: "framer-motion@npm:11.12.0"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -7212,7 +7212,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/4ec88a568e636c5409a238668770a7d0237270b4b58fdf27d0cab1f9094a4fdd22d25d827a1bba51e52f01e9d2db65544b32a5feb8eff9a63c8798f2e64677d0
+  checksum: 10c0/9d1cfa356f5230b9bbed2107cbef50d38a7afa4c9d03fc7820c8d7bd8be697046af0e5b45f01d926c6b784f789858ad683afb361073271f826e63f29af4b05fb
   languageName: node
   linkType: hard
 
@@ -10246,9 +10246,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "vite@npm:6.0.0"
+"vite@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "vite@npm:6.0.1"
   dependencies:
     esbuild: "npm:^0.24.0"
     fsevents: "npm:~2.3.3"
@@ -10294,7 +10294,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/2516144161c108452691ec1379aefd8f3201da8f225e628cb1cdb7b35b92d856d990cd31f1c36c0f36517346efe181ea3c096a04bc846c5b0d1416b7b7111af8
+  checksum: 10c0/e4d853eb9042ff29fa4d7cee1484738faaee4b1d9dcf786a94783bebb736b39af0afa7ac1a209000530638098d0a1b240b51f509d32addb028b222453f862916
   languageName: node
   linkType: hard
 
