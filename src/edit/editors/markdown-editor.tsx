@@ -50,6 +50,8 @@ export const EditMarkdownEditor: FC<EditMarkdownEditorProps> = (props: EditMarkd
             minimap: {
                 enabled: false,
             },
+            wordWrap: "on",
+            wrappingIndent: "same",
         });
 
         editorRef.current = editor;

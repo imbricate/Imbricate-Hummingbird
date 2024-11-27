@@ -37,8 +37,8 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
         <div
             className="m-2 flex items-center"
         >
-            <div className="flex-1">
-                Edit
+            <div className="flex-1 font-mono ml-3">
+                I M B R I C A T E
             </div>
             <EditSaveButton
                 saveProperty={async () => {
@@ -52,12 +52,10 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
                         value: valueContent,
                     };
 
-                    const editRecords = await property.document.document.putProperty(
+                    await property.document.document.putProperty(
                         property.schemaProperty.propertyIdentifier,
                         updatePropertyValue,
                     );
-
-                    console.log(editRecords);
                 }}
             />
         </div>

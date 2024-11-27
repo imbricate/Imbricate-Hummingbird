@@ -17,7 +17,7 @@ export const Application = () => {
     useOriginInitialization();
 
     return (<main
-        className={`${darkMode.value ? "dark" : ""} text-foreground bg-background`}
+        className={`${darkMode.value ? "dark" : ""} text-foreground bg-background min-h-screen`}
     >
         <div className="flex px-1 py-2 gap-2">
             <Navigation />
