@@ -5,9 +5,9 @@
  */
 
 import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { parseDate } from "@internationalized/date";
-import { Checkbox, DatePicker, DateValue } from "@nextui-org/react";
+import { DatePicker, DateValue } from "@nextui-org/react";
 import React, { FC } from "react";
+import { UIDateToDate, dateToUIDate } from "../../util/parse-date";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableDateCellProps = {
@@ -31,29 +31,30 @@ export const DocumentTableDateCell: FC<DocumentTableDateCellProps> = (
             throw new Error("[Imbricate] Updated property value not found");
         }
 
-        ;
-
         return (<DatePicker
-            size="lg"
-            value={parseDate(new Date().toISOString())}
+            aria-label="Date picker"
+            value={dateToUIDate(new Date(updatedProperty))}
             onChange={(newDate: DateValue) => {
 
-                alert(newDate);
+                const date = UIDateToDate(newDate);
+                props.updateEditingProperty(
+                    date.toISOString(),
+                );
             }}
         />);
     }
 
     return (<DocumentTableCellContent
-        schemaType={IMBRICATE_PROPERTY_TYPE.BOOLEAN}
+        schemaType={IMBRICATE_PROPERTY_TYPE.DATE}
         property={props.property}
         render={(value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
 
-            const propertyValue: boolean = value as boolean;
+            const propertyValue: string = value as string;
 
-            return (<Checkbox
-                size="lg"
-                isSelected={propertyValue}
-                isDisabled
+            return (<DatePicker
+                aria-label="Date picker"
+                value={dateToUIDate(new Date(propertyValue))}
+                isReadOnly
             />);
         }}
     />);
