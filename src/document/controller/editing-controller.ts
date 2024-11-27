@@ -123,6 +123,14 @@ export class DocumentEditingController {
         this._notifyVersionChange();
     }
 
+    public cancelCreatingDocument(
+        uuid: string,
+    ): void {
+
+        this._creatingDocuments.delete(uuid);
+        this._notify();
+    }
+
     public startEditingDocument(document: IImbricateDocument): void {
 
         this._editingDocuments.set(

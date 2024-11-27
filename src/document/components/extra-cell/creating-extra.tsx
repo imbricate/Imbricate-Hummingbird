@@ -7,6 +7,7 @@
 import { Button } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaRegSave } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 import { DocumentEditingController } from "../../controller/editing-controller";
 
 export type DocumentsTableCreatingExtraCellProps = {
@@ -35,6 +36,17 @@ export const DocumentsTableCreatingExtraCell: FC<DocumentsTableCreatingExtraCell
             }}
         >
             <FaRegSave />
+        </Button>
+        <Button
+            isIconOnly
+            color="danger"
+            variant="solid"
+            size="sm"
+            onClick={() => {
+                props.editingController.cancelCreatingDocument(props.creatingKey);
+            }}
+        >
+            <IoClose />
         </Button>
     </div>);
 
