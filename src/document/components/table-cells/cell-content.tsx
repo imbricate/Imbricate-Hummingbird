@@ -23,8 +23,8 @@ export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
 ) => {
 
     const propertyValue: number = (props.property && typeof props.property.value !== "undefined")
-        ? props.property.value
-        : getDefaultValueOfProperty(props.schemaType);
+        ? props.property.value as number
+        : getDefaultValueOfProperty(props.schemaType) as number;
 
     const propsPropertyType: IMBRICATE_PROPERTY_TYPE = props.property
         ? props.property.type

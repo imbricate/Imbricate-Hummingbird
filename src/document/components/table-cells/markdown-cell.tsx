@@ -10,6 +10,7 @@ import React, { FC } from "react";
 import { FaEye } from "react-icons/fa6";
 import { MdAddCircleOutline, MdEdit, MdOutlineInfo } from "react-icons/md";
 import { CommonCopyItem } from "../../../common/components/copy-item";
+import { openEditWindow, openViewWindow } from "../../../common/window/window";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableMarkdownCellProps = {
@@ -87,10 +88,11 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
                                     throw new Error("[Imbricate] Database or document unique identifier not found");
                                 }
 
-                                const win = window as Window | null;
-                                if (win) {
-                                    win.open(`/edit/${props.databaseUniqueIdentifier}/document/${props.documentUniqueIdentifier}/property/${props.propertyKey}`, "_blank")?.focus();
-                                }
+                                openEditWindow(
+                                    props.databaseUniqueIdentifier,
+                                    props.documentUniqueIdentifier,
+                                    props.propertyKey,
+                                );
                             }}
                         >
                             Markdown
@@ -103,10 +105,11 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
                                     throw new Error("[Imbricate] Database or document unique identifier not found");
                                 }
 
-                                const win = window as Window | null;
-                                if (win) {
-                                    win.open(`/view/test/text/${value}`, "_blank")?.focus();
-                                }
+                                openViewWindow(
+                                    props.databaseUniqueIdentifier,
+                                    props.documentUniqueIdentifier,
+                                    props.propertyKey,
+                                );
                             }}
                         >
                             <FaEye />
@@ -126,10 +129,11 @@ export const DocumentTableMarkdownCell: FC<DocumentTableMarkdownCellProps> = (
                         throw new Error("[Imbricate] Database or document unique identifier not found");
                     }
 
-                    const win = window as Window | null;
-                    if (win) {
-                        win.open(`/edit/${props.databaseUniqueIdentifier}/document/${props.documentUniqueIdentifier}/property/${props.propertyKey}`, "_blank")?.focus();
-                    }
+                    openEditWindow(
+                        props.databaseUniqueIdentifier,
+                        props.documentUniqueIdentifier,
+                        props.propertyKey,
+                    );
                 }}
             >
                 Markdown

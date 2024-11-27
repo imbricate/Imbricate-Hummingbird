@@ -8,7 +8,9 @@ import { IMBRICATE_SEARCH_TARGET_TYPE, ImbricateSearchItem, ImbricateSearchTarge
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { openEditWindow } from "../../common/window/window";
 import { ImbricateOriginObject } from "../../origin/hooks/use-origins";
+import { getSearchTargetIcon } from "../utils/get-target-icon";
 
 export type SearchResultItemProps = {
 
@@ -52,19 +54,25 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
                     const target: ImbricateSearchTarget<IMBRICATE_SEARCH_TARGET_TYPE.MARKDOWN> =
                         props.searchItem.target as ImbricateSearchTarget<IMBRICATE_SEARCH_TARGET_TYPE.MARKDOWN>;
 
-                    navigate(`/edit/${target.target.databaseUniqueIdentifier}/document/${target.target.documentUniqueIdentifier}/property/${target.target.propertyUniqueIdentifier}`);
+                    openEditWindow(
+                        target.target.databaseUniqueIdentifier,
+                        target.target.documentUniqueIdentifier,
+                        target.target.propertyUniqueIdentifier,
+                    );
                     return;
                 }
             }
         }}
     >
-        <CardHeader>
+        <CardHeader
+            className="flex items-center gap-2"
+        >
+            {getSearchTargetIcon(props.searchItem.target.type)}
             {props.searchItem.primary}
         </CardHeader>
         <Divider />
         <CardBody>
             {props.searchItem.secondary}
         </CardBody>
-        {JSON.stringify(props.searchItem)}
     </Card>);
 };

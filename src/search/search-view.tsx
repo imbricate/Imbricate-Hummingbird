@@ -8,8 +8,8 @@ import { Button, Input } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useOrigins } from "../origin/hooks/use-origins";
-import { HummingbirdSearchResult } from "./types/search";
 import { SearchResult } from "./search-result";
+import { HummingbirdSearchResult } from "./types/search";
 
 export const SearchView: FC = () => {
 
@@ -18,12 +18,28 @@ export const SearchView: FC = () => {
     const [keyword, setKeyword] = React.useState<string>("");
     const [searchResults, setSearchResults] = React.useState<HummingbirdSearchResult[]>([]);
 
+    const performSearch = async () => {
+
+        const searchResults: HummingbirdSearchResult[] = [];
+
+        for (const origin of origins) {
+            const result = await origin.origin.search(keyword);
+            searchResults.push({
+                origin: origin,
+                result,
+            });
+        }
+
+        setSearchResults(searchResults);
+    };
+
     return (<div>
-        <div className="m-5">
+        <div className="mt-5 mb-5">
             <div
                 className="flex gap-2"
             >
                 <Input
+                    autoFocus
                     className="flex-1"
                     variant="bordered"
                     color="primary"
@@ -32,26 +48,18 @@ export const SearchView: FC = () => {
                     onChange={(event) => {
                         setKeyword(event.target.value);
                     }}
+                    onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                            performSearch();
+                        }
+                    }}
                 />
                 <Button
                     className="w-[56px] h-[56px]"
                     variant="flat"
                     color="primary"
                     isIconOnly
-                    onClick={async () => {
-
-                        const searchResults: HummingbirdSearchResult[] = [];
-
-                        for (const origin of origins) {
-                            const result = await origin.origin.search(keyword);
-                            searchResults.push({
-                                origin: origin,
-                                result,
-                            });
-                        }
-
-                        setSearchResults(searchResults);
-                    }}
+                    onClick={performSearch}
                 >
                     <FaSearch />
                 </Button>
