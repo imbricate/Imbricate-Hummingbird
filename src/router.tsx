@@ -15,7 +15,7 @@ import { EditApplication } from "./edit/edit-application";
 import { NewOriginView } from "./origin/new-origin-view";
 import { OriginView } from "./origin/origin-view";
 import { SearchView } from "./search/search-view";
-import { ViewView } from "./view/view-view";
+import { ViewWrapper } from "./view/view-wrapper";
 
 export const ApplicationRouter = () => {
 
@@ -52,8 +52,8 @@ export const ApplicationRouter = () => {
                 />
             </Route>
             <Route
-                path="/view/:origin-unique-identifier/text/:text-unique-identifier"
-                element={<ViewView />}
+                path="/view/:database-unique-identifier/document/:document-unique-identifier/property/:property-unique-identifier"
+                element={<ViewWrapper />}
             />
             <Route
                 path="/edit/:database-unique-identifier/document/:document-unique-identifier/property/:property-unique-identifier"
