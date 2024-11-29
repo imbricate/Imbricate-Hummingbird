@@ -26,7 +26,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
 
     return (<Card
         shadow="none"
-        className="border-1 whitespace-pre"
+        className="border-1"
         isPressable
         onClick={() => {
 
@@ -65,13 +65,21 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
         }}
     >
         <CardHeader
-            className="flex items-center gap-2"
+            className="flex items-center justify-start gap-2 whitespace-pre-wrap w-full"
         >
-            {getSearchTargetIcon(props.searchItem.target.type)}
-            {props.searchItem.primary}
+            <div>
+                {getSearchTargetIcon(props.searchItem.target.type)}
+            </div>
+            <div
+                className="flex-1 text-left text-ellipsis overflow-hidden"
+            >
+                {props.searchItem.primary.trim()}
+            </div>
         </CardHeader>
         <Divider />
-        <CardBody>
+        <CardBody
+            className="whitespace-pre-wrap max-h-32"
+        >
             {props.searchItem.secondary}
         </CardBody>
     </Card>);

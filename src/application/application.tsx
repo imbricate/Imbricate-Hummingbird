@@ -22,7 +22,7 @@ const Application = () => {
     >
         <div className="flex px-1 py-2 gap-2">
             <Navigation />
-            <div className="flex-1 overflow-auto break-words">
+            <div className="flex-1 overflow-auto">
                 <Outlet />
             </div>
         </div>
