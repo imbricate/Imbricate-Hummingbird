@@ -26,7 +26,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
 
     return (<Card
         shadow="none"
-        className="border-1"
+        className="border-1 whitespace-pre"
         isPressable
         onClick={() => {
 
