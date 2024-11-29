@@ -51,16 +51,9 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
     }
 
     return (<div
-        className="m-5"
-    >
-        <div
-            dangerouslySetInnerHTML={{
-                __html: rendered,
-            }}
-            className="markdown-body"
-        />
-        <script type="module">
-            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-        </script>
-    </div>);
+        dangerouslySetInnerHTML={{
+            __html: rendered,
+        }}
+        className="markdown-body p-5"
+    />);
 };
