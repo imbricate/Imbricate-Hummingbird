@@ -68,7 +68,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
             className="w-full flex flex-col justify-start items-start gap-2"
         >
             <div
-                className="whitespace-nowrap flex items-center justify-start gap-2 overflow-hidden"
+                className="whitespace-nowrap w-full flex items-center justify-start gap-2 overflow-hidden"
             >
                 <div>
                     {getSearchTargetIcon(props.searchItem.target.type)}
