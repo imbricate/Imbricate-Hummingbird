@@ -7,6 +7,7 @@
 import React, { FC } from "react";
 import { ImbricateOriginObject } from "../../../origin/hooks/use-origins";
 import { useText } from "../../../text/hooks/use-text";
+import { useMarkdownStyle } from "../../hooks/use-markdown-style";
 import { useMermaid } from "../../hooks/use-mermaid";
 import { transformMarkdown } from "../../markdown/transform-markdown";
 
@@ -26,6 +27,7 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
     const [rendered, setRendered] = React.useState<string | null>(null);
 
     useMermaid(() => typeof rendered === "string", [rendered]);
+    useMarkdownStyle(() => typeof rendered === "string", [rendered]);
 
     React.useEffect(() => {
 
@@ -46,11 +48,14 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
         return null;
     }
 
-    return (<div>
+    return (<div
+        className="m-5"
+    >
         <div
             dangerouslySetInnerHTML={{
                 __html: rendered,
             }}
+            className="markdown-body"
         />
         <script type="module">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

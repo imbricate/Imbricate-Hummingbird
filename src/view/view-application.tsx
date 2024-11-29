@@ -22,7 +22,9 @@ const ViewApplication: FC = () => {
     const documentUniqueIdentifier: string = params["document-unique-identifier"] as string;
     const propertyUniqueIdentifier: string = params["property-unique-identifier"] as string;
 
-    return (<main className={`${darkMode.value ? "dark" : ""} h-screen flex flex-col overflow-hidden`}>
+    return (<main
+        className={`${darkMode.value ? "dark" : ""} h-screen flex flex-col overflow-hidden`}
+    >
         <ViewView
             databaseUniqueIdentifier={databaseUniqueIdentifier}
             documentUniqueIdentifier={documentUniqueIdentifier}

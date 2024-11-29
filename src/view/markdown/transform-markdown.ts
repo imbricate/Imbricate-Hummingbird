@@ -18,7 +18,7 @@ export const transformMarkdown = async (markdown: string): Promise<string> => {
                 return `<pre class="mermaid">${token.text}</pre>`;
             }
         }
-        return token.text;
+        return `<pre><code>${token.text}</code></pre>`;
     };
 
     return await parse(markdown, {
