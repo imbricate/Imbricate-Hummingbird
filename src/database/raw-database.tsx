@@ -5,7 +5,7 @@
  */
 
 import React, { FC, useReducer } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
 import { ImbricateDocumentResponse, useDocuments } from "../document/hooks/use-documents";
 import { DatabaseHeader } from "./components/database-header";
@@ -32,15 +32,6 @@ export const RawDatabase: FC = () => {
         <DatabaseHeader
             database={documents.database.database}
         />
-        <div
-            className="m-2"
-        >
-            <Link
-                to={`/database/${databaseUniqueIdentifier}/schema`}
-            >
-                Edit Schema
-            </Link>
-        </div>
         <DocumentsTable
             database={documents.database.database}
             documents={documents.documents}

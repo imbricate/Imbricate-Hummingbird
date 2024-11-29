@@ -44,6 +44,7 @@ export const DatabasesSchemaView: FC = () => {
     return (<div>
         <DatabaseHeader
             database={database.database}
+            isSchema
         />
         <div
             className="flex flex-col gap-2"
