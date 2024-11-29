@@ -10,6 +10,7 @@ import { useText } from "../../../text/hooks/use-text";
 import { useMarkdownStyle } from "../../hooks/use-markdown-style";
 import { useMermaid } from "../../hooks/use-mermaid";
 import { transformMarkdown } from "../../markdown/transform-markdown";
+import { useHighlightStyle } from "../../hooks/use-highlight";
 
 export type ViewMarkdownViewerProps = {
 
@@ -28,6 +29,7 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
 
     useMermaid(() => typeof rendered === "string", [rendered]);
     useMarkdownStyle(() => typeof rendered === "string", [rendered]);
+    useHighlightStyle(() => typeof rendered === "string", [rendered]);
 
     React.useEffect(() => {
 
