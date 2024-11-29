@@ -75,7 +75,6 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         <Table
             aria-label="document-list"
             removeWrapper
-            selectionMode="single"
         >
             <TableHeader>
                 <React.Fragment>

@@ -5,12 +5,31 @@
  */
 
 import React, { FC } from "react";
-
-export type DocumentViewProps = {
-};
+import { useParams } from "react-router-dom";
+import { DocumentPropertyCards } from "./components/property-card/property-cards";
+import { useDocument } from "./hooks/use-document";
 
 export const DocumentView: FC = () => {
 
+    const params = useParams();
+    const databaseUniqueIdentifier: string =
+        params["database-unique-identifier"] as string;
+    const documentUniqueIdentifier: string =
+        params["document-unique-identifier"] as string;
+
+    const document = useDocument(
+        databaseUniqueIdentifier,
+        documentUniqueIdentifier,
+    );
+
+    if (!document) {
+        return null;
+    }
+
     return (<div>
+        <DocumentPropertyCards
+            schema={document.database.database.schema}
+            properties={document.document.properties}
+        />
     </div>);
 };

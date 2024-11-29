@@ -165,6 +165,7 @@ export const createDocumentsTableCells = (
             key="$extra"
         >
             <DocumentsTableEditingExtraCell
+                databaseUniqueIdentifier={props.databaseUniqueIdentifier}
                 item={props.document}
                 editingController={props.editingController}
             />

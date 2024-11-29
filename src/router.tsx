@@ -11,6 +11,7 @@ import { ApplicationWrapper } from "./application/application-wrapper";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
+import { DocumentView } from "./document/document-view";
 import { EditWrapper } from "./edit/edit-wrapper";
 import { NewOriginView } from "./origin/new-origin-view";
 import { OriginView } from "./origin/origin-view";
@@ -45,6 +46,10 @@ export const ApplicationRouter = () => {
                 <Route
                     path="database/:database-unique-identifier/documents"
                     element={<RawDatabase />}
+                />
+                <Route
+                    path="database/:database-unique-identifier/document/:document-unique-identifier"
+                    element={<DocumentView />}
                 />
                 <Route
                     path="database/:database-unique-identifier/schema"

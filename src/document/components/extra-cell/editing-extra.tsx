@@ -4,17 +4,20 @@
  * @description Editing Extra
  */
 
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import { Button, ButtonGroup, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
+import { GoTelescopeFill } from "react-icons/go";
 import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
 import { MdEdit, MdOutlineInfo } from "react-icons/md";
 import { TbMoodPuzzled } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 import { CommonCopyItem } from "../../../common/components/copy-item";
 import { DocumentEditingController } from "../../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../../util/arrange-documents";
 
 export type DocumentsTableEditingExtraCellProps = {
 
+    readonly databaseUniqueIdentifier: string;
     readonly item: ArrangeDocumentsResultItem;
     readonly editingController: DocumentEditingController;
 };
@@ -24,6 +27,8 @@ export const DocumentsTableEditingExtraCell: FC<DocumentsTableEditingExtraCellPr
 ) => {
 
     const items: React.ReactElement[] = [];
+
+    const navigate = useNavigate();
 
     if (props.item.editing) {
 
@@ -60,17 +65,29 @@ export const DocumentsTableEditingExtraCell: FC<DocumentsTableEditingExtraCellPr
         items.push(<div
             key="editing-status"
         >
-            <Button
-                isIconOnly
-                color="secondary"
-                variant="solid"
-                size="sm"
-                onClick={() => {
-                    props.editingController.startEditingDocument(props.item.document);
-                }}
-            >
-                <MdEdit />
-            </Button>
+            <ButtonGroup>
+                <Button
+                    color="primary"
+                    variant="solid"
+                    size="sm"
+                    onClick={() => {
+                        navigate(`/database/${props.databaseUniqueIdentifier}/document/${props.item.document.uniqueIdentifier}`);
+                    }}
+                >
+                    <GoTelescopeFill /> View
+                </Button>
+                <Button
+                    isIconOnly
+                    color="secondary"
+                    variant="flat"
+                    size="sm"
+                    onClick={() => {
+                        props.editingController.startEditingDocument(props.item.document);
+                    }}
+                >
+                    <MdEdit />
+                </Button>
+            </ButtonGroup>
         </div>);
     }
 
