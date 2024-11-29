@@ -8,8 +8,13 @@ import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICA
 import React from "react";
 import { getDefaultValueOfProperty } from "../../util/default-value";
 import { DocumentPropertyCard } from "./property-card";
+import { Button } from "@nextui-org/react";
+import { IoSaveSharp } from "react-icons/io5";
+import { UseDocumentResponse } from "../../hooks/use-document";
 
 export type DocumentPropertyCardsProps = {
+
+    readonly document: UseDocumentResponse;
 
     readonly databaseUniqueIdentifier: string;
     readonly documentUniqueIdentifier: string;
@@ -24,6 +29,7 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
 
     const [properties, setProperties] = React.useState<DocumentProperties>(() => props.properties);
     const [edited, setEdited] = React.useState<boolean>(false);
+    const [saving, setSaving] = React.useState<boolean>(false);
 
     const updateProperty = (
         key: DocumentPropertyKey,
@@ -66,5 +72,23 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
                 }}
             />);
         })}
+        {edited && <div>
+            <Button
+                startContent={<IoSaveSharp />}
+                variant="solid"
+                color="primary"
+                isLoading={saving}
+                onClick={async () => {
+
+                    setSaving(true);
+                    await props.document.document.putProperties(properties);
+
+                    setSaving(false);
+                    setEdited(false);
+                }}
+            >
+                Save Changes
+            </Button>
+        </ div>}
     </div>);
 };
