@@ -5,7 +5,7 @@
  */
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
-import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
 import React from "react";
 import { CommonCopyItem } from "../../../common/components/copy-item";
 import { getPropertyIcon } from "../../../property/utils/get-icon";
@@ -25,6 +25,8 @@ export const DocumentPropertyCard: React.FC<DocumentPropertyCardProps> = (
     props: DocumentPropertyCardProps,
 ) => {
 
+    const isPrimary: boolean = props.schema.isPrimaryKey ?? false;
+
     return (<Card
         className="border-1"
         shadow="none"
@@ -32,18 +34,31 @@ export const DocumentPropertyCard: React.FC<DocumentPropertyCardProps> = (
         <CardHeader
             className="flex gap-2 items-center"
         >
-            <div>
-                {getPropertyIcon(props.schema.propertyType)}
-            </div>
-            <div
-                className="flex-1"
+            <Tooltip
+                content={<CommonCopyItem
+                    startContent="Property Identifier"
+                    content={props.schema.propertyIdentifier}
+                />}
+                delay={1000}
+                placement="bottom"
             >
-                {props.schema.propertyName}
-
-            </div>
-            <CommonCopyItem
-                content={props.schema.propertyIdentifier}
-            />
+                <div className="flex flex-1 gap-1 items-center">
+                    <div>
+                        {getPropertyIcon(props.schema.propertyType)}
+                    </div>
+                    <div
+                        className="flex-1"
+                    >
+                        {props.schema.propertyName}
+                    </div>
+                </div>
+            </Tooltip>
+            {isPrimary && <Chip
+                color="primary"
+                size="sm"
+            >
+                Primary
+            </Chip>}
         </CardHeader>
         <Divider />
         <CardBody>

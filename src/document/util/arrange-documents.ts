@@ -28,6 +28,8 @@ export type ArrangeDocumentsResult = {
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
     readonly documents: ArrangeDocumentsResultItem[];
     readonly creatingDocuments: Array<[string, DocumentProperties]>;
+
+    readonly primaryPropertyIdentifier?: string;
 };
 
 export const arrangeDocuments = (
@@ -86,11 +88,14 @@ export const arrangeDocuments = (
 
     const creatingDocuments: Array<[string, DocumentProperties]> = editingController.getCreatingDocuments();
 
+    const primaryPropertyIdentifier: string | undefined = database.schema.properties.find((property) => property.isPrimaryKey)?.propertyIdentifier;
+
     return {
         propertyIdentifiers,
         propertyNameMap,
         propertyTypesMap,
         documents: documentsResult,
         creatingDocuments,
+        primaryPropertyIdentifier,
     };
 };
