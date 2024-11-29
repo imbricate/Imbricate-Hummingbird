@@ -28,6 +28,8 @@ export const DocumentView: FC = () => {
 
     return (<div>
         <DocumentPropertyCards
+            databaseUniqueIdentifier={databaseUniqueIdentifier}
+            documentUniqueIdentifier={documentUniqueIdentifier}
             schema={document.database.database.schema}
             properties={document.document.properties}
         />

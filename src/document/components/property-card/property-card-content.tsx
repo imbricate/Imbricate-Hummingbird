@@ -5,20 +5,20 @@
  */
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
-import { Card, CardBody, CardHeader, Divider, TableCell } from "@nextui-org/react";
 import React from "react";
-import { getPropertyIcon } from "../../../property/utils/get-icon";
-import { CommonCopyItem } from "../../../common/components/copy-item";
-import { DocumentTableBooleanCell } from "../table-cells/boolean-cell";
-import { DocumentTableDateCell } from "../table-cells/date-cell";
-import { DocumentTableMarkdownCell } from "../table-cells/markdown-cell";
-import { DocumentTableNumberCell } from "../table-cells/number-cell";
-import { DocumentTableStringCell } from "../table-cells/string-cell";
+import { DocumentBooleanValue } from "../property-value/boolean-value";
+import { DocumentDateValue } from "../property-value/date-value";
+import { DocumentMarkdownValue } from "../property-value/markdown-value";
+import { DocumentStringValue } from "../property-value/string-value";
 
 export type DocumentPropertyCardContentProps = {
 
+    readonly databaseUniqueIdentifier: string;
+    readonly documentUniqueIdentifier: string;
+
     readonly schema: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>;
-    readonly property?: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
+    readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
+    readonly updateProperty: (value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => void;
 };
 
 export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentProps> = (
@@ -27,83 +27,59 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
 
     const propertyType: IMBRICATE_PROPERTY_TYPE = props.schema.propertyType;
     const propertyIdentifier: string = props.schema.propertyIdentifier;
-    const property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE> = props.property as any;
-
-    const getEditingProperty = () => {
-        return null as any;
-    };
-
-    const updateEditingProperty = (value: any) => {
-    };
 
     // IMBRICATE_PROPERTY_TYPE SWITCH
     switch (propertyType) {
 
         case IMBRICATE_PROPERTY_TYPE.BOOLEAN:
-            return (<DocumentTableBooleanCell
+            return (<DocumentBooleanValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.STRING:
-            return (<DocumentTableStringCell
+            return (<DocumentStringValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.NUMBER:
-            return (<DocumentTableNumberCell
+            return (<DocumentMarkdownValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.NUMBER>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.DATE:
-            return (<DocumentTableDateCell
+            return (<DocumentDateValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.DATE>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
-            return (<DocumentTableMarkdownCell
+            return (<DocumentMarkdownValue
                 databaseUniqueIdentifier={props.databaseUniqueIdentifier}
-                documentUniqueIdentifier={props.document.document.uniqueIdentifier}
+                documentUniqueIdentifier={props.documentUniqueIdentifier}
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.LABEL:
-            return (<DocumentTableStringCell
+            return (<DocumentStringValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.REFERENCE:
-            return (<DocumentTableStringCell
+            return (<DocumentStringValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
         default:
-            return (<DocumentTableStringCell
+            return (<DocumentStringValue
                 propertyKey={propertyIdentifier}
-                property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
-                getEditingProperty={getEditingProperty}
-                updateEditingProperty={updateEditingProperty}
-                editing
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
             />);
     }
 };
