@@ -9,6 +9,7 @@ import React from "react";
 import { DocumentBooleanValue } from "../property-value/boolean-value";
 import { DocumentDateValue } from "../property-value/date-value";
 import { DocumentMarkdownValue } from "../property-value/markdown-value";
+import { DocumentNumberValue } from "../property-value/number-value";
 import { DocumentStringValue } from "../property-value/string-value";
 
 export type DocumentPropertyCardContentProps = {
@@ -44,7 +45,7 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
                 updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.NUMBER:
-            return (<DocumentMarkdownValue
+            return (<DocumentNumberValue
                 propertyKey={propertyIdentifier}
                 property={props.property as any}
                 updateProperty={props.updateProperty as any}

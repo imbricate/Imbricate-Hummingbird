@@ -61,7 +61,9 @@ export const DocumentPropertyCard: React.FC<DocumentPropertyCardProps> = (
             </Chip>}
         </CardHeader>
         <Divider />
-        <CardBody>
+        <CardBody
+            className="items-start"
+        >
             <DocumentPropertyCardContent
                 databaseUniqueIdentifier={props.databaseUniqueIdentifier}
                 documentUniqueIdentifier={props.documentUniqueIdentifier}

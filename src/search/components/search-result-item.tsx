@@ -46,7 +46,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
                     const target: ImbricateSearchTarget<IMBRICATE_SEARCH_TARGET_TYPE.DOCUMENT> =
                         props.searchItem.target as ImbricateSearchTarget<IMBRICATE_SEARCH_TARGET_TYPE.DOCUMENT>;
 
-                    navigate(`/database/${target.target.databaseUniqueIdentifier}/documents`);
+                    navigate(`/database/${target.target.databaseUniqueIdentifier}/document/${target.target.documentUniqueIdentifier}`);
                     return;
                 }
                 case IMBRICATE_SEARCH_TARGET_TYPE.MARKDOWN: {

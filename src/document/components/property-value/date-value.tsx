@@ -4,7 +4,7 @@
  * @description Date Value
  */
 
-import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { DatePicker, DateValue } from "@nextui-org/react";
 import React, { FC } from "react";
 import { UIDateToDate, dateToUIDate } from "../../util/parse-date";
@@ -13,7 +13,7 @@ export type DocumentDateValueProps = {
 
     readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.DATE>;
-    readonly updateProperty: (value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.DATE>) => void;
+    readonly updateProperty: (value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.DATE>) => void;
 };
 
 export const DocumentDateValue: FC<DocumentDateValueProps> = (
@@ -26,9 +26,10 @@ export const DocumentDateValue: FC<DocumentDateValueProps> = (
         onChange={(newDate: DateValue) => {
 
             const date = UIDateToDate(newDate);
-            props.updateProperty(
-                date.toISOString(),
-            );
+            props.updateProperty({
+                type: IMBRICATE_PROPERTY_TYPE.DATE,
+                value: date.toISOString(),
+            });
         }}
     />);
 };

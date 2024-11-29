@@ -30,12 +30,14 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
         value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>,
     ) => {
 
-        console.log(key, value);
-
-        setProperties({
+        const newProperties: DocumentProperties = {
             ...properties,
-            [key]: value,
-        });
+            [key]: {
+                type: value.type,
+                value: value.value,
+            },
+        };
+        setProperties(newProperties);
 
         if (edited) {
             return;

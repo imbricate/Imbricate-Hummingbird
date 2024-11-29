@@ -4,7 +4,7 @@
  * @description Boolean Value
  */
 
-import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Checkbox } from "@nextui-org/react";
 import React, { FC } from "react";
 
@@ -12,7 +12,7 @@ export type DocumentBooleanValueProps = {
 
     readonly propertyKey: string;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>;
-    readonly updateProperty: (value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE.BOOLEAN>) => void;
+    readonly updateProperty: (value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.BOOLEAN>) => void;
 };
 
 export const DocumentBooleanValue: FC<DocumentBooleanValueProps> = (
@@ -24,9 +24,10 @@ export const DocumentBooleanValue: FC<DocumentBooleanValueProps> = (
         isSelected={props.property.value}
         onChange={(event) => {
 
-            props.updateProperty(
-                event.target.checked,
-            );
+            props.updateProperty({
+                type: IMBRICATE_PROPERTY_TYPE.BOOLEAN,
+                value: event.target.checked,
+            });
         }}
     />);
 };

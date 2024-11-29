@@ -12,6 +12,7 @@ import { FaCheck } from "react-icons/fa";
 export type CommonCopyItemProps = {
 
     readonly startContent?: React.ReactNode;
+    readonly prefix?: React.ReactNode;
     readonly content: string;
 };
 
@@ -24,6 +25,9 @@ export const CommonCopyItem: FC<CommonCopyItemProps> = (props: CommonCopyItemPro
             {props.startContent}
         </div>}
         <div className="flex gap-1 justify-center items-center">
+            {props.prefix && <div>
+                {props.prefix}
+            </div>}
             {props.content}
             <Button
                 isIconOnly
