@@ -80,7 +80,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
         <CardBody
             className="whitespace-pre-wrap max-h-32"
         >
-            {props.searchItem.secondary}
+            {props.searchItem.secondary.trim()}
         </CardBody>
     </Card>);
 };
