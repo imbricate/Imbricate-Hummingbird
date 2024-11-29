@@ -65,15 +65,19 @@ export const SearchResultItem: FC<SearchResultItemProps> = (
         }}
     >
         <CardHeader
-            className="flex items-center justify-start gap-2 whitespace-pre-wrap w-full"
+            className="w-full flex flex-col justify-start items-start gap-2"
         >
-            <div>
-                {getSearchTargetIcon(props.searchItem.target.type)}
-            </div>
             <div
-                className="flex-1 text-left text-ellipsis overflow-hidden"
+                className="whitespace-nowrap flex items-center justify-start gap-2 overflow-hidden"
             >
-                {props.searchItem.primary.trim()}
+                <div>
+                    {getSearchTargetIcon(props.searchItem.target.type)}
+                </div>
+                <div
+                    className="flex-1 text-left text-ellipsis overflow-hidden"
+                >
+                    {props.searchItem.primary.trim()}
+                </div>
             </div>
         </CardHeader>
         <Divider />

@@ -18,7 +18,11 @@ export const SearchView: FC = () => {
     const [keyword, setKeyword] = React.useState<string>("");
     const [searchResults, setSearchResults] = React.useState<HummingbirdSearchResult[]>([]);
 
+    const [loading, setLoading] = React.useState<boolean>(false);
+
     const performSearch = async () => {
+
+        setLoading(true);
 
         const searchResults: HummingbirdSearchResult[] = [];
 
@@ -31,6 +35,7 @@ export const SearchView: FC = () => {
         }
 
         setSearchResults(searchResults);
+        setLoading(false);
     };
 
     return (<div>
@@ -48,7 +53,7 @@ export const SearchView: FC = () => {
                     onChange={(event) => {
                         setKeyword(event.target.value);
                     }}
-                    onKeyDown={(event) => {
+                    onKeyDown={(event: any) => {
                         if (event.key === "Enter") {
                             performSearch();
                         }
@@ -60,6 +65,7 @@ export const SearchView: FC = () => {
                     color="primary"
                     isIconOnly
                     onClick={performSearch}
+                    isLoading={loading}
                 >
                     <FaSearch />
                 </Button>
