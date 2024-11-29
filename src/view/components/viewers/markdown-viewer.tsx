@@ -54,6 +54,6 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
         dangerouslySetInnerHTML={{
             __html: rendered,
         }}
-        className="markdown-body p-5"
+        className="markdown-body p-5 min-h-screen"
     />);
 };

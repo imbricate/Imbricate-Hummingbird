@@ -23,7 +23,7 @@ const ViewApplication: FC = () => {
     const propertyUniqueIdentifier: string = params["property-unique-identifier"] as string;
 
     return (<main
-        className={`${darkMode.value ? "dark" : ""} h-screen flex flex-col overflow-hidden`}
+        className={`${darkMode.value ? "dark" : ""} h-screen flex flex-col`}
     >
         <ViewView
             databaseUniqueIdentifier={databaseUniqueIdentifier}
