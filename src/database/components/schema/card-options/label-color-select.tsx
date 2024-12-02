@@ -8,6 +8,7 @@ import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema, ImbricateDatabaseSche
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { MdDelete } from "react-icons/md";
+import { getLabelColorDot } from "../../../utils/label-color";
 
 export type DatabaseSchemaPropertyCardOptionsLabelColorSelectProps = {
 
@@ -75,24 +76,16 @@ export const DatabaseSchemaPropertyCardOptionsLabelColorSelect: FC<DatabaseSchem
                     });
                 }}
             >
-                <SelectItem key="black" startContent={<div
-                    className="w-4 h-4 rounded-full bg-black"
-                />}>
+                <SelectItem key="black" startContent={getLabelColorDot("black")}>
                     Black
                 </SelectItem>
-                <SelectItem key="red" startContent={<div
-                    className="w-4 h-4 rounded-full bg-red-600"
-                />}>
+                <SelectItem key="red" startContent={getLabelColorDot("red")}>
                     Red
                 </SelectItem>
-                <SelectItem key="blue" startContent={<div
-                    className="w-4 h-4 rounded-full bg-blue-600"
-                />}>
+                <SelectItem key="blue" startContent={getLabelColorDot("blue")}>
                     Blue
                 </SelectItem>
-                <SelectItem key="purple" startContent={<div
-                    className="w-4 h-4 rounded-full bg-purple-600"
-                />}>
+                <SelectItem key="purple" startContent={getLabelColorDot("purple")}>
                     Purple
                 </SelectItem>
             </Select>

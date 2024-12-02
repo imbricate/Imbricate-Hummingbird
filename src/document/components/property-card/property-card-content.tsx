@@ -8,6 +8,7 @@ import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema
 import React from "react";
 import { DocumentBooleanValue } from "../property-value/boolean-value";
 import { DocumentDateValue } from "../property-value/date-value";
+import { DocumentLabelValue } from "../property-value/label-value";
 import { DocumentMarkdownValue } from "../property-value/markdown-value";
 import { DocumentNumberValue } from "../property-value/number-value";
 import { DocumentStringValue } from "../property-value/string-value";
@@ -65,10 +66,11 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
                 updateProperty={props.updateProperty as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.LABEL:
-            return (<DocumentStringValue
+            return (<DocumentLabelValue
                 propertyKey={propertyIdentifier}
                 property={props.property as any}
                 updateProperty={props.updateProperty as any}
+                options={props.schema.propertyOptions as any}
             />);
         case IMBRICATE_PROPERTY_TYPE.REFERENCE:
             return (<DocumentStringValue
