@@ -115,6 +115,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                             const cells = createDocumentsTableCellsCreate({
                                 propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
                                 propertyTypesMap: arrangedDocuments.propertyTypesMap,
+                                schemaMap: arrangedDocuments.schemaMap,
                                 creatingDocumentKey: documentKey,
                                 creatingDocumentProperties: documentProperties,
                                 editingController: editingControllerRef.current!,

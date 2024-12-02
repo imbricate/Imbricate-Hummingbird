@@ -4,21 +4,23 @@
  * @description Documents Table Cells Create
  */
 
-import { DocumentProperties, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentProperties, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
 import React from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
+import { DocumentsTableCreatingExtraCell } from "./extra-cell/creating-extra";
 import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
+import { DocumentTableDateCell } from "./table-cells/date-cell";
+import { DocumentTableLabelCell } from "./table-cells/label-cell";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
 import { DocumentTableNumberCell } from "./table-cells/number-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
-import { DocumentsTableCreatingExtraCell } from "./extra-cell/creating-extra";
-import { DocumentTableDateCell } from "./table-cells/date-cell";
 
 export type DocumentsTableCellsCreateProps = {
 
     readonly propertyIdentifiers: string[];
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
+    readonly schemaMap: Record<string, ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>>;
     readonly creatingDocumentKey: string;
     readonly creatingDocumentProperties: DocumentProperties;
     readonly editingController: DocumentEditingController;
@@ -121,18 +123,25 @@ export const createDocumentsTableCellsCreate = (
                             editing
                         />
                     </TableCell>);
-                case IMBRICATE_PROPERTY_TYPE.LABEL:
+                case IMBRICATE_PROPERTY_TYPE.LABEL: {
+
+                    const options: ImbricateDatabaseSchemaPropertyOptionsLabel = props.schemaMap[propertyIdentifier].propertyOptions as any;
+
                     return (<TableCell
                         key={propertyIdentifier}
                     >
-                        <DocumentTableStringCell
+                        <DocumentTableLabelCell
                             propertyKey={propertyIdentifier}
-                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.LABEL>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
                             editing
+
+                            options={options}
                         />
                     </TableCell>);
+                }
+
                 case IMBRICATE_PROPERTY_TYPE.REFERENCE:
                     return (<TableCell
                         key={propertyIdentifier}

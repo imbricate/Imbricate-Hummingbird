@@ -4,7 +4,7 @@
  * @description Arrange Documents
  */
 
-import { DocumentProperties, DocumentPropertyValue, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { DocumentProperties, DocumentPropertyValue, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
 import { DocumentEditingController } from "../controller/editing-controller";
 
 type ArrangeDocumentsResultItemFloatingProperty = {
@@ -26,6 +26,7 @@ export type ArrangeDocumentsResult = {
     readonly propertyIdentifiers: string[];
     readonly propertyNameMap: Record<string, string>;
     readonly propertyTypesMap: Record<string, IMBRICATE_PROPERTY_TYPE>;
+    readonly schemaMap: Record<string, ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>>;
     readonly documents: ArrangeDocumentsResultItem[];
     readonly creatingDocuments: Array<[string, DocumentProperties]>;
 
@@ -56,6 +57,13 @@ export const arrangeDocuments = (
                 [current.propertyIdentifier]: current.propertyType,
             };
         }, {});
+
+    const schemaMap: Record<string, ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>> = database.schema.properties.reduce((previous, current) => {
+        return {
+            ...previous,
+            [current.propertyIdentifier]: current,
+        };
+    }, {});
 
     const documentsResult: ArrangeDocumentsResultItem[] = documents
         .map((document): ArrangeDocumentsResultItem => {
@@ -94,6 +102,7 @@ export const arrangeDocuments = (
         propertyIdentifiers,
         propertyNameMap,
         propertyTypesMap,
+        schemaMap,
         documents: documentsResult,
         creatingDocuments,
         primaryPropertyIdentifier,
