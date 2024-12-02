@@ -184,6 +184,12 @@ export const DatabaseSchemaPropertyCard: FC<DatabaseSchemaPropertyCardProps> = (
                     Markdown
                 </SelectItem>
                 <SelectItem
+                    key={IMBRICATE_PROPERTY_TYPE.JSON}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.JSON)}
+                >
+                    JSON
+                </SelectItem>
+                <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.LABEL}
                     startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.LABEL)}
                 >

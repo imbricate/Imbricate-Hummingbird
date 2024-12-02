@@ -8,6 +8,7 @@ import React, { FC, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { DocumentsTable } from "../document/components/documents-table";
 import { ImbricateDocumentResponse, useDocuments } from "../document/hooks/use-documents";
+import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { DatabaseHeader } from "./components/database-header";
 
 export const RawDatabase: FC = () => {
@@ -22,6 +23,19 @@ export const RawDatabase: FC = () => {
     const documents: ImbricateDocumentResponse = useDocuments(
         databaseUniqueIdentifier,
         version,
+    );
+
+    useAsyncTitle(
+        () => Boolean(documents.database),
+        () => {
+            const databaseName: string = documents.database!.database.databaseName;
+
+            return [
+                databaseName,
+                "Database",
+            ];
+        },
+        [documents.database?.database.databaseName],
     );
 
     if (!documents.database) {

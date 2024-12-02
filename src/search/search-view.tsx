@@ -10,6 +10,7 @@ import { FaSearch } from "react-icons/fa";
 import { useOrigins } from "../origin/hooks/use-origins";
 import { SearchResult } from "./search-result";
 import { HummingbirdSearchResult } from "./types/search";
+import { useTitle } from "../navigation/hooks/use-title";
 
 export const SearchView: FC = () => {
 
@@ -19,6 +20,10 @@ export const SearchView: FC = () => {
     const [searchResults, setSearchResults] = React.useState<HummingbirdSearchResult[]>([]);
 
     const [loading, setLoading] = React.useState<boolean>(false);
+
+    useTitle([
+        "Search",
+    ]);
 
     const performSearch = async () => {
 

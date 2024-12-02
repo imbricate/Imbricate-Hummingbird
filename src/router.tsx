@@ -22,7 +22,10 @@ export const ApplicationRouter = () => {
 
     const navigate = useNavigate();
 
-    return (<NextUIProvider navigate={navigate} useHref={useHref}>
+    return (<NextUIProvider
+        navigate={navigate}
+        useHref={useHref}
+    >
         <Routes>
             <Route path="/" element={<ApplicationWrapper />} errorElement={<div>
                 Not Found

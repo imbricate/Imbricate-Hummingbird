@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
  * @namespace Edit_Editors
- * @description Markdown Editor
+ * @description Json Editor
  */
 
 import * as monaco from "monaco-editor";
@@ -10,14 +10,14 @@ import { ImbricateOriginObject } from "../../origin/hooks/use-origins";
 import { S_TextLoading, S_TextNotFound, S_TextNotInitialized, useText } from "../../text/hooks/use-text";
 import { GetValueRef } from "../types/editor-refs";
 
-export type EditMarkdownEditorProps = {
+export type EditJsonEditorProps = {
 
     readonly getValueRef: GetValueRef;
     readonly origin: ImbricateOriginObject;
     readonly textUniqueIdentifier?: string;
 };
 
-export const EditMarkdownEditor: FC<EditMarkdownEditorProps> = (props: EditMarkdownEditorProps) => {
+export const EditJsonEditor: FC<EditJsonEditorProps> = (props: EditJsonEditorProps) => {
 
     const editorRef = React.useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
     const onboardedRef = React.useRef(false);
@@ -36,7 +36,7 @@ export const EditMarkdownEditor: FC<EditMarkdownEditorProps> = (props: EditMarkd
         }
 
         const editorValue = textContent === S_TextNotInitialized
-            ? "# New Document"
+            ? "{}"
             : textContent.textContent;
 
         const container = document.getElementById("edit-view-monaco");
@@ -51,7 +51,7 @@ export const EditMarkdownEditor: FC<EditMarkdownEditorProps> = (props: EditMarkd
         onboardedRef.current = true;
         const editor = monaco.editor.create(container, {
             value: editorValue,
-            language: "markdown",
+            language: "json",
             automaticLayout: true,
             minimap: {
                 enabled: false,

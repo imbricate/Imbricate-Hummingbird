@@ -6,6 +6,7 @@
 
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
+import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { OriginDatabaseListView } from "./components/origin-database-list-view";
 import { OriginInformationView } from "./components/origin-information-view";
 import { ImbricateOriginObject, useOrigins } from "./hooks/use-origins";
@@ -23,9 +24,21 @@ export const OriginView: FC<OriginViewProps> = (
 
     const origins: ImbricateOriginObject[] = useOrigins();
 
-    const targetOrigin: ImbricateOriginObject | undefined = origins.find((origin: ImbricateOriginObject) => {
-        return origin.origin.uniqueIdentifier === originUniqueIdentifier;
-    });
+    const targetOrigin: ImbricateOriginObject | undefined =
+        origins.find((origin: ImbricateOriginObject) => {
+            return origin.origin.uniqueIdentifier === originUniqueIdentifier;
+        });
+
+    useAsyncTitle(
+        () => Boolean(targetOrigin),
+        () => {
+            return [
+                targetOrigin!.originName,
+                "Origin",
+            ];
+        },
+        [targetOrigin?.origin.uniqueIdentifier],
+    );
 
     if (!targetOrigin) {
         return null;

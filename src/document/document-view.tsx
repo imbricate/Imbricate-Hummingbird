@@ -6,9 +6,12 @@
 
 import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
 import React, { FC } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useNavigateDatabaseDocumentsView } from "../navigation/hooks/use-routes";
+import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { DocumentPropertyCards } from "./components/property-card/property-cards";
 import { useDocument } from "./hooks/use-document";
+import { getDocumentPrimary } from "./util/primary";
 
 export const DocumentView: FC = () => {
 
@@ -23,7 +26,24 @@ export const DocumentView: FC = () => {
         documentUniqueIdentifier,
     );
 
-    const navigate = useNavigate();
+    const navigateToDocuments = useNavigateDatabaseDocumentsView();
+
+    useAsyncTitle(
+        () => Boolean(document),
+        () => {
+
+            const primary = getDocumentPrimary(
+                document!.database.database.schema,
+                document!.document.properties,
+            );
+
+            return [
+                primary,
+                "Document",
+            ];
+        },
+        [String(document)],
+    );
 
     if (!document) {
         return null;
@@ -38,7 +58,12 @@ export const DocumentView: FC = () => {
         >
             <BreadcrumbItem
                 onClick={() => {
-                    navigate(`/database/${document.database.database.uniqueIdentifier}/documents`);
+                    navigateToDocuments(
+                        document.database.database.uniqueIdentifier,
+                        {
+                            replace: true,
+                        },
+                    );
                 }}
             >
                 {document.database.database.databaseName}

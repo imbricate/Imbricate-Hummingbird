@@ -7,9 +7,11 @@
 import { ImbricateDatabaseSchema } from "@imbricate/core";
 import { Button } from "@nextui-org/react";
 import React, { FC, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { clearCache } from "../common/cache/cache";
 import { DATABASE_CACHE_IDENTIFIER } from "../common/cache/static";
+import { useNavigateDatabaseDocumentsView } from "../navigation/hooks/use-routes";
+import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { DatabaseHeader } from "./components/database-header";
 import { DatabaseSchemaAddPropertyButton } from "./components/schema/add-property-button";
 import { DatabaseSchemaPropertyCard } from "./components/schema/property-card";
@@ -26,7 +28,7 @@ export const DatabasesSchemaView: FC = () => {
     const editedRef = React.useRef(false);
 
     const database = useDatabase(databaseUniqueIdentifier);
-    const navigate = useNavigate();
+    const navigateToDocuments = useNavigateDatabaseDocumentsView();
 
     const [saving, setSaving] = React.useState<boolean>(false);
 
@@ -36,6 +38,17 @@ export const DatabasesSchemaView: FC = () => {
             setSchema(cloneImbricateSchema(database.database.schema));
         }
     }, [database?.origin.origin.uniqueIdentifier]);
+
+    useAsyncTitle(
+        () => Boolean(database),
+        () => {
+            return [
+                database!.database.databaseName,
+                "Database Schema",
+            ];
+        },
+        [database?.origin.origin.uniqueIdentifier],
+    );
 
     if (database === null || schema === null) {
         return null;
@@ -90,7 +103,9 @@ export const DatabasesSchemaView: FC = () => {
                     clearCache(DATABASE_CACHE_IDENTIFIER);
                     await database.database.putSchema(schema);
 
-                    navigate(`/database/${databaseUniqueIdentifier}/documents`);
+                    navigateToDocuments(databaseUniqueIdentifier, {
+                        replace: true,
+                    });
                 }}
             >
                 Save

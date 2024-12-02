@@ -12,6 +12,7 @@ import { DocumentLabelValue } from "../property-value/label-value";
 import { DocumentMarkdownValue } from "../property-value/markdown-value";
 import { DocumentNumberValue } from "../property-value/number-value";
 import { DocumentStringValue } from "../property-value/string-value";
+import { DocumentJsonValue } from "../property-value/json-value";
 
 export type DocumentPropertyCardContentProps = {
 
@@ -59,6 +60,14 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
             />);
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return (<DocumentMarkdownValue
+                databaseUniqueIdentifier={props.databaseUniqueIdentifier}
+                documentUniqueIdentifier={props.documentUniqueIdentifier}
+                propertyKey={propertyIdentifier}
+                property={props.property as any}
+                updateProperty={props.updateProperty as any}
+            />);
+        case IMBRICATE_PROPERTY_TYPE.JSON:
+            return (<DocumentJsonValue
                 databaseUniqueIdentifier={props.databaseUniqueIdentifier}
                 documentUniqueIdentifier={props.documentUniqueIdentifier}
                 propertyKey={propertyIdentifier}

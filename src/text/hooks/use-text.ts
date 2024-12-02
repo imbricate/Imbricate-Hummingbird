@@ -9,23 +9,32 @@ import { useEffect, useState } from "react";
 import { executeDeduplicate } from "../../common/ongoing/ongoing";
 import { ImbricateOriginObject, useOrigins } from "../../origin/hooks/use-origins";
 
-export type UseTextResponse = {
+export const S_TextLoading: unique symbol = Symbol("TextLoading");
+export const S_TextNotInitialized: unique symbol = Symbol("TextNotInitialized");
+export const S_TextNotFound: unique symbol = Symbol("TextNotFound");
 
-    readonly textContent: string;
-};
+export type UseTextResponse =
+    {
+
+        readonly textContent: string;
+    }
+    | typeof S_TextLoading
+    | typeof S_TextNotInitialized
+    | typeof S_TextNotFound;
 
 export const useText = (
     originUniqueIdentifier: string,
     textUniqueIdentifier?: string,
-): UseTextResponse | null => {
+): UseTextResponse => {
 
     const origins: ImbricateOriginObject[] = useOrigins();
     const targetOrigin = origins.find((origin: ImbricateOriginObject) => origin.origin.uniqueIdentifier === originUniqueIdentifier);
 
     const [text, setText] = useState<string | null>(null);
+    const [responseSymbol, setResponseSymbol] = useState<UseTextResponse | null>(null);
 
     if (!targetOrigin) {
-        return null;
+        return S_TextLoading;
     }
 
     useEffect(() => {
@@ -33,7 +42,7 @@ export const useText = (
         const execute = async () => {
 
             if (!textUniqueIdentifier) {
-                setText("Text document not initialized");
+                setResponseSymbol(S_TextNotInitialized);
                 return;
             }
 
@@ -49,7 +58,7 @@ export const useText = (
             );
 
             if (!text) {
-                setText("Text document not found");
+                setResponseSymbol(S_TextNotFound);
                 return;
             }
 
@@ -60,8 +69,12 @@ export const useText = (
         execute();
     }, [originUniqueIdentifier, textUniqueIdentifier]);
 
+    if (typeof responseSymbol === "symbol") {
+        return responseSymbol;
+    }
+
     if (text === null) {
-        return null;
+        return S_TextLoading;
     }
 
     return {
