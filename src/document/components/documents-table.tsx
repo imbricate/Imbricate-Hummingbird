@@ -81,7 +81,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         >
             <Table
                 classNames={{
-                    base: "h-full overflow-auto",
+                    base: "h-full overflow-auto p-1",
                 }}
                 isHeaderSticky
                 aria-label="document-list"

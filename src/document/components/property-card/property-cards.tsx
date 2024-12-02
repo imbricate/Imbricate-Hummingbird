@@ -4,12 +4,11 @@
  * @description Property Cards
  */
 
-import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema } from "@imbricate/core";
+import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema, getImbricateDefaultValueOfProperty } from "@imbricate/core";
 import { Button } from "@nextui-org/react";
 import React from "react";
 import { IoSaveSharp } from "react-icons/io5";
 import { UseDocumentResponse } from "../../hooks/use-document";
-import { getDefaultValueOfProperty } from "../../util/default-value";
 import { DocumentPropertyCard } from "./property-card";
 
 export type DocumentPropertyCardsProps = {
@@ -57,7 +56,7 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
         {props.schema.properties.map((propertySchema) => {
 
             const propertyValue = properties[propertySchema.propertyIdentifier]
-                ?? getDefaultValueOfProperty(propertySchema.propertyType);
+                ?? getImbricateDefaultValueOfProperty(propertySchema.propertyType);
 
             return (<DocumentPropertyCard
                 key={propertySchema.propertyIdentifier}

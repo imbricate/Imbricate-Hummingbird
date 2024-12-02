@@ -4,8 +4,7 @@
  * @description Clone Properties
  */
 
-import { DocumentProperties, ImbricateDatabaseSchema } from "@imbricate/core";
-import { getDefaultValueOfProperty } from "./default-value";
+import { DocumentProperties, ImbricateDatabaseSchema, getImbricateDefaultValueOfProperty } from "@imbricate/core";
 
 export const cloneAndFillDocumentProperties = (
     properties: DocumentProperties,
@@ -22,7 +21,7 @@ export const cloneAndFillDocumentProperties = (
 
         clonedProperties[property.propertyIdentifier] = {
             type: property.propertyType,
-            value: getDefaultValueOfProperty(property.propertyType),
+            value: getImbricateDefaultValueOfProperty(property.propertyType),
         };
     }
 
