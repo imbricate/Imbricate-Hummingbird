@@ -28,7 +28,9 @@ export const RawDatabase: FC = () => {
         return null;
     }
 
-    return <div>
+    return <div
+        className="h-full flex flex-col"
+    >
         <DatabaseHeader
             database={documents.database.database}
         />

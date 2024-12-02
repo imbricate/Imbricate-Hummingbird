@@ -61,77 +61,90 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         editingControllerRef.current,
     );
 
-    return (<div>
-        <Button
-            className="m-2"
-            variant="bordered"
-            color="primary"
-            onClick={() => {
-                editingControllerRef.current!.startCreatingDocument();
-            }}
+    return (<div
+        className="flex flex-col flex-1 min-w-0 min-h-0"
+    >
+        <div>
+            <Button
+                className="m-2"
+                variant="bordered"
+                color="primary"
+                onClick={() => {
+                    editingControllerRef.current!.startCreatingDocument();
+                }}
+            >
+                Create Document
+            </Button>
+        </div>
+        <div
+            className="flex-1 min-w-0 min-h-0"
         >
-            Create Document
-        </Button>
-        <Table
-            aria-label="document-list"
-            removeWrapper
-            className="overflow-y-auto"
-        >
-            <TableHeader>
-                <React.Fragment>
-                    {arrangedDocuments.propertyIdentifiers.map((
-                        propertyIdentifier: string,
-                    ) => {
-                        return (<TableColumn
-                            key={propertyIdentifier}
-                        >
-                            <DocumentsTableHeaderCell
-                                propertyIdentifier={propertyIdentifier}
-                                arrangedDocuments={arrangedDocuments}
-                            />
-                        </TableColumn>);
-                    })}
-                </React.Fragment>
-                <TableColumn
-                    className="flex items-center"
-                >
-                    Extra&nbsp;<MdMore />
-                </TableColumn>
-            </TableHeader>
-            <TableBody>
-                {[
-                    ...arrangedDocuments.creatingDocuments.map(([documentKey, documentProperties]) => {
-                        const cells = createDocumentsTableCellsCreate({
-                            propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
-                            propertyTypesMap: arrangedDocuments.propertyTypesMap,
-                            creatingDocumentKey: documentKey,
-                            creatingDocumentProperties: documentProperties,
-                            editingController: editingControllerRef.current!,
-                        });
-                        return (<TableRow
-                            key={documentKey}
-                        >
-                            {cells}
-                        </TableRow>);
-                    }),
-                    ...arrangedDocuments.documents.map((
-                        document: ArrangeDocumentsResultItem,
-                    ) => {
-                        const cells = createDocumentsTableCells({
-                            databaseUniqueIdentifier: props.database.uniqueIdentifier,
-                            propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
-                            propertyTypesMap: arrangedDocuments.propertyTypesMap,
-                            document,
-                            editingController: editingControllerRef.current!,
-                        });
-                        return (<TableRow
-                            key={document.document.uniqueIdentifier}
-                        >
-                            {cells}
-                        </TableRow>);
-                    }),
-                ]}
-            </TableBody>
-        </Table>
+            <Table
+                classNames={{
+                    base: "h-full overflow-auto",
+                }}
+                isHeaderSticky
+                aria-label="document-list"
+                removeWrapper
+                className="overflow-y-auto"
+            >
+                <TableHeader>
+                    <React.Fragment>
+                        {arrangedDocuments.propertyIdentifiers.map((
+                            propertyIdentifier: string,
+                        ) => {
+                            return (<TableColumn
+                                key={propertyIdentifier}
+                            >
+                                <DocumentsTableHeaderCell
+                                    propertyIdentifier={propertyIdentifier}
+                                    arrangedDocuments={arrangedDocuments}
+                                />
+                            </TableColumn>);
+                        })}
+                    </React.Fragment>
+                    <TableColumn
+                        className="flex items-center"
+                    >
+                        Extra&nbsp;<MdMore />
+                    </TableColumn>
+                </TableHeader>
+                <TableBody>
+                    {[
+                        ...arrangedDocuments.creatingDocuments.map(([documentKey, documentProperties]) => {
+                            const cells = createDocumentsTableCellsCreate({
+                                propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
+                                propertyTypesMap: arrangedDocuments.propertyTypesMap,
+                                creatingDocumentKey: documentKey,
+                                creatingDocumentProperties: documentProperties,
+                                editingController: editingControllerRef.current!,
+                            });
+                            return (<TableRow
+                                key={documentKey}
+                            >
+                                {cells}
+                            </TableRow>);
+                        }),
+                        ...arrangedDocuments.documents.map((
+                            document: ArrangeDocumentsResultItem,
+                        ) => {
+                            const cells = createDocumentsTableCells({
+                                databaseUniqueIdentifier: props.database.uniqueIdentifier,
+                                propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
+                                propertyTypesMap: arrangedDocuments.propertyTypesMap,
+                                document,
+                                editingController: editingControllerRef.current!,
+                            });
+                            return (<TableRow
+                                key={document.document.uniqueIdentifier}
+                            >
+                                {cells}
+                            </TableRow>);
+                        }),
+                    ]}
+                </TableBody>
+            </Table>
+        </div>
+
     </div>);
 };

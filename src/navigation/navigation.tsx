@@ -17,7 +17,7 @@ export const Navigation: FC = () => {
 
     const navigate = useNavigate();
 
-    return (<div className="w-full max-w-[260px]">
+    return (<div className="w-full max-w-[260px] p-1">
         <div className="w-full justify-center items-center flex my-2">
             <NavigationLogo />
         </div>

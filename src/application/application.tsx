@@ -18,11 +18,11 @@ const Application = () => {
     useOriginInitialization();
 
     return (<main
-        className={`${darkMode.value ? "dark" : ""} text-foreground bg-background min-h-screen`}
+        className={`${darkMode.value ? "dark" : ""} text-foreground bg-background h-screen`}
     >
-        <div className="flex px-1 py-2 gap-2">
+        <div className="flex gap-2 h-full">
             <Navigation />
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-hidden h-full">
                 <Outlet />
             </div>
         </div>
