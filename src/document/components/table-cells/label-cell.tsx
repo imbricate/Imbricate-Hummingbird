@@ -4,10 +4,10 @@
  * @description Label Cell
  */
 
-import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaPropertyOptionsLabel } from "@imbricate/core";
-import { Select, SelectItem } from "@nextui-org/react";
+import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaPropertyOptionsLabel, ImbricateDatabaseSchemaPropertyOptionsLabelOption } from "@imbricate/core";
+import { Chip, Select, SelectItem } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getLabelColorDot } from "../../../database/utils/label-color";
+import { getLabelColorClassName, getLabelColorDot, getLabelColorTextClassNameReverse } from "../../../database/utils/label-color";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableLabelCellProps = {
@@ -56,7 +56,41 @@ export const DocumentTableLabelCell: FC<DocumentTableLabelCellProps> = (
     }
 
     return (<DocumentTableCellContent
-        schemaType={IMBRICATE_PROPERTY_TYPE.STRING}
+        schemaType={IMBRICATE_PROPERTY_TYPE.LABEL}
         property={props.property}
+        render={(value) => {
+            console.log(value);
+
+            if (!Array.isArray(value)) {
+                return null;
+            }
+
+            const fixedValue: string[] = value as string[];
+
+            return (<div className="flex gap-1 flex-wrap">
+                {fixedValue
+                    .map((each: string) => {
+                        const targetOption = props.options.labelOptions.find((option) => option.labelIdentifier === each);
+
+                        if (!targetOption) {
+                            return null;
+                        }
+
+                        return targetOption;
+                    })
+                    .filter((each) => each !== null)
+                    .map((each: ImbricateDatabaseSchemaPropertyOptionsLabelOption) => {
+                        return (<Chip
+                            key={each.labelIdentifier}
+                            classNames={{
+                                base: getLabelColorClassName(each.labelColor) ?? "",
+                                content: getLabelColorTextClassNameReverse(each.labelColor) ?? "",
+                            }}
+                        >
+                            {each.labelName}
+                        </Chip>);
+                    })}
+            </div>);
+        }}
     />);
 };

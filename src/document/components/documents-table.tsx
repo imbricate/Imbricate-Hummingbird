@@ -134,6 +134,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
                                 propertyIdentifiers: arrangedDocuments.propertyIdentifiers,
                                 propertyTypesMap: arrangedDocuments.propertyTypesMap,
                                 document,
+                                schemaMap: arrangedDocuments.schemaMap,
                                 editingController: editingControllerRef.current!,
                             });
                             return (<TableRow
