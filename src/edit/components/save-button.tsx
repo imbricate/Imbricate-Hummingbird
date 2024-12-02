@@ -14,12 +14,12 @@ export type EditSaveButtonProps = {
     readonly saveProperty: () => Promise<void>;
 };
 
-const descriptionsMap = {
+const descriptionsMap: Record<string, string> = {
     saveAndClose: "Save property and close this editor.",
     saveAndContinue: "Save property and continue editing.",
 };
 
-const labelsMap = {
+const labelsMap: Record<string, string> = {
     saveAndClose: "Save and Close",
     saveAndContinue: "Save and Continue",
 };

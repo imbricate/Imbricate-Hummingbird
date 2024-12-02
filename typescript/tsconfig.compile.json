@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "lib": [
+            "esnext",
+            "DOM"
+        ],
+        "noEmit": true,
+        "downlevelIteration": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "module": "CommonJS",
+        "jsx": "react",
+        "moduleResolution": "node",
+        "isolatedModules": true
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

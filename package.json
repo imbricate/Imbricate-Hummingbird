@@ -5,7 +5,7 @@
   "description": "The minimal web client for Imbricate",
   "scripts": {
     "start": "vite --port 5711",
-    "compile": "tsc src/**/*.ts --noEmit",
+    "compile": "tsc --project typescript/tsconfig.compile.json",
     "build": "vite build --emptyOutDir --outDir app",
     "clean": "rm -rf app"
   },
