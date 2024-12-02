@@ -33,6 +33,12 @@ jobs:
       - name: Install Dependencies
         run: |
           yarn
+      - name: Lint
+        run: |
+          yarn lint
+      - name: Compile
+        run: |
+          yarn compile
       - name: Build
         run: |
           yarn build
