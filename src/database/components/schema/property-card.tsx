@@ -24,34 +24,41 @@ export const DatabaseSchemaPropertyCard: FC<DatabaseSchemaPropertyCardProps> = (
 ) => {
 
     const isPrimary: boolean = props.property.isPrimaryKey ?? false;
+    const allowToSetPrimary: boolean = !isPrimary && props.property.propertyType === IMBRICATE_PROPERTY_TYPE.STRING;
 
     return (<Card
         className="border-1"
         key={props.property.propertyIdentifier}
         shadow="none"
     >
-        {isPrimary && <React.Fragment>
-            <CardHeader >
-                <div
-                    className="text-large flex items-center gap-1"
-                >
-                    <FaStar /> Primary Key
-                </div>
-            </CardHeader>
-            <Divider />
-        </React.Fragment>}
+        <CardHeader
+            className="flex justify-end"
+        >
+            {isPrimary && <div
+                className="text-large flex items-center gap-1 flex-1"
+            >
+                <FaStar /> Primary Key
+            </div>}
+            <div
+                className="text-default-400 text-small"
+            >
+                {props.property.propertyIdentifier}
+            </div>
+        </CardHeader>
+        <Divider />
         <CardHeader
             className="flex flex-col gap-2 items-start"
         >
             <div
                 className="flex w-full gap-1 items-center justify-center"
             >
-                {!isPrimary && <Button
+                {allowToSetPrimary && <Button
                     className="h-14"
                     variant="flat"
                     color="primary"
                     isIconOnly
                     size="lg"
+                    title="Set as Primary Key"
                     onClick={() => {
 
                         props.setSchema({

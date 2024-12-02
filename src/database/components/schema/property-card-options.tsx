@@ -7,6 +7,7 @@
 import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
 import { CardFooter, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
+import { DatabaseSchemaPropertyCardOptionsLabel } from "./card-options/label";
 
 export type DatabaseSchemaPropertyCardOptionsProps = {
 
@@ -26,7 +27,11 @@ export const DatabaseSchemaPropertyCardOptions: FC<DatabaseSchemaPropertyCardOpt
     return (<React.Fragment>
         <Divider />
         <CardFooter>
-            123
+            <DatabaseSchemaPropertyCardOptionsLabel
+                property={props.property as ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE.LABEL>}
+                schema={props.schema}
+                setSchema={props.setSchema}
+            />
         </CardFooter>
     </React.Fragment>);
 };
