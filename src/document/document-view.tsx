@@ -4,8 +4,9 @@
  * @description Document View
  */
 
+import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
 import React, { FC } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DocumentPropertyCards } from "./components/property-card/property-cards";
 import { useDocument } from "./hooks/use-document";
 
@@ -22,11 +23,30 @@ export const DocumentView: FC = () => {
         documentUniqueIdentifier,
     );
 
+    const navigate = useNavigate();
+
     if (!document) {
         return null;
     }
 
-    return (<div>
+    return (<div
+        className="h-full overflow-auto"
+    >
+        <Breadcrumbs
+            size="lg"
+            className="pt-4"
+        >
+            <BreadcrumbItem
+                onClick={() => {
+                    navigate(`/database/${document.database.database.uniqueIdentifier}/documents`);
+                }}
+            >
+                {document.database.database.databaseName}
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                {document.document.uniqueIdentifier}
+            </BreadcrumbItem>
+        </Breadcrumbs>
         <DocumentPropertyCards
             document={document}
             databaseUniqueIdentifier={databaseUniqueIdentifier}

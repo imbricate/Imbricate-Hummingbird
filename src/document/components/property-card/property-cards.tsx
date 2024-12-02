@@ -5,12 +5,12 @@
  */
 
 import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema } from "@imbricate/core";
-import React from "react";
-import { getDefaultValueOfProperty } from "../../util/default-value";
-import { DocumentPropertyCard } from "./property-card";
 import { Button } from "@nextui-org/react";
+import React from "react";
 import { IoSaveSharp } from "react-icons/io5";
 import { UseDocumentResponse } from "../../hooks/use-document";
+import { getDefaultValueOfProperty } from "../../util/default-value";
+import { DocumentPropertyCard } from "./property-card";
 
 export type DocumentPropertyCardsProps = {
 
@@ -52,7 +52,7 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
     };
 
     return (<div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 py-4 pr-2"
     >
         {props.schema.properties.map((propertySchema) => {
 
