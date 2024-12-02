@@ -17,11 +17,11 @@ export const Navigation: FC = () => {
 
     const navigate = useNavigate();
 
-    return (<div className="w-full max-w-[260px] p-1">
+    return (<div className="w-full max-w-[270px] p-1 overflow-auto relative">
         <div className="w-full justify-center items-center flex my-2">
             <NavigationLogo />
         </div>
-        <div className="w-full mt-2 mb-2">
+        <div className="w-full mt-2 mb-2 sticky top-0 z-20">
             <Button
                 startContent={<FaSearch />}
                 color="secondary"
