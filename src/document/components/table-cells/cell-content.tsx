@@ -8,7 +8,6 @@ import { DocumentPropertyValue, DocumentPropertyValueObject, IMBRICATE_PROPERTY_
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
 import { IoIosWarning } from "react-icons/io";
-import { getDefaultValueOfProperty } from "../../util/default-value";
 
 export type DocumentTableCellContentProps = {
 
@@ -22,9 +21,9 @@ export const DocumentTableCellContent: FC<DocumentTableCellContentProps> = (
     props: DocumentTableCellContentProps,
 ) => {
 
-    const propertyValue: number = (props.property && typeof props.property.value !== "undefined")
-        ? props.property.value as number
-        : getDefaultValueOfProperty(props.schemaType) as number;
+    const propertyValue: any = (props.property && typeof props.property.value !== "undefined")
+        ? props.property.value
+        : null;
 
     const propsPropertyType: IMBRICATE_PROPERTY_TYPE = props.property
         ? props.property.type

@@ -75,6 +75,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
         <Table
             aria-label="document-list"
             removeWrapper
+            className="overflow-y-auto"
         >
             <TableHeader>
                 <React.Fragment>

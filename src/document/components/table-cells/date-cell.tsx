@@ -49,7 +49,11 @@ export const DocumentTableDateCell: FC<DocumentTableDateCellProps> = (
         property={props.property}
         render={(value: DocumentPropertyValueObject<IMBRICATE_PROPERTY_TYPE>) => {
 
-            const propertyValue: string = value as string;
+            const propertyValue: string | null = value as any;
+
+            if (!propertyValue) {
+                return null;
+            }
 
             return (<DatePicker
                 aria-label="Date picker"
