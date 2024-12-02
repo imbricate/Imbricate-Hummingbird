@@ -9,6 +9,8 @@ import { Button, Card, CardBody, CardHeader, Divider, Input, Select, SelectItem 
 import React, { FC } from "react";
 import { FaStar } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { getPropertyIcon } from "../../../property/utils/get-icon";
+import { DatabaseSchemaPropertyCardOptions } from "./property-card-options";
 
 export type DatabaseSchemaPropertyCardProps = {
 
@@ -28,14 +30,19 @@ export const DatabaseSchemaPropertyCard: FC<DatabaseSchemaPropertyCardProps> = (
         key={props.property.propertyIdentifier}
         shadow="none"
     >
+        {isPrimary && <React.Fragment>
+            <CardHeader >
+                <div
+                    className="text-large flex items-center gap-1"
+                >
+                    <FaStar /> Primary Key
+                </div>
+            </CardHeader>
+            <Divider />
+        </React.Fragment>}
         <CardHeader
             className="flex flex-col gap-2 items-start"
         >
-            {isPrimary && <div
-                className="text-large flex items-center gap-1"
-            >
-                <FaStar /> Primary Key
-            </div>}
             <div
                 className="flex w-full gap-1 items-center justify-center"
             >
@@ -121,6 +128,7 @@ export const DatabaseSchemaPropertyCard: FC<DatabaseSchemaPropertyCardProps> = (
             <Select
                 label="Property Type"
                 defaultSelectedKeys={[props.property.propertyType]}
+                startContent={getPropertyIcon(props.property.propertyType)}
                 onChange={(event) => {
 
                     const newValue: IMBRICATE_PROPERTY_TYPE = event.target.value as IMBRICATE_PROPERTY_TYPE;
@@ -140,35 +148,46 @@ export const DatabaseSchemaPropertyCard: FC<DatabaseSchemaPropertyCardProps> = (
             >
                 <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.BOOLEAN}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.BOOLEAN)}
                 >
                     Boolean
                 </SelectItem>
                 <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.STRING}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.STRING)}
                 >
                     String
                 </SelectItem>
                 <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.NUMBER}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.NUMBER)}
                 >
                     Number
                 </SelectItem>
                 <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.DATE}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.DATE)}
                 >
                     Date
                 </SelectItem>
                 <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.MARKDOWN}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.MARKDOWN)}
                 >
                     Markdown
                 </SelectItem>
                 <SelectItem
                     key={IMBRICATE_PROPERTY_TYPE.LABEL}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.LABEL)}
                 >
                     Label
                 </SelectItem>
             </Select>
         </CardBody>
+        <DatabaseSchemaPropertyCardOptions
+            property={props.property}
+            schema={props.schema}
+            setSchema={props.setSchema}
+        />
     </Card>);
 };

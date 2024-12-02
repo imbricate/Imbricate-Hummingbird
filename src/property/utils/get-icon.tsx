@@ -9,6 +9,7 @@ import React from "react";
 import { AiFillFileUnknown } from "react-icons/ai";
 import { FaExternalLinkSquareAlt, FaMarkdown } from "react-icons/fa";
 import { IoMdCheckbox } from "react-icons/io";
+import { MdDateRange, MdLabel } from "react-icons/md";
 import { PiTextTBold } from "react-icons/pi";
 import { RiNumbersFill } from "react-icons/ri";
 
@@ -24,11 +25,11 @@ export const getPropertyIcon = (propertyType: IMBRICATE_PROPERTY_TYPE): React.Re
         case IMBRICATE_PROPERTY_TYPE.NUMBER:
             return <RiNumbersFill />;
         case IMBRICATE_PROPERTY_TYPE.DATE:
-            return <PiTextTBold />;
+            return <MdDateRange />;
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return <FaMarkdown />;
         case IMBRICATE_PROPERTY_TYPE.LABEL:
-            return <PiTextTBold />;
+            return <MdLabel />;
         case IMBRICATE_PROPERTY_TYPE.REFERENCE:
             return <FaExternalLinkSquareAlt />;
     }

@@ -47,29 +47,37 @@ export const DatabasesSchemaView: FC = () => {
         setSchema(newSchema);
     };
 
-    return (<div>
-        <DatabaseHeader
-            database={database.database}
-            isSchema
-        />
-        <div
-            className="flex flex-col gap-2"
-        >
-            {schema.properties.map((property) => {
-                return (<DatabaseSchemaPropertyCard
-                    key={property.propertyIdentifier}
-                    property={property}
-                    schema={schema}
-                    setSchema={setSchemaMethod}
-                />);
-            })}
-            <DatabaseSchemaAddPropertyButton
-                schema={schema}
-                setSchema={setSchemaMethod}
+    return (<div
+        className="flex flex-col h-full"
+    >
+        <div>
+            <DatabaseHeader
+                database={database.database}
+                isSchema
             />
         </div>
         <div
-            className="mt-2"
+            className="flex-1 min-h-0 min-w-0 overflow-auto"
+        >
+            <div
+                className="flex flex-col gap-2 py-2 pr-2"
+            >
+                {schema.properties.map((property) => {
+                    return (<DatabaseSchemaPropertyCard
+                        key={property.propertyIdentifier}
+                        property={property}
+                        schema={schema}
+                        setSchema={setSchemaMethod}
+                    />);
+                })}
+                <DatabaseSchemaAddPropertyButton
+                    schema={schema}
+                    setSchema={setSchemaMethod}
+                />
+            </div>
+        </div>
+        <div
+            className="mb-2"
         >
             {editedRef.current && <Button
                 disabled={saving}
