@@ -7,9 +7,11 @@
 import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, getImbricateDefaultValueOfProperty } from "@imbricate/core";
 import { Button, Card, CardBody, CardFooter, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
+import { FaStar } from "react-icons/fa6";
 import { IoSaveSharp } from "react-icons/io5";
 import { DocumentPropertyCardContent } from "../../../document/components/property-card/property-card-content";
 import { UseDocumentResponse } from "../../../document/hooks/use-document";
+import { getPropertyIcon } from "../../../property/utils/get-icon";
 import { LensBlockDateDocumentCard } from "../../types/lens-definition";
 
 export type LensDocumentCardBlockProps = {
@@ -67,12 +69,18 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                     className="flex gap-2"
                 >
                     <div
-                        className="flex-1"
+                        className="flex-1 flex flex-col border-1 justify-center items-center py-3 rounded-md"
                     >
+                        <div
+                            className="flex gap-1 items-center"
+                        >
+                            {getPropertyIcon(schemaProperty.propertyType)}
+                            {schemaProperty.isPrimaryKey && <FaStar />}
+                        </div>
                         {schemaProperty.propertyName}
                     </div>
                     <div
-                        className="flex-[4]"
+                        className="flex-[4] self-center"
                     >
                         <DocumentPropertyCardContent
                             databaseUniqueIdentifier={props.block.database}
