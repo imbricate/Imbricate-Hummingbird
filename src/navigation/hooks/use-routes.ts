@@ -38,7 +38,31 @@ export const useNavigateOriginView = (): (
     return (
         originUniqueIdentifier: string,
         options?: NavigateOptions,
-    ) => navigate(`/originUniqueIdentifier/${originUniqueIdentifier}`, options);
+    ) => navigate(`/origin/${originUniqueIdentifier}`, options);
+};
+
+export const useNavigateLensNewView = (): (
+    options?: NavigateOptions,
+) => void => {
+
+    const navigate = useNavigate();
+
+    return (
+        options?: NavigateOptions,
+    ) => navigate("/lens-new", options);
+};
+
+export const useNavigateLensView = (): (
+    originUniqueIdentifier: string,
+    options?: NavigateOptions,
+) => void => {
+
+    const navigate = useNavigate();
+
+    return (
+        lensUniqueIdentifier: string,
+        options?: NavigateOptions,
+    ) => navigate(`/lens/${lensUniqueIdentifier}`, options);
 };
 
 export const useNavigateDatabasesView = (): (

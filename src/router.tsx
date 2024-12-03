@@ -13,6 +13,7 @@ import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
 import { DocumentView } from "./document/document-view";
 import { EditWrapper } from "./edit/edit-wrapper";
+import { NewLensView } from "./lens/new-lens-view";
 import { NewOriginView } from "./origin/new-origin-view";
 import { OriginView } from "./origin/origin-view";
 import { SearchView } from "./search/search-view";
@@ -41,6 +42,10 @@ export const ApplicationRouter = () => {
                 <Route
                     path="origin/:origin-unique-identifier"
                     element={<OriginView />}
+                />
+                <Route
+                    path="lens-new"
+                    element={<NewLensView />}
                 />
                 <Route
                     path="databases"

@@ -7,13 +7,14 @@
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { ImbricateOriginObject, useOrigins } from "../origin/hooks/use-origins";
+import { useNavigateOriginNewView, useNavigateOriginView } from "./hooks/use-routes";
 
 export const NavigationOrigins: FC = () => {
 
     const origins = useOrigins();
-    const navigate = useNavigate();
+    const navigateToOriginNew = useNavigateOriginNewView();
+    const navigateToOrigin = useNavigateOriginView();
 
     return (<div>
         <Listbox
@@ -25,7 +26,7 @@ export const NavigationOrigins: FC = () => {
                 className="text-primary"
                 color="primary"
                 onClick={() => {
-                    navigate("/origin-new");
+                    navigateToOriginNew();
                 }}
             >
                 Add Origin
@@ -35,7 +36,7 @@ export const NavigationOrigins: FC = () => {
             aria-label="origin-list"
             items={origins}
             onAction={(key) => {
-                navigate(`/origin/${key}`);
+                navigateToOrigin(key as string);
             }}
         >
             {(origin: ImbricateOriginObject) => {
