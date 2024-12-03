@@ -11,6 +11,7 @@ import { DocumentEditingController } from "../controller/editing-controller";
 import { DocumentsTableCreatingExtraCell } from "./extra-cell/creating-extra";
 import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
 import { DocumentTableDateCell } from "./table-cells/date-cell";
+import { DocumentTableImbriscriptCell } from "./table-cells/imbriscript-cell";
 import { DocumentTableJsonCell } from "./table-cells/json-cell";
 import { DocumentTableLabelCell } from "./table-cells/label-cell";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
@@ -119,6 +120,18 @@ export const createDocumentsTableCellsCreate = (
                         <DocumentTableMarkdownCell
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
+                            editing
+                        />
+                    </TableCell>);
+                case IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableImbriscriptCell
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
                             editing

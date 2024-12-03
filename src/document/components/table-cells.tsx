@@ -12,6 +12,7 @@ import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
 import { DocumentsTableEditingExtraCell } from "./extra-cell/editing-extra";
 import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
 import { DocumentTableDateCell } from "./table-cells/date-cell";
+import { DocumentTableImbriscriptCell } from "./table-cells/imbriscript-cell";
 import { DocumentTableJsonCell } from "./table-cells/json-cell";
 import { DocumentTableLabelCell } from "./table-cells/label-cell";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
@@ -121,6 +122,20 @@ export const createDocumentsTableCells = (
                             documentUniqueIdentifier={props.document.document.uniqueIdentifier}
                             propertyKey={propertyIdentifier}
                             property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.MARKDOWN>}
+                            getEditingProperty={getEditingProperty}
+                            updateEditingProperty={updateEditingProperty}
+                            editing={props.document.editing}
+                        />
+                    </TableCell>);
+                case IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT:
+                    return (<TableCell
+                        key={propertyIdentifier}
+                    >
+                        <DocumentTableImbriscriptCell
+                            databaseUniqueIdentifier={props.databaseUniqueIdentifier}
+                            documentUniqueIdentifier={props.document.document.uniqueIdentifier}
+                            propertyKey={propertyIdentifier}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
