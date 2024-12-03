@@ -4,6 +4,7 @@
  * @description New Lens View
  */
 
+import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
 import { CommonPropertySelect } from "../common/components/property-selector";
@@ -27,7 +28,11 @@ export const NewLensView: FC<NewLensViewProps> = (
             </CardHeader>
             <Divider />
             <CardBody>
-                <CommonPropertySelect />
+                <CommonPropertySelect
+                    allowedPropertyType={[
+                        IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT,
+                    ]}
+                />
             </CardBody>
         </Card>
     </div>);
