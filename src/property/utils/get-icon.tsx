@@ -11,7 +11,7 @@ import { FaExternalLinkSquareAlt, FaMarkdown } from "react-icons/fa";
 import { IoMdCheckbox } from "react-icons/io";
 import { LuFileJson } from "react-icons/lu";
 import { MdDateRange, MdLabel } from "react-icons/md";
-import { PiTextTBold } from "react-icons/pi";
+import { PiFilmScriptFill, PiTextTBold } from "react-icons/pi";
 import { RiNumbersFill } from "react-icons/ri";
 
 export const getPropertyIcon = (propertyType: IMBRICATE_PROPERTY_TYPE): React.ReactNode => {
@@ -29,6 +29,8 @@ export const getPropertyIcon = (propertyType: IMBRICATE_PROPERTY_TYPE): React.Re
             return <MdDateRange />;
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return <FaMarkdown />;
+        case IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT:
+            return <PiFilmScriptFill />;
         case IMBRICATE_PROPERTY_TYPE.JSON:
             return <LuFileJson />;
         case IMBRICATE_PROPERTY_TYPE.LABEL:
