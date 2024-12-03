@@ -4,7 +4,7 @@
  * @description Primary
  */
 
-import { DocumentProperties, ImbricateDatabaseSchema } from "@imbricate/core";
+import { DocumentProperties, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema } from "@imbricate/core";
 
 export const getSchemaPrimaryPropertyKey = (
     schema: ImbricateDatabaseSchema,
@@ -19,6 +19,12 @@ export const getSchemaPrimaryPropertyKey = (
 
     if (schema.properties.length === 0) {
         return null as any;
+    }
+
+    for (const property of schema.properties) {
+        if (property.propertyType === IMBRICATE_PROPERTY_TYPE.STRING) {
+            return property.propertyIdentifier;
+        }
     }
 
     return schema.properties[0].propertyIdentifier;
