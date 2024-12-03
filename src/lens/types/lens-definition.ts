@@ -15,8 +15,8 @@ export type LensBlockDataSwitch<T extends LENS_BLOCK_TYPE> =
 
 export type LensBlockDateDocumentCard = {
 
-    readonly databaseUniqueIdentifier: string;
-    readonly documentUniqueIdentifier: string;
+    readonly database: string;
+    readonly document: string;
 };
 
 export type LensBlock<T extends LENS_BLOCK_TYPE> = {

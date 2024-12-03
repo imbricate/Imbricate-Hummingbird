@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { useLensConfig } from "./hooks/use-lenses";
 import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
+import { LensRender } from "./components/lens-render";
 
 export type LensViewProps = {
 };
@@ -44,8 +45,10 @@ export const LensView: FC<LensViewProps> = (
     }
 
     return (<div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 py-2 pr-2 overflow-auto h-full"
     >
-        {targetLens.lensName}
+        <LensRender
+            lensItem={targetLens}
+        />
     </div>);
 };

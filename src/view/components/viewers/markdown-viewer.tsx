@@ -6,11 +6,11 @@
 
 import React, { FC } from "react";
 import { ImbricateOriginObject } from "../../../origin/hooks/use-origins";
-import { useText } from "../../../text/hooks/use-text";
+import { S_TextLoading, S_TextNotFound, S_TextNotInitialized, useText } from "../../../text/hooks/use-text";
+import { useHighlightStyle } from "../../hooks/use-highlight";
 import { useMarkdownStyle } from "../../hooks/use-markdown-style";
 import { useMermaid } from "../../hooks/use-mermaid";
 import { transformMarkdown } from "../../markdown/transform-markdown";
-import { useHighlightStyle } from "../../hooks/use-highlight";
 
 export type ViewMarkdownViewerProps = {
 
@@ -35,7 +35,10 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
 
         const execute = async () => {
 
-            if (!textContent) {
+            if (textContent === S_TextLoading
+                || textContent === S_TextNotFound
+                || textContent === S_TextNotInitialized
+            ) {
                 return;
             }
 
@@ -44,7 +47,7 @@ export const ViewMarkdownViewer: FC<ViewMarkdownViewerProps> = (props: ViewMarkd
         };
 
         execute();
-    }, [textContent?.textContent]);
+    }, [textContent]);
 
     if (!textContent || !rendered) {
         return null;
