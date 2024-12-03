@@ -10,9 +10,19 @@ import { CommonPropertyDatabaseSelect } from "./selector/database-selector";
 import { CommonPropertyDocumentSelect } from "./selector/document-selector";
 import { CommonPropertyPropertySelect } from "./selector/property-selector";
 
+export type CommonPropertySelectResponse = {
+
+    readonly selectedDatabase: IImbricateDatabase;
+    readonly selectedDocument: IImbricateDocument;
+    readonly selectedProperty: DocumentPropertyKey;
+};
+
 export type CommonPropertySelectProps = {
 
     readonly allowedPropertyType?: IMBRICATE_PROPERTY_TYPE[];
+
+    readonly onSelectConfirm: (response: CommonPropertySelectResponse) => void;
+    readonly onSelectCancel: () => void;
 };
 
 export const CommonPropertySelect: FC<CommonPropertySelectProps> = (
@@ -29,6 +39,7 @@ export const CommonPropertySelect: FC<CommonPropertySelectProps> = (
         <CommonPropertyDatabaseSelect
             selectedDatabase={selectedDatabase}
             onSelectDatabase={(newDatabase) => {
+                props.onSelectCancel();
                 setSelectedDocument(null);
                 setSelectedDatabase(newDatabase);
             }}
@@ -39,6 +50,7 @@ export const CommonPropertySelect: FC<CommonPropertySelectProps> = (
                 databaseSchema={selectedDatabase.schema}
                 selectedDocument={selectedDocument}
                 onSelectDocument={(newDocument) => {
+                    props.onSelectCancel();
                     setSelectedProperty(null);
                     setSelectedDocument(newDocument);
                 }}
@@ -50,7 +62,15 @@ export const CommonPropertySelect: FC<CommonPropertySelectProps> = (
                 databaseSchema={selectedDatabase.schema}
                 selectedDocument={selectedDocument}
                 selectedProperty={selectedProperty}
-                onSelectProperty={setSelectedProperty}
+                onSelectProperty={(newProperty) => {
+
+                    setSelectedProperty(newProperty);
+                    props.onSelectConfirm({
+                        selectedDatabase: selectedDatabase,
+                        selectedDocument: selectedDocument,
+                        selectedProperty: newProperty,
+                    });
+                }}
             />}
     </div>);
 };
