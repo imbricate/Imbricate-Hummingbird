@@ -1,13 +1,13 @@
 /**
  * @author WMXPY
  * @namespace Navigation
- * @description Navigation Views
+ * @description Navigation Lens
  */
 
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 
-export const NavigationViews: FC = () => {
+export const NavigationLens: FC = () => {
 
     return (<Listbox
         aria-label="view-list"

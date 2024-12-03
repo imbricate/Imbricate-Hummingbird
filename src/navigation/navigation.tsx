@@ -10,8 +10,8 @@ import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { NavigationLogo } from "./logo";
 import { NavigationDatabases } from "./navigation-databases";
+import { NavigationLens } from "./navigation-lens";
 import { NavigationOrigins } from "./navigation-origins";
-import { NavigationViews } from "./navigation-views";
 
 export const Navigation: FC = () => {
 
@@ -46,10 +46,10 @@ export const Navigation: FC = () => {
                 <NavigationOrigins />
             </Tab>
             <Tab
-                key="views"
-                title="Views"
+                key="lens"
+                title="Lens"
             >
-                <NavigationViews />
+                <NavigationLens />
             </Tab>
             <Tab
                 key="databases"
