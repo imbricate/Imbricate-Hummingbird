@@ -1705,10 +1705,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@imbricate/core@npm:^3.7.3":
-  version: 3.7.3
-  resolution: "@imbricate/core@npm:3.7.3"
-  checksum: 10c0/10b2fa71b60d33e7d7ab98550a6833a179d38f443011a018679b074c6469ff99be0e4b9ccfcf847f0d1cf56412cc508e60e99290205217bb2b2cb8509e04232e
+"@imbricate/core@npm:^3.8.2":
+  version: 3.8.2
+  resolution: "@imbricate/core@npm:3.8.2"
+  checksum: 10c0/c0a60b637689928597ae7fe40640ff1aac645ba80f917cac139d0c7b3971ea9b7a6f087cb8fe31b4ae97e43feb9607a137e6d6889423bebc94e732128e1e1844
   languageName: node
   linkType: hard
 
@@ -1719,7 +1719,7 @@ __metadata:
     "@babel/core": "npm:^7.26.0"
     "@babel/preset-env": "npm:^7.26.0"
     "@babel/preset-typescript": "npm:^7.26.0"
-    "@imbricate/core": "npm:^3.7.3"
+    "@imbricate/core": "npm:^3.8.2"
     "@imbricate/origin-stack-api": "npm:^3.4.0"
     "@nextui-org/react": "npm:2.4.8"
     "@reduxjs/toolkit": "npm:^2.4.0"
