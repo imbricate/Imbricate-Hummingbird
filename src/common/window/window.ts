@@ -6,10 +6,19 @@
 
 export const openWindow = (url: string): void => {
 
-    const win = window as Window | null;
-    if (win) {
-        win.open(url, "_blank")?.focus();
-    }
+    const windowClone = window as Window | null;
+
+    setTimeout(() => {
+
+        if (windowClone) {
+            windowClone.open(
+                url,
+                "_blank",
+                "noopener,noreferrer",
+            );
+        }
+    }, 100);
+
 };
 
 export const openEditWindow = (

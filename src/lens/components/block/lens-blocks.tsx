@@ -6,7 +6,7 @@
 
 import React, { FC } from "react";
 import { LENS_BLOCK_TYPE, LensBlock, LensBlockDateDocumentCard, LensDefinition } from "../../types/lens-definition";
-import { LensDocumentCardBlock } from "./document-card-block";
+import { LensDocumentCardBlockWrapper } from "./document-card-block-wrapper";
 
 export type LensBlocksProps = {
 
@@ -29,7 +29,7 @@ export const LensBlocks: FC<LensBlocksProps> = (
 
                 case LENS_BLOCK_TYPE.DOCUMENT_CARD: {
 
-                    return (<LensDocumentCardBlock
+                    return (<LensDocumentCardBlockWrapper
                         key={key}
                         block={block.data as LensBlockDateDocumentCard}
                     />);
