@@ -27,16 +27,16 @@ export const getSchemaPrimaryPropertyKey = (
 export const getDocumentPrimary = (
     schema: ImbricateDatabaseSchema,
     document: DocumentProperties,
-): string => {
+): string | null => {
 
     const primaryPropertyKey: string = getSchemaPrimaryPropertyKey(schema);
 
     if (!primaryPropertyKey) {
-        return null as any;
+        return null;
     }
 
     if (typeof document[primaryPropertyKey] !== "object") {
-        return null as any;
+        return null;
     }
 
     const property = document[primaryPropertyKey];

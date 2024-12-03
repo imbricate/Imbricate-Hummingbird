@@ -32,13 +32,13 @@ export const DocumentView: FC = () => {
         () => Boolean(document),
         () => {
 
-            const primary = getDocumentPrimary(
+            const primary: string | null = getDocumentPrimary(
                 document!.database.database.schema,
                 document!.document.properties,
             );
 
             return [
-                primary,
+                primary ?? document!.document.uniqueIdentifier,
                 "Document",
             ];
         },

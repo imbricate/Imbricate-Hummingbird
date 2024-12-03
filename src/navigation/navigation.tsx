@@ -37,7 +37,7 @@ export const Navigation: FC = () => {
         <Tabs
             fullWidth
             variant="solid"
-            defaultSelectedKey="databases"
+            defaultSelectedKey="lenses"
         >
             <Tab
                 key="origins"
