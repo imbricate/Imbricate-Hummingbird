@@ -17,7 +17,7 @@ export const openWindow = (url: string): void => {
                 "noopener,noreferrer",
             );
         }
-    }, 100);
+    }, 0);
 
 };
 

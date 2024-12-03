@@ -88,6 +88,6 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
             >
                 Save Changes
             </Button>
-        </ div>}
+        </div>}
     </div>);
 };

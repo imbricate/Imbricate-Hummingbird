@@ -44,6 +44,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
 
             const sandbox: Sandbox = createMarkedSandbox();
 
+            console.debug("Execute Imbriscript", textContent.textContent.length);
             const response = await sandbox.evaluate(textContent.textContent);
 
             if (response.signal !== END_SIGNAL.SUCCEED) {
@@ -63,7 +64,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
         };
 
         execute();
-    }, [textContent]);
+    }, [typeof textContent]);
 
     if (!executeResult) {
         return null;

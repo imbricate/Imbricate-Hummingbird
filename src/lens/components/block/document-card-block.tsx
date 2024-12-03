@@ -4,9 +4,10 @@
  * @description Document Card Block
  */
 
-import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty } from "@imbricate/core";
-import { Card, CardBody } from "@nextui-org/react";
+import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, getImbricateDefaultValueOfProperty } from "@imbricate/core";
+import { Button, Card, CardBody, CardFooter, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
+import { IoSaveSharp } from "react-icons/io5";
 import { DocumentPropertyCardContent } from "../../../document/components/property-card/property-card-content";
 import { UseDocumentResponse } from "../../../document/hooks/use-document";
 import { LensBlockDateDocumentCard } from "../../types/lens-definition";
@@ -23,6 +24,30 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
 
     const document = props.document;
 
+    const [properties, setProperties] = React.useState<DocumentProperties>(() => document.document.properties);
+    const [edited, setEdited] = React.useState<boolean>(false);
+    const [saving, setSaving] = React.useState<boolean>(false);
+
+    const updateProperty = (
+        key: DocumentPropertyKey,
+        value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>,
+    ) => {
+
+        const newProperties: DocumentProperties = {
+            ...properties,
+            [key]: {
+                type: value.type,
+                value: value.value,
+            },
+        };
+        setProperties(newProperties);
+
+        if (edited) {
+            return;
+        }
+        setEdited(true);
+    };
+
     return (<Card
         shadow="none"
         className="border-1"
@@ -34,8 +59,8 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                 schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>,
             ) => {
 
-                const propertyValue = document.document
-                    .properties[schemaProperty.propertyIdentifier];
+                const propertyValue = properties[schemaProperty.propertyIdentifier]
+                    ?? getImbricateDefaultValueOfProperty(schemaProperty.propertyType);
 
                 return (<div
                     key={schemaProperty.propertyIdentifier}
@@ -54,13 +79,35 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                             documentUniqueIdentifier={props.block.document}
                             schema={schemaProperty}
                             property={propertyValue}
-                            updateProperty={() => {
-                                // Do nothing
+                            updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
+
+                                updateProperty(schemaProperty.propertyIdentifier, value);
                             }}
                         />
                     </div>
                 </div>);
             })}
         </CardBody>
+        {edited && <React.Fragment>
+            <Divider />
+            <CardFooter>
+                <Button
+                    startContent={<IoSaveSharp />}
+                    variant="solid"
+                    color="primary"
+                    isLoading={saving}
+                    onClick={async () => {
+
+                        setSaving(true);
+                        await props.document.document.putProperties(properties);
+
+                        setSaving(false);
+                        setEdited(false);
+                    }}
+                >
+                    Save Changes
+                </Button>
+            </CardFooter>
+        </React.Fragment>}
     </Card>);
 };
