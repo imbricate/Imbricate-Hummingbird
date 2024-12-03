@@ -40,7 +40,7 @@ export const DocumentPropertyCard: React.FC<DocumentPropertyCardProps> = (
                     content={props.schema.propertyIdentifier}
                 />}
                 delay={1000}
-                placement="bottom"
+                placement="bottom-start"
             >
                 <div className="flex flex-1 gap-1 items-center">
                     <div>
