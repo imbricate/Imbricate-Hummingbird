@@ -24,6 +24,7 @@ export const CommonPropertyDatabaseSelect: FC<CommonPropertyDatabaseSelectProps>
     return (<Select
         label="Database"
         isLoading={databases.length === 0}
+        selectedKeys={props.selectedDatabase ? [props.selectedDatabase.uniqueIdentifier] : []}
         onChange={(event) => {
 
             const selectedDatabase = databases.find((database) => {

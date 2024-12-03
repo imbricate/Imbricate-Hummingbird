@@ -5,9 +5,11 @@
  */
 
 import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from "@nextui-org/react";
 import React, { FC } from "react";
 import { CommonPropertySelect, CommonPropertySelectResponse } from "../common/components/property-selector";
+import { readLendsConfig, writeLensConfig } from "./storage/lens-config";
+import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
 
 export type NewLensViewProps = {
 };
@@ -17,10 +19,26 @@ export const NewLensView: FC<NewLensViewProps> = (
 ) => {
 
     const [selectedImbriScript, setSelectedImbriScript] = React.useState<CommonPropertySelectResponse | null>(null);
+    const [lensName, setLensName] = React.useState<string>("");
 
     return (<div
         className="flex flex-col gap-2 p-2"
     >
+        <Card>
+            <CardHeader>
+                Create Lens
+            </CardHeader>
+            <CardBody>
+                <Input
+                    label="Lens Name"
+                    placeholder="The lens name"
+                    value={lensName}
+                    onChange={(event) => {
+                        setLensName(event.target.value);
+                    }}
+                />
+            </CardBody>
+        </Card>
         <Card
             className="border-1"
             shadow="none"
@@ -49,6 +67,31 @@ export const NewLensView: FC<NewLensViewProps> = (
                         <Button
                             variant="flat"
                             color="primary"
+                            isDisabled={lensName.length === 0}
+                            onClick={() => {
+
+                                const current: LensConfig = readLendsConfig();
+
+                                const newItem: LensConfigItem<LENS_CONFIG_SOURCE.IMBRISCRIPT> = {
+
+                                    lensName,
+                                    source: LENS_CONFIG_SOURCE.IMBRISCRIPT,
+                                    target: {
+                                        databaseUniqueIdentifier: selectedImbriScript.selectedDatabase.uniqueIdentifier,
+                                        documentUniqueIdentifier: selectedImbriScript.selectedDocument.uniqueIdentifier,
+                                        propertyKey: selectedImbriScript.selectedProperty,
+                                    },
+                                };
+
+                                const updated: LensConfig = {
+                                    items: [
+                                        ...current.items,
+                                        newItem,
+                                    ],
+                                };
+
+                                writeLensConfig(updated);
+                            }}
                         >
                             Create Lens
                         </Button>

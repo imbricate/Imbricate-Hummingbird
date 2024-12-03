@@ -31,6 +31,7 @@ export const CommonPropertyDocumentSelect: FC<CommonPropertyDocumentSelectProps>
     return (<Select
         label="Document"
         isLoading={documents.documents.length === 0}
+        selectedKeys={props.selectedDocument ? [props.selectedDocument.uniqueIdentifier] : []}
         onChange={(event) => {
 
             const selectedDocument = documents.documents.find((document) => {

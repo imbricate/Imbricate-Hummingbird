@@ -42,8 +42,8 @@ export const CommonPropertyPropertySelect: FC<CommonPropertyPropertySelectProps>
 
     return (<Select
         label="Property"
+        selectedKeys={props.selectedProperty ? [props.selectedProperty] : []}
         onChange={(event) => {
-
             props.onSelectProperty(event.target.value);
         }}
     >
