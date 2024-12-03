@@ -8,6 +8,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import useDarkMode from "use-dark-mode";
 import "../index.css";
+import { useLensInitialization } from "../lens/hooks/use-initialization";
 import { Navigation } from "../navigation/navigation";
 import { useOriginInitialization } from "../origin/hooks/use-initialization";
 
@@ -16,6 +17,7 @@ const Application = () => {
 
     const darkMode = useDarkMode(false);
     useOriginInitialization();
+    useLensInitialization();
 
     return (<main
         className={`${darkMode.value ? "dark" : ""} text-foreground bg-background h-screen`}

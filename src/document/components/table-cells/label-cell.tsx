@@ -59,7 +59,6 @@ export const DocumentTableLabelCell: FC<DocumentTableLabelCellProps> = (
         schemaType={IMBRICATE_PROPERTY_TYPE.LABEL}
         property={props.property}
         render={(value) => {
-            console.log(value);
 
             if (!Array.isArray(value)) {
                 return null;

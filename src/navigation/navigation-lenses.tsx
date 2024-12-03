@@ -8,9 +8,11 @@ import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigateLensNewView } from "./hooks/use-routes";
+import { useLensConfig } from "../lens/hooks/use-lenses";
 
 export const NavigationLenses: FC = () => {
 
+    const lensConfig = useLensConfig();
     const navigateToLensNew = useNavigateLensNewView();
 
     return (<div>
