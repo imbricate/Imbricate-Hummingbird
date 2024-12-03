@@ -6,8 +6,12 @@
 
 import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from "@nextui-org/react";
+import { UUIDVersion1 } from "@sudoo/uuid";
 import React, { FC } from "react";
+import { useDispatch } from "react-redux";
 import { CommonPropertySelect, CommonPropertySelectResponse } from "../common/components/property-selector";
+import { useNavigateLensView } from "../navigation/hooks/use-routes";
+import { LensSlice } from "../store/feature/lens";
 import { readLendsConfig, writeLensConfig } from "./storage/lens-config";
 import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
 
@@ -20,6 +24,10 @@ export const NewLensView: FC<NewLensViewProps> = (
 
     const [selectedImbriScript, setSelectedImbriScript] = React.useState<CommonPropertySelectResponse | null>(null);
     const [lensName, setLensName] = React.useState<string>("");
+
+    const navigateToLensView = useNavigateLensView();
+
+    const dispatch = useDispatch();
 
     return (<div
         className="flex flex-col gap-2 p-2"
@@ -74,6 +82,8 @@ export const NewLensView: FC<NewLensViewProps> = (
 
                                 const newItem: LensConfigItem<LENS_CONFIG_SOURCE.IMBRISCRIPT> = {
 
+                                    lensIdentifier: UUIDVersion1.generateString(),
+
                                     lensName,
                                     source: LENS_CONFIG_SOURCE.IMBRISCRIPT,
                                     target: {
@@ -91,6 +101,12 @@ export const NewLensView: FC<NewLensViewProps> = (
                                 };
 
                                 writeLensConfig(updated);
+
+                                dispatch(
+                                    LensSlice.actions.setLensConfig(updated),
+                                );
+
+                                navigateToLensView(newItem.lensIdentifier);
                             }}
                         >
                             Create Lens

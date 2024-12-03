@@ -7,13 +7,15 @@
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useNavigateLensNewView } from "./hooks/use-routes";
 import { useLensConfig } from "../lens/hooks/use-lenses";
+import { LENS_CONFIG_SOURCE, LensConfigItem } from "../lens/types/lens-config";
+import { useNavigateLensNewView, useNavigateLensView } from "./hooks/use-routes";
 
 export const NavigationLenses: FC = () => {
 
     const lensConfig = useLensConfig();
     const navigateToLensNew = useNavigateLensNewView();
+    const navigateToLensView = useNavigateLensView();
 
     return (<div>
         <Listbox
@@ -30,6 +32,21 @@ export const NavigationLenses: FC = () => {
             >
                 Add Lens
             </ListboxItem>
+        </Listbox>
+        <Listbox
+            aria-label="lens-list"
+            items={lensConfig.items}
+            onAction={(key) => {
+                navigateToLensView(key as string);
+            }}
+        >
+            {(lens: LensConfigItem<LENS_CONFIG_SOURCE>) => {
+                return (<ListboxItem
+                    key={lens.lensIdentifier}
+                >
+                    {lens.lensName}
+                </ListboxItem>);
+            }}
         </Listbox>
     </div>);
 };

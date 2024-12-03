@@ -22,6 +22,8 @@ export type LensConfigTargetImbriscript = {
 
 export type LensConfigItem<T extends LENS_CONFIG_SOURCE> = {
 
+    readonly lensIdentifier: string;
+
     readonly lensName: string;
     readonly source: T;
     readonly target: LensConfigTarget<T>;
