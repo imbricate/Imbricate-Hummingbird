@@ -17,6 +17,8 @@ import { DocumentImbriscriptValue } from "../property-value/imbriscript-value";
 
 export type DocumentPropertyCardContentProps = {
 
+    readonly showPropertyName?: boolean;
+
     readonly databaseUniqueIdentifier: string;
     readonly documentUniqueIdentifier: string;
 
@@ -43,7 +45,8 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
             />);
         case IMBRICATE_PROPERTY_TYPE.STRING:
             return (<DocumentStringValue
-                propertyKey={propertyIdentifier}
+                showPropertyName={props.showPropertyName}
+                propertySchema={props.schema as any}
                 property={props.property as any}
                 updateProperty={props.updateProperty as any}
             />);
@@ -92,13 +95,15 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
             />);
         case IMBRICATE_PROPERTY_TYPE.REFERENCE:
             return (<DocumentStringValue
-                propertyKey={propertyIdentifier}
+                showPropertyName={props.showPropertyName}
+                propertySchema={props.schema as any}
                 property={props.property as any}
                 updateProperty={props.updateProperty as any}
             />);
         default:
             return (<DocumentStringValue
-                propertyKey={propertyIdentifier}
+                showPropertyName={props.showPropertyName}
+                propertySchema={props.schema as any}
                 property={props.property as any}
                 updateProperty={props.updateProperty as any}
             />);

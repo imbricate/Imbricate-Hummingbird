@@ -5,9 +5,9 @@
  */
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaPropertyOptionsLabel } from "@imbricate/core";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Chip, Select, SelectItem, SelectedItems } from "@nextui-org/react";
 import React, { FC } from "react";
-import { getLabelColorDot } from "../../../database/utils/label-color";
+import { getLabelColorClassName, getLabelColorDot, getLabelColorTextClassNameReverse } from "../../../database/utils/label-color";
 
 export type DocumentLabelValueProps = {
 
@@ -26,6 +26,28 @@ export const DocumentLabelValue: FC<DocumentLabelValueProps> = (
         aria-label="Select label"
         selectionMode={props.options.allowMultiple ? "multiple" : "single"}
         selectedKeys={new Set(props.property.value)}
+        renderValue={(value: SelectedItems) => {
+            return value.map((each) => {
+
+                const labelColor = props.options.labelOptions.find((option) => option.labelIdentifier === each.key)?.labelColor;
+
+                return (<Chip
+                    key={each.key}
+                    size="sm"
+                    className="mr-1 last:mr-0"
+                    classNames={{
+                        base: labelColor ?
+                            (getLabelColorClassName(labelColor) ?? "")
+                            : "",
+                        content: labelColor ?
+                            (getLabelColorTextClassNameReverse(labelColor) ?? "")
+                            : "",
+                    }}
+                >
+                    {each.textValue}
+                </Chip>);
+            });
+        }}
         onSelectionChange={(newSelection) => {
 
             const newValue: any[] = Array.from(newSelection);

@@ -5,7 +5,7 @@
  */
 
 import React, { FC } from "react";
-import { LENS_BLOCK_TYPE, LensBlock, LensBlockDateDocumentCard, LensDefinition } from "../../types/lens-definition";
+import { LENS_BLOCK_TYPE, LensBlock, LensBlockDataDocumentCard, LensDefinition } from "../../types/lens-definition";
 import { LensDocumentCardBlockWrapper } from "./document-card-block-wrapper";
 
 export type LensBlocksProps = {
@@ -33,7 +33,7 @@ export const LensBlocks: FC<LensBlocksProps> = (
 
                     return (<LensDocumentCardBlockWrapper
                         key={key}
-                        block={block.data as LensBlockDateDocumentCard}
+                        block={block.data as LensBlockDataDocumentCard}
                     />);
                 }
             }

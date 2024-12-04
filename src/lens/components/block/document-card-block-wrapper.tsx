@@ -6,12 +6,12 @@
 
 import React, { FC } from "react";
 import { useDocument } from "../../../document/hooks/use-document";
-import { LensBlockDateDocumentCard } from "../../types/lens-definition";
+import { LensBlockDataDocumentCard } from "../../types/lens-definition";
 import { LensDocumentCardBlock } from "./document-card-block";
 
 export type LensDocumentCardBlockWrapperProps = {
 
-    readonly block: LensBlockDateDocumentCard;
+    readonly block: LensBlockDataDocumentCard;
 };
 
 export const LensDocumentCardBlockWrapper: FC<LensDocumentCardBlockWrapperProps> = (

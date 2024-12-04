@@ -45,6 +45,7 @@ export const DocumentMarkdownValue: FC<DocumentMarkdownValueProps> = (
                 fullWidth
                 startContent={<MdEdit />}
                 color="secondary"
+                variant="flat"
                 onClick={() => {
 
                     if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
@@ -63,6 +64,7 @@ export const DocumentMarkdownValue: FC<DocumentMarkdownValueProps> = (
             <Button
                 fullWidth
                 startContent={<FaEye />}
+                variant="faded"
                 onClick={() => {
 
                     if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {

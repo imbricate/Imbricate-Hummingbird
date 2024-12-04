@@ -81,6 +81,7 @@ export const DocumentTableLabelCell: FC<DocumentTableLabelCellProps> = (
                     .map((each: ImbricateDatabaseSchemaPropertyOptionsLabelOption) => {
                         return (<Chip
                             key={each.labelIdentifier}
+                            size="sm"
                             classNames={{
                                 base: getLabelColorClassName(each.labelColor) ?? "",
                                 content: getLabelColorTextClassNameReverse(each.labelColor) ?? "",
