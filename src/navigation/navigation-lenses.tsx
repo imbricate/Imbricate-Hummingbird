@@ -9,6 +9,7 @@ import React, { FC } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useLensConfig } from "../lens/hooks/use-lenses";
 import { LENS_CONFIG_SOURCE, LensConfigItem } from "../lens/types/lens-config";
+import { getUserFriendlyLensSourceName } from "../lens/util/user-friendly";
 import { useNavigateLensNewView, useNavigateLensView } from "./hooks/use-routes";
 
 export const NavigationLenses: FC = () => {
@@ -23,6 +24,7 @@ export const NavigationLenses: FC = () => {
         >
             <ListboxItem
                 key="new"
+                description="Create a new lens"
                 startContent={<FaPlus />}
                 className="text-primary"
                 color="primary"
@@ -43,6 +45,7 @@ export const NavigationLenses: FC = () => {
             {(lens: LensConfigItem<LENS_CONFIG_SOURCE>) => {
                 return (<ListboxItem
                     key={lens.lensIdentifier}
+                    description={getUserFriendlyLensSourceName(lens.source)}
                 >
                     {lens.lensName}
                 </ListboxItem>);

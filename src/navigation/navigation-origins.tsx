@@ -22,6 +22,7 @@ export const NavigationOrigins: FC = () => {
         >
             <ListboxItem
                 key="new"
+                description="Create a new origin"
                 startContent={<FaPlus />}
                 className="text-primary"
                 color="primary"
@@ -42,6 +43,7 @@ export const NavigationOrigins: FC = () => {
             {(origin: ImbricateOriginObject) => {
                 return (<ListboxItem
                     key={origin.origin.uniqueIdentifier}
+                    description={origin.originInstance.type}
                 >
                     {origin.originName}
                 </ListboxItem>);
