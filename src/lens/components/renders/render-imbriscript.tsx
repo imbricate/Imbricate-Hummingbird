@@ -31,6 +31,10 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
 
     const [executeResult, setExecuteResult] = React.useState<MarkedResult | null>(null);
 
+    const textContentSummary = typeof textContent === "symbol"
+        ? textContent.toString()
+        : textContent.textContent.length;
+
     React.useEffect(() => {
 
         const execute = async () => {
@@ -43,15 +47,13 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
             }
 
             const sandbox: Sandbox = createMarkedSandbox();
-
-            console.debug("Execute Imbriscript", textContent.textContent.length);
             const response = await sandbox.evaluate(textContent.textContent);
 
             setExecuteResult(response);
         };
 
         execute();
-    }, [typeof textContent, props.textIdentifier]);
+    }, [textContentSummary]);
 
     if (!executeResult) {
         return null;
