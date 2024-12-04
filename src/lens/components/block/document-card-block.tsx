@@ -57,44 +57,51 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
         <CardBody
             className="flex flex-col gap-2"
         >
-            {document.database.database.schema.properties.map((
-                schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>,
-            ) => {
+            {document.database.database.schema.properties
+                .filter((schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>) => {
+                    if (Array.isArray(props.block.properties)) {
+                        return props.block.properties.includes(schemaProperty.propertyIdentifier);
+                    }
+                    return true;
+                })
+                .map((
+                    schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>,
+                ) => {
 
-                const propertyValue = properties[schemaProperty.propertyIdentifier]
-                    ?? getImbricateDefaultValueOfProperty(schemaProperty.propertyType);
+                    const propertyValue = properties[schemaProperty.propertyIdentifier]
+                        ?? getImbricateDefaultValueOfProperty(schemaProperty.propertyType);
 
-                return (<div
-                    key={schemaProperty.propertyIdentifier}
-                    className="flex gap-2"
-                >
-                    <div
-                        className="flex-1 flex flex-col border-1 justify-center items-center py-3 rounded-md"
+                    return (<div
+                        key={schemaProperty.propertyIdentifier}
+                        className="flex gap-2"
                     >
                         <div
-                            className="flex gap-1 items-center"
+                            className="flex-1 flex flex-col border-1 justify-center items-center py-3 rounded-md"
                         >
-                            {getPropertyIcon(schemaProperty.propertyType)}
-                            {schemaProperty.isPrimaryKey && <FaStar />}
+                            <div
+                                className="flex gap-1 items-center"
+                            >
+                                {getPropertyIcon(schemaProperty.propertyType)}
+                                {schemaProperty.isPrimaryKey && <FaStar />}
+                            </div>
+                            {schemaProperty.propertyName}
                         </div>
-                        {schemaProperty.propertyName}
-                    </div>
-                    <div
-                        className="flex-[4] self-center"
-                    >
-                        <DocumentPropertyCardContent
-                            databaseUniqueIdentifier={props.block.database}
-                            documentUniqueIdentifier={props.block.document}
-                            schema={schemaProperty}
-                            property={propertyValue}
-                            updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
+                        <div
+                            className="flex-[4] self-center"
+                        >
+                            <DocumentPropertyCardContent
+                                databaseUniqueIdentifier={props.block.database}
+                                documentUniqueIdentifier={props.block.document}
+                                schema={schemaProperty}
+                                property={propertyValue}
+                                updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
 
-                                updateProperty(schemaProperty.propertyIdentifier, value);
-                            }}
-                        />
-                    </div>
-                </div>);
-            })}
+                                    updateProperty(schemaProperty.propertyIdentifier, value);
+                                }}
+                            />
+                        </div>
+                    </div>);
+                })}
         </CardBody>
         {edited && <React.Fragment>
             <Divider />

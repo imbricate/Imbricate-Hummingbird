@@ -17,6 +17,8 @@ export type LensBlockDateDocumentCard = {
 
     readonly database: string;
     readonly document: string;
+
+    readonly properties?: string[];
 };
 
 export type LensBlock<T extends LENS_BLOCK_TYPE> = {
