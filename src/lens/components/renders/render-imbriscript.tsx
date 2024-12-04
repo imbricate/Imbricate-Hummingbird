@@ -51,7 +51,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
         };
 
         execute();
-    }, [typeof textContent]);
+    }, [typeof textContent, props.textIdentifier]);
 
     if (!executeResult) {
         return null;

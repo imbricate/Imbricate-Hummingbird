@@ -5,9 +5,10 @@
  */
 
 import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel, ImbricateDatabaseSchemaPropertyOptionsLabelOption } from "@imbricate/core";
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem, Tooltip } from "@nextui-org/react";
 import React, { FC } from "react";
 import { MdDelete } from "react-icons/md";
+import { CommonCopyItem } from "../../../../common/components/copy-item";
 import { getLabelColorDot } from "../../../utils/label-color";
 
 export type DatabaseSchemaPropertyCardOptionsLabelColorSelectProps = {
@@ -130,37 +131,46 @@ export const DatabaseSchemaPropertyCardOptionsLabelColorSelect: FC<DatabaseSchem
             ></Input>
         </div>
         <div>
-            <Button
-                variant="flat"
-                color="danger"
-                isIconOnly
-                radius="sm"
-                size="lg"
-                onClick={() => {
-
-                    const newOptions: ImbricateDatabaseSchemaPropertyOptionsLabelOption[] = labelOptions.filter((each) => each.labelIdentifier !== props.labelIdentifier);
-
-                    props.setSchema({
-                        ...props.schema,
-                        properties: props.schema.properties.map((each) => {
-                            if (each.propertyIdentifier === props.property.propertyIdentifier) {
-                                return {
-                                    ...each,
-                                    propertyOptions: {
-                                        ...options,
-                                        labelOptions: newOptions,
-                                    },
-                                };
-                            }
-                            return each;
-                        }),
-                    });
-                }}
+            <Tooltip
+                content={<CommonCopyItem
+                    startContent="Label Identifier"
+                    content={props.labelIdentifier}
+                />}
+                delay={1000}
+                placement="left"
             >
-                <MdDelete
-                    className="text-large"
-                />
-            </Button>
+                <Button
+                    variant="flat"
+                    color="danger"
+                    isIconOnly
+                    radius="sm"
+                    size="lg"
+                    onClick={() => {
+
+                        const newOptions: ImbricateDatabaseSchemaPropertyOptionsLabelOption[] = labelOptions.filter((each) => each.labelIdentifier !== props.labelIdentifier);
+
+                        props.setSchema({
+                            ...props.schema,
+                            properties: props.schema.properties.map((each) => {
+                                if (each.propertyIdentifier === props.property.propertyIdentifier) {
+                                    return {
+                                        ...each,
+                                        propertyOptions: {
+                                            ...options,
+                                            labelOptions: newOptions,
+                                        },
+                                    };
+                                }
+                                return each;
+                            }),
+                        });
+                    }}
+                >
+                    <MdDelete
+                        className="text-large"
+                    />
+                </Button>
+            </Tooltip>
         </div>
     </div>);
 };

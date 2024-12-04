@@ -5,8 +5,9 @@
  */
 
 import { IImbricateDatabase } from "@imbricate/core";
-import { Button, ButtonGroup } from "@nextui-org/react";
+import { Button, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
+import { FaDatabase } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export type DatabaseHeaderProps = {
@@ -19,15 +20,30 @@ export const DatabaseHeader: FC<DatabaseHeaderProps> = (props: DatabaseHeaderPro
 
     const navigate = useNavigate();
 
-    return <div
-        className="m-2"
+    return (<Navbar
+        isBordered
     >
-        <ButtonGroup>
-            <div
-                className="text-2xl border-l-2 border-t-2 border-b-2 pl-2 pr-2 m-0 box-content h-9 flex justify-center items-center rounded-l-xl"
+        <NavbarBrand>
+            <FaDatabase
+                className="text-2xl"
+            />
+            <Spacer />
+            <p
+                className="font-mono"
             >
+                Database
+            </p>
+        </NavbarBrand>
+        <NavbarContent
+            justify="center"
+        >
+            <p className="font-bold text-xl">
                 {props.database.databaseName}
-            </div>
+            </p>
+        </NavbarContent>
+        <NavbarContent
+            justify="end"
+        >
             {props.isSchema
                 ? <Button
                     variant="flat"
@@ -48,6 +64,6 @@ export const DatabaseHeader: FC<DatabaseHeaderProps> = (props: DatabaseHeaderPro
                 >
                     Edit Schema
                 </Button>}
-        </ButtonGroup>
-    </div>;
+        </NavbarContent>
+    </Navbar>);
 };

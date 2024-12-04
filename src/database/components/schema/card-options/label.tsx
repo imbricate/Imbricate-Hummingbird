@@ -47,7 +47,6 @@ export const DatabaseSchemaPropertyCardOptionsLabel: FC<DatabaseSchemaPropertyCa
             >
                 <Checkbox
                     className="flex-1"
-                    size="lg"
                     defaultSelected={allowMultiple}
                     onChange={(event) => {
                         const value = event.target.checked;

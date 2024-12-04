@@ -4,7 +4,9 @@
  * @description Origin View
  */
 
+import { Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
+import { TbWorld } from "react-icons/tb";
 import { useParams } from "react-router-dom";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { OriginDatabaseListView } from "./components/origin-database-list-view";
@@ -47,6 +49,26 @@ export const OriginView: FC<OriginViewProps> = (
     return (<div
         className="flex flex-col gap-2"
     >
+        <Navbar
+            isBordered
+        >
+            <NavbarBrand>
+                <TbWorld
+                    className="text-2xl"
+                />
+                <Spacer />
+                <p
+                    className="font-mono"
+                >
+                    Origin
+                </p>
+            </NavbarBrand>
+            <NavbarContent>
+                <p className="font-bold text-xl">
+                    {targetOrigin.originName}
+                </p>
+            </NavbarContent>
+        </Navbar>
         <OriginInformationView
             originInstance={targetOrigin.originInstance}
         />

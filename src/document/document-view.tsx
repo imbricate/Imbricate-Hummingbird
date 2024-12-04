@@ -4,8 +4,9 @@
  * @description Document View
  */
 
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
+import { IoIosDocument } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { useNavigateDatabaseDocumentsView } from "../navigation/hooks/use-routes";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
@@ -49,9 +50,34 @@ export const DocumentView: FC = () => {
         return null;
     }
 
+    const primary: string | null = getDocumentPrimary(
+        document.database.database.schema,
+        document.document.properties,
+    ) ?? document.document.uniqueIdentifier;
+
     return (<div
         className="h-full overflow-auto"
     >
+        <Navbar
+            isBordered
+        >
+            <NavbarBrand>
+                <IoIosDocument
+                    className="text-2xl"
+                />
+                <Spacer />
+                <p
+                    className="font-mono"
+                >
+                    Document
+                </p>
+            </NavbarBrand>
+            <NavbarContent>
+                <p className="font-bold text-xl">
+                    {primary}
+                </p>
+            </NavbarContent>
+        </Navbar>
         <Breadcrumbs
             size="lg"
             className="pt-4"

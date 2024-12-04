@@ -4,12 +4,14 @@
  * @description Lens View
  */
 
+import { Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
+import { RiCameraLensFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
+import { LensRender } from "./components/lens-render";
 import { useLensConfig } from "./hooks/use-lenses";
 import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
-import { LensRender } from "./components/lens-render";
 
 export type LensViewProps = {
 };
@@ -45,8 +47,28 @@ export const LensView: FC<LensViewProps> = (
     }
 
     return (<div
-        className="flex flex-col gap-2 py-2 pr-2 overflow-auto h-full"
+        className="flex flex-col gap-2 pb-4 pr-2 overflow-auto h-full"
     >
+        <Navbar
+            isBordered
+        >
+            <NavbarBrand>
+                <RiCameraLensFill
+                    className="text-2xl"
+                />
+                <Spacer />
+                <p
+                    className="font-mono"
+                >
+                    Lens
+                </p>
+            </NavbarBrand>
+            <NavbarContent>
+                <p className="font-bold text-xl">
+                    {targetLens.lensName}
+                </p>
+            </NavbarContent>
+        </Navbar>
         <LensRender
             lensItem={targetLens}
         />
