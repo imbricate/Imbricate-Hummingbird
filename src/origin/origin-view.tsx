@@ -69,12 +69,16 @@ export const OriginView: FC<OriginViewProps> = (
                 </p>
             </NavbarContent>
         </Navbar>
-        <OriginInformationView
-            originInstance={targetOrigin.originInstance}
-        />
-        <OriginDatabaseListView
-            originName={targetOrigin.originName}
-            origin={targetOrigin.origin}
-        />
+        <div
+            className="pr-2"
+        >
+            <OriginInformationView
+                originInstance={targetOrigin.originInstance}
+            />
+            <OriginDatabaseListView
+                originName={targetOrigin.originName}
+                origin={targetOrigin.origin}
+            />
+        </div>
     </div>);
 };

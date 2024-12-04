@@ -5,17 +5,31 @@
  */
 
 import { Spinner } from "@nextui-org/react";
-import React from "react";
-import { FC } from "react";
+import React, { FC } from "react";
+import { NextUIColor } from "../types/next-ui";
 
-export const LoadingWrapper: FC = () => {
+export type LoadingWrapperProps = {
+
+    readonly label?: string[];
+    readonly color?: NextUIColor;
+};
+
+export const LoadingWrapper: FC<LoadingWrapperProps> = (
+    props: LoadingWrapperProps,
+) => {
 
     return (<div
         className="w-full h-full flex justify-center items-center"
     >
         <Spinner
-            color="warning"
+            className="font-mono whitespace-pre text-center"
+            color={props.color}
             size="lg"
+            label={Array.isArray(props.label)
+                ? props.label.map((value) => {
+                    return value.toUpperCase().split("").join(" ");
+                }).join("\n")
+                : undefined}
         />
     </div>);
 };

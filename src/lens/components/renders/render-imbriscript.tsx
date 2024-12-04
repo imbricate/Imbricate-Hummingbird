@@ -6,6 +6,7 @@
 
 import { END_SIGNAL, MarkedResult, Sandbox } from "@sudoo/marked";
 import React, { FC } from "react";
+import { LoadingWrapper } from "../../../common/components/loading-wrapper";
 import { UsePropertyResponse } from "../../../property/hooks/use-property";
 import { S_TextLoading, S_TextNotFound, S_TextNotInitialized, useText } from "../../../text/hooks/use-text";
 import { createMarkedSandbox } from "../../script/sandbox";
@@ -60,7 +61,13 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
     }, [textContentSummary, props.version]);
 
     if (!executeResult) {
-        return null;
+        return (<LoadingWrapper
+            color="current"
+            label={[
+                "Executing",
+                "Imbriscript",
+            ]}
+        />);
     }
 
     if (executeResult.signal !== END_SIGNAL.SUCCEED) {

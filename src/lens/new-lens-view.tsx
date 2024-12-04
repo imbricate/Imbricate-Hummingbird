@@ -5,7 +5,7 @@
  */
 
 import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Input } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Input, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import { UUIDVersion1 } from "@sudoo/uuid";
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import { useNavigateLensView } from "../navigation/hooks/use-routes";
 import { LensSlice } from "../store/feature/lens";
 import { readLendsConfig, writeLensConfig } from "./storage/lens-config";
 import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
+import { RiCameraLensFill } from "react-icons/ri";
 
 export type NewLensViewProps = {
 };
@@ -30,89 +31,116 @@ export const NewLensView: FC<NewLensViewProps> = (
     const dispatch = useDispatch();
 
     return (<div
-        className="flex flex-col gap-2 p-2"
+        className="flex flex-col gap-2"
     >
-        <Card>
-            <CardHeader>
-                Create Lens
-            </CardHeader>
-            <CardBody>
-                <Input
-                    label="Lens Name"
-                    placeholder="The lens name"
-                    value={lensName}
-                    onChange={(event) => {
-                        setLensName(event.target.value);
-                    }}
-                />
-            </CardBody>
-        </Card>
-        <Card
-            className="border-1"
-            shadow="none"
+        <Navbar
+            isBordered
         >
-            <CardHeader>
-                Select ImbriScript
-            </CardHeader>
-            <Divider />
-            <CardBody>
-                <CommonPropertySelect
-                    allowedPropertyType={[
-                        IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT,
-                    ]}
-                    onSelectCancel={() => {
-                        setSelectedImbriScript(null);
-                    }}
-                    onSelectConfirm={(response: CommonPropertySelectResponse) => {
-                        setSelectedImbriScript(response);
-                    }}
+            <NavbarBrand>
+                <RiCameraLensFill
+                    className="text-2xl"
                 />
-            </CardBody>
-            {selectedImbriScript &&
-                <React.Fragment>
-                    <Divider />
-                    <CardFooter>
-                        <Button
-                            variant="flat"
-                            color="primary"
-                            isDisabled={lensName.length === 0}
-                            onClick={() => {
+                <Spacer />
+                <p
+                    className="font-mono"
+                >
+                    Lens
+                </p>
+            </NavbarBrand>
+            <NavbarContent>
+                <p className="font-bold text-xl">
+                    Create New Lens
+                </p>
+            </NavbarContent>
+        </Navbar>
+        <div
+            className="pr-2"
+        >
+            <Card
+                className="border-1"
+                shadow="none"
+            >
+                <CardHeader>
+                    Create Lens
+                </CardHeader>
+                <CardBody>
+                    <Input
+                        label="Lens Name"
+                        placeholder="The lens name"
+                        value={lensName}
+                        onChange={(event) => {
+                            setLensName(event.target.value);
+                        }}
+                    />
+                </CardBody>
+            </Card>
+            <Card
+                className="border-1"
+                shadow="none"
+            >
+                <CardHeader>
+                    Select ImbriScript
+                </CardHeader>
+                <Divider />
+                <CardBody>
+                    <CommonPropertySelect
+                        allowedPropertyType={[
+                            IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT,
+                        ]}
+                        onSelectCancel={() => {
+                            setSelectedImbriScript(null);
+                        }}
+                        onSelectConfirm={(response: CommonPropertySelectResponse) => {
+                            setSelectedImbriScript(response);
+                        }}
+                    />
+                </CardBody>
+                {selectedImbriScript &&
+                    <React.Fragment>
+                        <Divider />
+                        <CardFooter>
+                            <Button
+                                variant="flat"
+                                color="primary"
+                                isDisabled={lensName.length === 0}
+                                onClick={() => {
 
-                                const current: LensConfig = readLendsConfig();
+                                    const current: LensConfig = readLendsConfig();
 
-                                const newItem: LensConfigItem<LENS_CONFIG_SOURCE.IMBRISCRIPT> = {
+                                    const newItem: LensConfigItem<LENS_CONFIG_SOURCE.IMBRISCRIPT> = {
 
-                                    lensIdentifier: UUIDVersion1.generateString(),
+                                        lensIdentifier: UUIDVersion1.generateString(),
 
-                                    lensName,
-                                    source: LENS_CONFIG_SOURCE.IMBRISCRIPT,
-                                    target: {
-                                        databaseUniqueIdentifier: selectedImbriScript.selectedDatabase.uniqueIdentifier,
-                                        documentUniqueIdentifier: selectedImbriScript.selectedDocument.uniqueIdentifier,
-                                        propertyKey: selectedImbriScript.selectedProperty,
-                                    },
-                                };
+                                        lensName,
+                                        source: LENS_CONFIG_SOURCE.IMBRISCRIPT,
+                                        target: {
+                                            databaseUniqueIdentifier: selectedImbriScript.selectedDatabase.uniqueIdentifier,
+                                            documentUniqueIdentifier: selectedImbriScript.selectedDocument.uniqueIdentifier,
+                                            propertyKey: selectedImbriScript.selectedProperty,
+                                        },
+                                    };
 
-                                const updated: LensConfig = {
-                                    items: [
-                                        ...current.items,
-                                        newItem,
-                                    ],
-                                };
+                                    const updated: LensConfig = {
+                                        items: [
+                                            ...current.items,
+                                            newItem,
+                                        ],
+                                    };
 
-                                writeLensConfig(updated);
+                                    writeLensConfig(updated);
 
-                                dispatch(
-                                    LensSlice.actions.setLensConfig(updated),
-                                );
+                                    dispatch(
+                                        LensSlice.actions.setLensConfig(updated),
+                                    );
 
-                                navigateToLensView(newItem.lensIdentifier);
-                            }}
-                        >
-                            Create Lens
-                        </Button>
-                    </CardFooter>
-                </React.Fragment>}
-        </Card>
+                                    navigateToLensView(newItem.lensIdentifier);
+                                }}
+                            >
+                                Create Lens
+                            </Button>
+                        </CardFooter>
+                    </React.Fragment>}
+            </Card>
+        </div>
     </div>);
 };

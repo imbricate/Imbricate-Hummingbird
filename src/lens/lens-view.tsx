@@ -50,7 +50,7 @@ export const LensView: FC<LensViewProps> = (
     }
 
     return (<div
-        className="flex flex-col gap-2 pb-4 pr-2 overflow-auto h-full"
+        className="flex flex-col gap-2 pb-4 overflow-auto h-full min-h-full"
     >
         <Navbar
             isBordered
@@ -90,9 +90,13 @@ export const LensView: FC<LensViewProps> = (
                 </Button>
             </NavbarContent>
         </Navbar>
-        <LensRender
-            version={version}
-            lensItem={targetLens}
-        />
+        <div
+            className="pr-2 h-full"
+        >
+            <LensRender
+                version={version}
+                lensItem={targetLens}
+            />
+        </div>
     </div>);
 };
