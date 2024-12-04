@@ -5,8 +5,9 @@
  */
 
 import React, { FC } from "react";
-import { LENS_BLOCK_TYPE, LensBlock, LensBlockDataDocumentCard, LensDefinition } from "../../types/lens-definition";
+import { LENS_BLOCK_TYPE, LensBlock, LensBlockDataDocumentCard, LensBlockDataGroupHeader, LensDefinition } from "../../types/lens-definition";
 import { LensDocumentCardBlockWrapper } from "./document-card-block-wrapper";
+import { GroupHeaderBlock } from "./group-header-block";
 
 export type LensBlocksProps = {
 
@@ -34,6 +35,13 @@ export const LensBlocks: FC<LensBlocksProps> = (
                     return (<LensDocumentCardBlockWrapper
                         key={key}
                         block={block.data as LensBlockDataDocumentCard}
+                    />);
+                }
+                case LENS_BLOCK_TYPE.GROUP_HEADER: {
+
+                    return (<GroupHeaderBlock
+                        key={key}
+                        block={block.data as LensBlockDataGroupHeader}
                     />);
                 }
             }
