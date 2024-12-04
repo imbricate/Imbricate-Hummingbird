@@ -18,7 +18,7 @@ export const dateToUIDate = (date: Date): DateValue => {
     return parseDate(ISOString);
 };
 
-export const UIDateToDate = (date: DateValue): Date => {
+export const UIDateToDate = (date: any): Date => {
 
     return date.toDate(getLocalTimeZone());
 };

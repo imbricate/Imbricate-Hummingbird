@@ -5,7 +5,7 @@
  */
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
-import { DatePicker, DateValue } from "@nextui-org/react";
+import { DatePicker } from "@nextui-org/react";
 import React, { FC } from "react";
 import { UIDateToDate, dateToUIDate } from "../../util/parse-date";
 
@@ -27,7 +27,11 @@ export const DocumentDateValue: FC<DocumentDateValueProps> = (
     return (<DatePicker
         aria-label="Date picker"
         value={parsedDate}
-        onChange={(newDate: DateValue) => {
+        onChange={(newDate) => {
+
+            if (!newDate) {
+                return;
+            }
 
             const date = UIDateToDate(newDate);
             props.updateProperty({
