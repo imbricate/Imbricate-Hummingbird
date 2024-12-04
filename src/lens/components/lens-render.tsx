@@ -10,6 +10,7 @@ import { RenderImbriscriptLensWrapper } from "./renders/render-imbriscript-wrapp
 
 export type LensRenderProps = {
 
+    readonly version: number;
     readonly lensItem: LensConfigItem<LENS_CONFIG_SOURCE>;
 };
 
@@ -22,6 +23,7 @@ export const LensRender: FC<LensRenderProps> = (
         case LENS_CONFIG_SOURCE.IMBRISCRIPT: {
 
             return (<RenderImbriscriptLensWrapper
+                version={props.version}
                 lensItem={props.lensItem}
             />);
         }

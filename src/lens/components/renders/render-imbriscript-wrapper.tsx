@@ -11,6 +11,7 @@ import { RenderImbriscriptLens } from "./render-imbriscript";
 
 export type RenderImbriscriptLensWrapperProps = {
 
+    readonly version: number;
     readonly lensItem: LensConfigItem<LENS_CONFIG_SOURCE.IMBRISCRIPT>;
 };
 
@@ -33,6 +34,7 @@ export const RenderImbriscriptLensWrapper: FC<RenderImbriscriptLensWrapperProps>
     }
 
     return (<RenderImbriscriptLens
+        version={props.version}
         lensItem={props.lensItem}
         property={property}
         textIdentifier={property.documentProperty.value as string | undefined}

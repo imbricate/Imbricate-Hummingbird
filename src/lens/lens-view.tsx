@@ -4,8 +4,9 @@
  * @description Lens View
  */
 
-import { Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
-import React, { FC } from "react";
+import { Button, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
+import React, { FC, useReducer } from "react";
+import { HiRefresh } from "react-icons/hi";
 import { RiCameraLensFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
@@ -23,6 +24,8 @@ export const LensView: FC<LensViewProps> = (
     const params = useParams();
     const lensIdentifier: string =
         params["lens-identifier"] as string;
+
+    const [version, updateVersion] = useReducer((x) => x + 1, 0);
 
     const lensConfig: LensConfig = useLensConfig();
 
@@ -63,13 +66,32 @@ export const LensView: FC<LensViewProps> = (
                     Lens
                 </p>
             </NavbarBrand>
-            <NavbarContent>
+            <NavbarContent
+                justify="center"
+            >
                 <p className="font-bold text-xl">
                     {targetLens.lensName}
                 </p>
             </NavbarContent>
+            <NavbarContent
+                justify="end"
+            >
+                <Button
+                    isIconOnly
+                    variant="flat"
+                    color="primary"
+                    onClick={() => {
+                        updateVersion();
+                    }}
+                >
+                    <HiRefresh
+                        className="text-xl"
+                    />
+                </Button>
+            </NavbarContent>
         </Navbar>
         <LensRender
+            version={version}
             lensItem={targetLens}
         />
     </div>);

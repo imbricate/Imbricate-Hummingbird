@@ -15,6 +15,8 @@ import { LensBlocks } from "../block/lens-blocks";
 
 export type RenderImbriscriptLensProps = {
 
+    readonly version: number;
+
     readonly lensItem: LensConfigItem<LENS_CONFIG_SOURCE.IMBRISCRIPT>;
     readonly property: UsePropertyResponse;
     readonly textIdentifier?: string;
@@ -39,6 +41,8 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
 
         const execute = async () => {
 
+            setExecuteResult(null);
+
             if (textContent === S_TextLoading
                 || textContent === S_TextNotFound
                 || textContent === S_TextNotInitialized
@@ -53,7 +57,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
         };
 
         execute();
-    }, [textContentSummary]);
+    }, [textContentSummary, props.version]);
 
     if (!executeResult) {
         return null;
