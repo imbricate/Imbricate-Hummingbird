@@ -19,7 +19,7 @@ export const LensBlocks: FC<LensBlocksProps> = (
 ) => {
 
     return (<div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 pb-2"
     >
         {props.lensDefinition.blocks.map((
             block: LensBlock<LENS_BLOCK_TYPE>,

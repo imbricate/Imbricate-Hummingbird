@@ -63,7 +63,8 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
     const bodyProperties = document.database.database.schema.properties
         .filter((schemaProperty: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>) => {
             if (Array.isArray(props.block.properties)) {
-                return props.block.properties.includes(schemaProperty.propertyIdentifier);
+                return props.block.properties.includes(schemaProperty.propertyIdentifier)
+                    && !schemaProperty.isPrimaryKey;
             }
             return !schemaProperty.isPrimaryKey;
         });
@@ -72,27 +73,25 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
         shadow="none"
         className="border-1"
     >
-        {headerProperty && <React.Fragment>
-            <CardHeader>
-                {(() => {
-                    const propertyValue = properties[headerProperty.propertyIdentifier]
-                        ?? getImbricateDefaultValueOfProperty(headerProperty.propertyType);
+        {headerProperty && <CardHeader>
+            {(() => {
+                const propertyValue = properties[headerProperty.propertyIdentifier]
+                    ?? getImbricateDefaultValueOfProperty(headerProperty.propertyType);
 
-                    return (<DocumentPropertyCardContent
-                        showPropertyName
-                        databaseUniqueIdentifier={props.block.database}
-                        documentUniqueIdentifier={props.block.document}
-                        schema={headerProperty}
-                        property={propertyValue}
-                        updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
-                            updateProperty(headerProperty.propertyIdentifier, value);
-                        }}
-                    />);
-                })()}
-            </CardHeader>
-            <Divider />
-        </React.Fragment>}
-        <CardBody
+                return (<DocumentPropertyCardContent
+                    showPropertyName
+                    databaseUniqueIdentifier={props.block.database}
+                    documentUniqueIdentifier={props.block.document}
+                    schema={headerProperty}
+                    property={propertyValue}
+                    updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
+                        updateProperty(headerProperty.propertyIdentifier, value);
+                    }}
+                />);
+            })()}
+        </CardHeader>}
+        {headerProperty && bodyProperties.length > 0 && <Divider />}
+        {bodyProperties.length > 0 && <CardBody
             className="flex flex-col gap-2"
         >
             {bodyProperties.map((
@@ -133,7 +132,7 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                     </div>
                 </div>);
             })}
-        </CardBody>
+        </CardBody>}
         {edited && <React.Fragment>
             <Divider />
             <CardFooter>
