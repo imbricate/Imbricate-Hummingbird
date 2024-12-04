@@ -20,9 +20,13 @@ export const DocumentDateValue: FC<DocumentDateValueProps> = (
     props: DocumentDateValueProps,
 ) => {
 
+    const parsedDate = typeof props.property.value === "string"
+        ? dateToUIDate(new Date(props.property.value))
+        : undefined;
+
     return (<DatePicker
         aria-label="Date picker"
-        value={dateToUIDate(new Date(props.property.value))}
+        value={parsedDate}
         onChange={(newDate: DateValue) => {
 
             const date = UIDateToDate(newDate);
