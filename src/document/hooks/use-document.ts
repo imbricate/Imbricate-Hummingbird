@@ -51,7 +51,7 @@ export const useDocument = (
         };
 
         execute();
-    }, [database]);
+    }, [database === null, databaseUniqueIdentifier, documentUniqueIdentifier]);
 
     if (!document || !database) {
         return null;
