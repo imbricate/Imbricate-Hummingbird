@@ -24,7 +24,8 @@ export const createDatabaseSandboxPlugin = (): MarkedMixin => {
                 }
 
                 return {
-                    queryDocument: async (
+                    identifier: targetDatabase.database.uniqueIdentifier,
+                    queryDocuments: async (
                         query: ImbricateDocumentQuery = {},
                     ) => {
 
@@ -32,7 +33,7 @@ export const createDatabaseSandboxPlugin = (): MarkedMixin => {
 
                         return documents.map((document) => {
                             return {
-                                uniqueIdentifier: document.uniqueIdentifier,
+                                identifier: document.uniqueIdentifier,
                             };
                         });
                     },

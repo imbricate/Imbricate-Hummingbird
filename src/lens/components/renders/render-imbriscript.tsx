@@ -4,7 +4,7 @@
  * @description Render Imbriscript
  */
 
-import { END_SIGNAL, Sandbox } from "@sudoo/marked";
+import { END_SIGNAL, MarkedResult, Sandbox } from "@sudoo/marked";
 import React, { FC } from "react";
 import { UsePropertyResponse } from "../../../property/hooks/use-property";
 import { S_TextLoading, S_TextNotFound, S_TextNotInitialized, useText } from "../../../text/hooks/use-text";
@@ -29,7 +29,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
         props.textIdentifier,
     );
 
-    const [executeResult, setExecuteResult] = React.useState<LensDefinition | null>(null);
+    const [executeResult, setExecuteResult] = React.useState<MarkedResult | null>(null);
 
     React.useEffect(() => {
 
@@ -47,20 +47,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
             console.debug("Execute Imbriscript", textContent.textContent.length);
             const response = await sandbox.evaluate(textContent.textContent);
 
-            if (response.signal !== END_SIGNAL.SUCCEED) {
-
-                console.error("Execute Imbriscript Failed", response);
-                return;
-            }
-
-            const result: LensDefinition | null = response.exports.default;
-
-            if (!result) {
-                console.error("Invalid Imbriscript Result", response);
-                return;
-            }
-
-            setExecuteResult(result);
+            setExecuteResult(response);
         };
 
         execute();
@@ -70,7 +57,20 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
         return null;
     }
 
+    if (executeResult.signal !== END_SIGNAL.SUCCEED) {
+        console.error("Execute Imbriscript Failed", executeResult);
+        return null;
+    }
+
+    const result: LensDefinition | null = executeResult.exports.default;
+
+    if (!result) {
+        return (<div>
+            <div>Result Not Found</div>
+        </div>);
+    }
+
     return (<LensBlocks
-        lensDefinition={executeResult}
+        lensDefinition={result}
     />);
 };

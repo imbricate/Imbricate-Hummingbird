@@ -38,7 +38,7 @@ export const useDocument = (
             }
 
             const document: IImbricateDocument | null = await executeDeduplicate(
-                `get-document-${database.database.uniqueIdentifier}`,
+                `get-document-${documentUniqueIdentifier}`,
                 async () => {
                     const result = await database.database.getDocument(
                         documentUniqueIdentifier,
