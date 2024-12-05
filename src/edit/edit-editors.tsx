@@ -15,7 +15,9 @@ import { GetValueRef } from "./types/editor-refs";
 export type EditEditorsProps = {
 
     readonly usePropertyResponse: UsePropertyResponse;
+
     readonly getValueRef: GetValueRef;
+    readonly onValueChange: () => void;
 };
 
 export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
@@ -31,6 +33,7 @@ export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
 
             return (<EditMarkdownEditor
                 getValueRef={props.getValueRef}
+                onValueChange={props.onValueChange}
                 origin={props.usePropertyResponse.origin}
                 textUniqueIdentifier={textUniqueIdentifier}
             />);
@@ -44,6 +47,7 @@ export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
 
             return (<EditImbriscriptEditor
                 getValueRef={props.getValueRef}
+                onValueChange={props.onValueChange}
                 origin={props.usePropertyResponse.origin}
                 textUniqueIdentifier={textUniqueIdentifier}
             />);
@@ -57,6 +61,7 @@ export const EditEditors: FC<EditEditorsProps> = (props: EditEditorsProps) => {
 
             return (<EditJsonEditor
                 getValueRef={props.getValueRef}
+                onValueChange={props.onValueChange}
                 origin={props.usePropertyResponse.origin}
                 textUniqueIdentifier={textUniqueIdentifier}
             />);

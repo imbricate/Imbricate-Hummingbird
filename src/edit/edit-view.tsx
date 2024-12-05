@@ -8,7 +8,8 @@ import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core"
 import { Divider } from "@nextui-org/react";
 import React, { FC } from "react";
 import { useProperty } from "../property/hooks/use-property";
-import { EditSaveButton } from "./components/save-button";
+import { EditViewTitle } from "./components/edit-title";
+import { EditMagicButton } from "./components/magic-button";
 import { EditEditors } from "./edit-editors";
 import { GetValueRef } from "./types/editor-refs";
 
@@ -20,6 +21,8 @@ export type EditViewProps = {
 };
 
 export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
+
+    const [valueChanged, setValueChanged] = React.useState<boolean>(false);
 
     const property = useProperty(
         props.databaseUniqueIdentifier,
@@ -33,14 +36,15 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
         return null;
     }
 
-    return <div className="h-screen flex flex-col">
+    return (<div className="h-screen flex flex-col">
         <div
             className="m-2 flex items-center"
         >
-            <div className="flex-1 font-mono ml-3">
-                I M B R I C A T E
-            </div>
-            <EditSaveButton
+            <EditViewTitle
+                property={property}
+            />
+            <EditMagicButton
+                valueChanged={valueChanged}
                 saveProperty={async () => {
                     if (!getValueRef.current) {
                         return;
@@ -63,6 +67,11 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
         <EditEditors
             usePropertyResponse={property}
             getValueRef={getValueRef}
+            onValueChange={() => {
+                if (!valueChanged) {
+                    setValueChanged(true);
+                }
+            }}
         />
-    </div>;
+    </div>);
 };

@@ -14,30 +14,53 @@ import { MdDateRange, MdLabel } from "react-icons/md";
 import { PiFilmScriptFill, PiTextTBold } from "react-icons/pi";
 import { RiNumbersFill } from "react-icons/ri";
 
-export const getPropertyIcon = (propertyType: IMBRICATE_PROPERTY_TYPE): React.ReactNode => {
+export const getPropertyIcon = (
+    propertyType: IMBRICATE_PROPERTY_TYPE,
+    className?: string,
+): React.ReactNode => {
 
     // IMBRICATE_PROPERTY_TYPE SWITCH
     switch (propertyType) {
 
         case IMBRICATE_PROPERTY_TYPE.BOOLEAN:
-            return <IoMdCheckbox />;
+            return <IoMdCheckbox
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.STRING:
-            return <PiTextTBold />;
+            return <PiTextTBold
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.NUMBER:
-            return <RiNumbersFill />;
+            return <RiNumbersFill
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.DATE:
-            return <MdDateRange />;
+            return <MdDateRange
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
-            return <FaMarkdown />;
+            return <FaMarkdown
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.IMBRISCRIPT:
-            return <PiFilmScriptFill />;
+            return <PiFilmScriptFill
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.JSON:
-            return <LuFileJson />;
+            return <LuFileJson
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.LABEL:
-            return <MdLabel />;
+            return <MdLabel
+                className={className}
+            />;
         case IMBRICATE_PROPERTY_TYPE.REFERENCE:
-            return <FaExternalLinkSquareAlt />;
+            return <FaExternalLinkSquareAlt
+                className={className}
+            />;
     }
 
-    return <AiFillFileUnknown />;
+    return <AiFillFileUnknown
+        className={className}
+    />;
 };

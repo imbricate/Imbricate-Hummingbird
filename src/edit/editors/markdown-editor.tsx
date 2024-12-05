@@ -13,6 +13,8 @@ import { GetValueRef } from "../types/editor-refs";
 export type EditMarkdownEditorProps = {
 
     readonly getValueRef: GetValueRef;
+    readonly onValueChange: () => void;
+
     readonly origin: ImbricateOriginObject;
     readonly textUniqueIdentifier?: string;
 };

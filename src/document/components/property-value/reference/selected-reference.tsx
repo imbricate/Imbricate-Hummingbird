@@ -76,7 +76,6 @@ export const DocumentReferenceValueSelectedReference: FC<DocumentReferenceValueS
                     <FaExternalLinkAlt />
                 </Link>
             </div>
-
             <div
                 className="text-tiny text-gray-600 flex gap-1 items-center"
             >
