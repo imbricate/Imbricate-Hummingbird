@@ -143,6 +143,7 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                         className="flex-[4] self-center"
                     >
                         <DocumentPropertyCardContent
+                            liteMode
                             databaseUniqueIdentifier={props.block.database}
                             documentUniqueIdentifier={props.block.document}
                             schema={schemaProperty}

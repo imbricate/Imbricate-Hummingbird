@@ -7,13 +7,14 @@
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Button } from "@nextui-org/react";
 import React, { FC } from "react";
-import { FaEye } from "react-icons/fa6";
-import { MdAddCircleOutline, MdEdit } from "react-icons/md";
-import { PiKeyholeFill } from "react-icons/pi";
-import { CommonCopyItem } from "../../../common/components/copy-item";
-import { openEditWindow, openViewWindow } from "../../../common/window/window";
+import { MdAddCircleOutline } from "react-icons/md";
+import { openEditWindow } from "../../../common/window/window";
+import { DocumentMarkdownValueEditFullMode } from "./markdown/edit-full-mode";
+import { DocumentMarkdownValueEditLiteMode } from "./markdown/edit-lite-mode";
 
 export type DocumentMarkdownValueProps = {
+
+    readonly liteMode?: boolean;
 
     readonly databaseUniqueIdentifier?: string;
     readonly documentUniqueIdentifier?: string;
@@ -31,56 +32,24 @@ export const DocumentMarkdownValue: FC<DocumentMarkdownValueProps> = (
 
     if (markdownAlreadyExists) {
 
-        return (<div
-            className="flex flex-col gap-1 w-full"
-        >
-            <div className="flex gap-1 items-center">
-                <CommonCopyItem
-                    startContent="Markdown Document Identifier"
-                    prefix={<PiKeyholeFill />}
-                    content={props.property.value}
-                />
-            </div>
-            <Button
-                fullWidth
-                startContent={<MdEdit />}
-                color="secondary"
-                variant="flat"
-                onClick={() => {
+        if (props.liteMode) {
 
-                    if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
-                        throw new Error("[Imbricate] Database or document unique identifier not found");
-                    }
+            return (<DocumentMarkdownValueEditLiteMode
+                databaseUniqueIdentifier={props.databaseUniqueIdentifier}
+                documentUniqueIdentifier={props.documentUniqueIdentifier}
+                propertyKey={props.propertyKey}
+                property={props.property}
+                updateProperty={props.updateProperty}
+            />);
+        }
 
-                    openEditWindow(
-                        props.databaseUniqueIdentifier,
-                        props.documentUniqueIdentifier,
-                        props.propertyKey,
-                    );
-                }}
-            >
-                Edit Markdown Document
-            </Button>
-            <Button
-                fullWidth
-                startContent={<FaEye />}
-                variant="faded"
-                onClick={() => {
-
-                    if (!props.databaseUniqueIdentifier || !props.documentUniqueIdentifier) {
-                        throw new Error("[Imbricate] Database or document unique identifier not found");
-                    }
-
-                    openViewWindow(
-                        props.databaseUniqueIdentifier,
-                        props.documentUniqueIdentifier,
-                        props.propertyKey,
-                    );
-                }}
-            >
-                View Markdown Document
-            </Button>
-        </div>);
+        return (<DocumentMarkdownValueEditFullMode
+            databaseUniqueIdentifier={props.databaseUniqueIdentifier}
+            documentUniqueIdentifier={props.documentUniqueIdentifier}
+            propertyKey={props.propertyKey}
+            property={props.property}
+            updateProperty={props.updateProperty}
+        />);
     }
 
     return (<Button

@@ -18,6 +18,7 @@ import { DocumentStringValue } from "../property-value/string-value";
 
 export type DocumentPropertyCardContentProps = {
 
+    readonly liteMode?: boolean;
     readonly showPropertyName?: boolean;
 
     readonly databaseUniqueIdentifier: string;
@@ -67,6 +68,7 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
             />);
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return (<DocumentMarkdownValue
+                liteMode={props.liteMode}
                 databaseUniqueIdentifier={props.databaseUniqueIdentifier}
                 documentUniqueIdentifier={props.documentUniqueIdentifier}
                 propertyKey={propertyIdentifier}
