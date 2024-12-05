@@ -22,6 +22,7 @@ export type EditViewProps = {
 
 export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
 
+    const [loading, setLoading] = React.useState<boolean>(true);
     const [valueChanged, setValueChanged] = React.useState<boolean>(false);
 
     const property = useProperty(
@@ -44,11 +45,14 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
                 property={property}
             />
             <EditMagicButton
+                isLoading={loading}
                 valueChanged={valueChanged}
                 saveProperty={async () => {
                     if (!getValueRef.current) {
                         return;
                     }
+
+                    setLoading(true);
 
                     const valueContent = await getValueRef.current();
                     const updatePropertyValue: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE> = {
@@ -60,6 +64,9 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
                         property.schemaProperty.propertyIdentifier,
                         updatePropertyValue,
                     );
+
+                    setLoading(false);
+                    setValueChanged(false);
                 }}
             />
         </div>

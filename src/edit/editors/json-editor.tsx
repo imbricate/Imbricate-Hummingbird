@@ -62,6 +62,15 @@ export const EditJsonEditor: FC<EditJsonEditorProps> = (props: EditJsonEditorPro
             wrappingIndent: "same",
         });
 
+        const model = editor.getModel();
+        if (!model) {
+            return;
+        }
+
+        model.onDidChangeContent(() => {
+            props.onValueChange();
+        });
+
         editorRef.current = editor;
 
         props.getValueRef.current = async () => {
