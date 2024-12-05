@@ -4,7 +4,7 @@
  * @description Documents Table Cells
  */
 
-import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel } from "@imbricate/core";
+import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel, ImbricateDatabaseSchemaPropertyOptionsReference } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
 import React from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
@@ -17,6 +17,7 @@ import { DocumentTableJsonCell } from "./table-cells/json-cell";
 import { DocumentTableLabelCell } from "./table-cells/label-cell";
 import { DocumentTableMarkdownCell } from "./table-cells/markdown-cell";
 import { DocumentTableNumberCell } from "./table-cells/number-cell";
+import { DocumentTableReferenceCell } from "./table-cells/reference-cell";
 import { DocumentTableStringCell } from "./table-cells/string-cell";
 
 export type DocumentsTableCellsProps = {
@@ -174,18 +175,25 @@ export const createDocumentsTableCells = (
                         />
                     </TableCell>);
                 }
-                case IMBRICATE_PROPERTY_TYPE.REFERENCE:
+                case IMBRICATE_PROPERTY_TYPE.REFERENCE: {
+
+                    const options: ImbricateDatabaseSchemaPropertyOptionsReference = props.schemaMap[propertyIdentifier].propertyOptions as any;
+
                     return (<TableCell
                         key={propertyIdentifier}
+                        className="min-w-32"
                     >
-                        <DocumentTableStringCell
+                        <DocumentTableReferenceCell
                             propertyKey={propertyIdentifier}
-                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.STRING>}
+                            property={property as DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE.REFERENCE>}
                             getEditingProperty={getEditingProperty}
                             updateEditingProperty={updateEditingProperty}
                             editing={props.document.editing}
+
+                            options={options}
                         />
                     </TableCell>);
+                }
                 default:
                     return (<TableCell
                         key={propertyIdentifier}

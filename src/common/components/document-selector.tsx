@@ -1,42 +1,42 @@
 /**
  * @author WMXPY
  * @namespace Common_Components
- * @description Property Selector
+ * @description Document Selector
  */
 
-import { DocumentPropertyKey, IImbricateDatabase, IImbricateDocument, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
+import { IImbricateDatabase, IImbricateDocument } from "@imbricate/core";
 import React, { FC } from "react";
 import { CommonPropertyDatabaseSelect, CommonPropertyDatabaseSelectSelectedDatabase } from "./selector/database-selector";
 import { CommonPropertyDocumentSelect } from "./selector/document-selector";
-import { CommonPropertyPropertySelect } from "./selector/property-selector";
 
-export type CommonPropertySelectResponse = {
+export type CommonDocumentSelectResponse = {
 
+    readonly selectedOriginUniqueIdentifier: string;
     readonly selectedDatabase: IImbricateDatabase;
     readonly selectedDocument: IImbricateDocument;
-    readonly selectedProperty: DocumentPropertyKey;
 };
 
-export type CommonPropertySelectProps = {
+export type CommonDocumentSelectProps = {
 
-    readonly allowedPropertyType?: IMBRICATE_PROPERTY_TYPE[];
+    readonly allowedDatabases?: string[];
+    readonly filterDocument?: (document: IImbricateDocument) => boolean;
 
-    readonly onSelectConfirm: (response: CommonPropertySelectResponse) => void;
+    readonly onSelectConfirm: (response: CommonDocumentSelectResponse) => void;
     readonly onSelectCancel: () => void;
 };
 
-export const CommonPropertySelect: FC<CommonPropertySelectProps> = (
-    props: CommonPropertySelectProps,
+export const CommonDocumentSelect: FC<CommonDocumentSelectProps> = (
+    props: CommonDocumentSelectProps,
 ) => {
 
     const [selectedDatabase, setSelectedDatabase] = React.useState<CommonPropertyDatabaseSelectSelectedDatabase | null>(null);
     const [selectedDocument, setSelectedDocument] = React.useState<IImbricateDocument | null>(null);
-    const [selectedProperty, setSelectedProperty] = React.useState<DocumentPropertyKey | null>(null);
 
     return (<div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 w-full"
     >
         <CommonPropertyDatabaseSelect
+            allowedDatabases={props.allowedDatabases}
             selectedDatabase={selectedDatabase ? selectedDatabase.selectedDatabase : null}
             onSelectDatabase={(newDatabase) => {
                 props.onSelectCancel();
@@ -46,29 +46,16 @@ export const CommonPropertySelect: FC<CommonPropertySelectProps> = (
         />
         {selectedDatabase
             && <CommonPropertyDocumentSelect
+                filterDocument={props.filterDocument}
                 databaseUniqueIdentifier={selectedDatabase.selectedDatabase.uniqueIdentifier}
                 databaseSchema={selectedDatabase.selectedDatabase.schema}
                 selectedDocument={selectedDocument}
                 onSelectDocument={(newDocument) => {
-                    props.onSelectCancel();
-                    setSelectedProperty(null);
                     setSelectedDocument(newDocument);
-                }}
-            />}
-        {(selectedDatabase && selectedDocument)
-            && <CommonPropertyPropertySelect
-                allowedPropertyType={props.allowedPropertyType}
-                databaseUniqueIdentifier={selectedDatabase.selectedDatabase.uniqueIdentifier}
-                databaseSchema={selectedDatabase.selectedDatabase.schema}
-                selectedDocument={selectedDocument}
-                selectedProperty={selectedProperty}
-                onSelectProperty={(newProperty) => {
-
-                    setSelectedProperty(newProperty);
                     props.onSelectConfirm({
+                        selectedOriginUniqueIdentifier: selectedDatabase.selectedOriginUniqueIdentifier,
                         selectedDatabase: selectedDatabase.selectedDatabase,
-                        selectedDocument: selectedDocument,
-                        selectedProperty: newProperty,
+                        selectedDocument: newDocument,
                     });
                 }}
             />}

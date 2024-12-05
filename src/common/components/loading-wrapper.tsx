@@ -6,11 +6,12 @@
 
 import { Spinner } from "@nextui-org/react";
 import React, { FC } from "react";
-import { NextUIColor } from "../types/next-ui";
+import { NextUIColor, NextUISize } from "../types/next-ui";
 
 export type LoadingWrapperProps = {
 
     readonly label?: string[];
+    readonly size?: NextUISize;
     readonly color?: NextUIColor;
 };
 
@@ -24,7 +25,7 @@ export const LoadingWrapper: FC<LoadingWrapperProps> = (
         <Spinner
             className="font-mono whitespace-pre text-center"
             color={props.color}
-            size="lg"
+            size={props.size ?? "lg"}
             label={Array.isArray(props.label)
                 ? props.label.map((value) => {
                     return value.toUpperCase().split("").join(" ");

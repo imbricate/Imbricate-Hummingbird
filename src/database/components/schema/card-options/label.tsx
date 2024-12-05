@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
- * @namespace Database_Components_Schema
- * @description Property Card Options
+ * @namespace Database_Components_Schema_CardOptions
+ * @description Label
  */
 
 import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel, ImbricateDatabaseSchemaPropertyOptionsLabelOption } from "@imbricate/core";
@@ -109,7 +109,7 @@ export const DatabaseSchemaPropertyCardOptionsLabel: FC<DatabaseSchemaPropertyCa
                 </Button>
             </div>
         </div>
-        <div
+        {labelOptions.length > 0 && <div
             className="w-full flex flex-col gap-1"
         >
             {labelOptions.map((each) => {
@@ -122,6 +122,6 @@ export const DatabaseSchemaPropertyCardOptionsLabel: FC<DatabaseSchemaPropertyCa
                     currentSchema={currentSchema as ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE.LABEL>}
                 />);
             })}
-        </div>
+        </div>}
     </div>);
 };

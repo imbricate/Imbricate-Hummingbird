@@ -8,6 +8,7 @@ import { IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchema, ImbricateDatabaseSche
 import { CardFooter, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
 import { DatabaseSchemaPropertyCardOptionsLabel } from "./card-options/label";
+import { DatabaseSchemaPropertyCardOptionsReference } from "./card-options/reference";
 
 export type DatabaseSchemaPropertyCardOptionsProps = {
 
@@ -20,18 +21,36 @@ export const DatabaseSchemaPropertyCardOptions: FC<DatabaseSchemaPropertyCardOpt
     props: DatabaseSchemaPropertyCardOptionsProps,
 ) => {
 
-    if (props.property.propertyType !== IMBRICATE_PROPERTY_TYPE.LABEL) {
+    const getPropertyComponent = () => {
+
+        switch (props.property.propertyType) {
+
+            case IMBRICATE_PROPERTY_TYPE.LABEL:
+                return (<DatabaseSchemaPropertyCardOptionsLabel
+                    property={props.property as ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE.LABEL>}
+                    schema={props.schema}
+                    setSchema={props.setSchema}
+                />);
+            case IMBRICATE_PROPERTY_TYPE.REFERENCE:
+                return (<DatabaseSchemaPropertyCardOptionsReference
+                    property={props.property as ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE.REFERENCE>}
+                    schema={props.schema}
+                    setSchema={props.setSchema}
+                />);
+        }
+
+        return null;
+    };
+
+    const component = getPropertyComponent();
+    if (!component) {
         return null;
     }
 
     return (<React.Fragment>
         <Divider />
         <CardFooter>
-            <DatabaseSchemaPropertyCardOptionsLabel
-                property={props.property as ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE.LABEL>}
-                schema={props.schema}
-                setSchema={props.setSchema}
-            />
+            {component}
         </CardFooter>
     </React.Fragment>);
 };

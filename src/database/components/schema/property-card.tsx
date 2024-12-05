@@ -201,6 +201,12 @@ export const DatabaseSchemaPropertyCard: FC<DatabaseSchemaPropertyCardProps> = (
                 >
                     Label
                 </SelectItem>
+                <SelectItem
+                    key={IMBRICATE_PROPERTY_TYPE.REFERENCE}
+                    startContent={getPropertyIcon(IMBRICATE_PROPERTY_TYPE.REFERENCE)}
+                >
+                    Reference
+                </SelectItem>
             </Select>
         </CardBody>
         <DatabaseSchemaPropertyCardOptions

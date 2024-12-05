@@ -128,7 +128,7 @@ export const DatabaseSchemaPropertyCardOptionsLabelColorSelect: FC<DatabaseSchem
                         }),
                     });
                 }}
-            ></Input>
+            />
         </div>
         <div>
             <Tooltip

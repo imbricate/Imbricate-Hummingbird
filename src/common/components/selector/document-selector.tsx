@@ -12,6 +12,8 @@ import { getDocumentPrimary } from "../../../document/util/primary";
 
 export type CommonPropertyDocumentSelectProps = {
 
+    readonly filterDocument?: (document: IImbricateDocument) => boolean;
+
     readonly databaseUniqueIdentifier: string;
     readonly databaseSchema: ImbricateDatabaseSchema;
 
@@ -41,20 +43,29 @@ export const CommonPropertyDocumentSelect: FC<CommonPropertyDocumentSelectProps>
             props.onSelectDocument(selectedDocument!);
         }}
     >
-        {documents.documents.map((document) => {
+        {documents.documents
+            .filter((document) => {
+                if (typeof props.filterDocument !== "function") {
+                    return true;
+                }
+                return props.filterDocument(document);
+            })
+            .map((document) => {
 
-            const primaryKey = getDocumentPrimary(
-                props.databaseSchema,
-                document.properties,
-            );
+                const primaryKey = getDocumentPrimary(
+                    props.databaseSchema,
+                    document.properties,
+                );
 
-            const primaryValue: string = primaryKey ?? document.uniqueIdentifier;
+                const primaryValue: string = primaryKey ?? document.uniqueIdentifier;
 
-            return (<SelectItem
-                key={document.uniqueIdentifier}
-            >
-                {primaryValue}
-            </SelectItem>);
-        })}
+                return (<SelectItem
+                    key={document.uniqueIdentifier}
+                >
+                    {primaryValue.length === 0
+                        ? document.uniqueIdentifier
+                        : primaryValue}
+                </SelectItem>);
+            })}
     </Select>);
 };

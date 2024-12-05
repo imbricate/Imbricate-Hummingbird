@@ -25,8 +25,8 @@ export const NavigationDatabases: FC = () => {
         {(item: ImbricateDatabasesObject) => {
             return (<ListboxItem
                 key={item.database.uniqueIdentifier}
-                description={<div className="flex items-center">
-                    <TbWorld />&nbsp;{item.origin.originName}
+                description={<div className="flex items-center gap-1">
+                    <TbWorld />{item.origin.originName}
                 </div>}
             >
                 {item.database.databaseName}

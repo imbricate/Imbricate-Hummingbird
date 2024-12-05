@@ -14,3 +14,17 @@ export type NextUIColor =
     | "danger"
     | "white"
     | undefined;
+
+export type NextUISize =
+    | "sm"
+    | "md"
+    | "lg"
+    | undefined;
+
+export type NextUIRadius =
+    | "none"
+    | "sm"
+    | "md"
+    | "lg"
+    | "full"
+    | undefined;

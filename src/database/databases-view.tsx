@@ -28,7 +28,7 @@ export const DatabasesView: FC = () => {
             aria-label="database-list"
             selectionMode="single"
             removeWrapper
-            onRowAction={(row) => {
+            onRowAction={(row: any) => {
                 alert(JSON.stringify(row));
             }}
         >
