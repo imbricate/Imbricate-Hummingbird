@@ -8,6 +8,7 @@ import { BreadcrumbItem, Breadcrumbs, Navbar, NavbarBrand, NavbarContent, Spacer
 import React, { FC } from "react";
 import { IoIosDocument } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { LoadingWrapper } from "../common/components/loading-wrapper";
 import { useNavigateDatabaseDocumentsView } from "../navigation/hooks/use-routes";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { DocumentPropertyCards } from "./components/property-card/property-cards";
@@ -47,7 +48,7 @@ export const DocumentView: FC = () => {
     );
 
     if (!document) {
-        return null;
+        return (<LoadingWrapper />);
     }
 
     const primary: string | null = getDocumentPrimary(
@@ -72,11 +73,16 @@ export const DocumentView: FC = () => {
                     Document
                 </p>
             </NavbarBrand>
-            <NavbarContent>
+            <NavbarContent
+                justify="center"
+            >
                 <p className="font-bold text-xl">
                     {primary}
                 </p>
             </NavbarContent>
+            <NavbarContent
+                justify="end"
+            ></NavbarContent>
         </Navbar>
         <Breadcrumbs
             size="lg"
