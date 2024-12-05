@@ -41,7 +41,7 @@ export const DocumentReferenceValue: FC<DocumentReferenceValueProps> = (
                     item.documentUniqueIdentifier,
                 ].join("/");
 
-                return <DocumentReferenceValueSelectedReference
+                return (<DocumentReferenceValueSelectedReference
                     key={fixedKey}
                     reference={item}
                     onDelete={() => {
@@ -57,7 +57,7 @@ export const DocumentReferenceValue: FC<DocumentReferenceValueProps> = (
                             value: newValue,
                         });
                     }}
-                />;
+                />);
             })}
         </div>
         <div>

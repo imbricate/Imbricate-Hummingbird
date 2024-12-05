@@ -5,10 +5,11 @@
  */
 
 import { Button, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
-import React, { FC, useReducer } from "react";
+import React, { FC } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { RiCameraLensFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
+import { useVersion } from "../common/hooks/use-version";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
 import { LensRender } from "./components/lens-render";
 import { useLensConfig } from "./hooks/use-lenses";
@@ -25,7 +26,7 @@ export const LensView: FC<LensViewProps> = (
     const lensIdentifier: string =
         params["lens-identifier"] as string;
 
-    const [version, updateVersion] = useReducer((x) => x + 1, 0);
+    const [version, updateVersion] = useVersion();
 
     const lensConfig: LensConfig = useLensConfig();
 

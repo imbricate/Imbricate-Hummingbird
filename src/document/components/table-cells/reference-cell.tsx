@@ -5,9 +5,10 @@
  */
 
 import { DocumentPropertyValue, DocumentPropertyValueObject, DocumentPropertyValueObjectReference, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaPropertyOptionsReference } from "@imbricate/core";
-import { Chip } from "@nextui-org/react";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
 import { DocumentReferenceValueReferencePopover } from "../property-value/reference/reference-popover";
+import { DocumentReferenceValueSelectedReference } from "../property-value/reference/selected-reference";
 import { DocumentTableCellContent } from "./cell-content";
 
 export type DocumentTableReferenceCellProps = {
@@ -37,19 +38,54 @@ export const DocumentTableReferenceCell: FC<DocumentTableReferenceCellProps> = (
                 : [];
 
         if (fixedValue.length > 0) {
-            return (<Chip
-                color="primary"
-            >
-                {fixedValue.length} References
-            </Chip>);
+            return (<Popover>
+                <PopoverTrigger>
+                    <Button
+                        color="primary"
+                        size="sm"
+                        variant="flat"
+                    >
+                        {fixedValue.length} References
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                    className="p-3"
+                >
+                    {fixedValue.map((item) => {
+
+                        const fixedKey: string = [
+                            item.originUniqueIdentifier,
+                            item.databaseUniqueIdentifier,
+                            item.documentUniqueIdentifier,
+                        ].join("/");
+
+                        return (<DocumentReferenceValueSelectedReference
+                            key={fixedKey}
+                            reference={item}
+                            onDelete={() => {
+
+                                const newValue: DocumentPropertyValueObjectReference[] = fixedValue.filter((value) => {
+                                    return value.originUniqueIdentifier !== item.originUniqueIdentifier
+                                        || value.databaseUniqueIdentifier !== item.databaseUniqueIdentifier
+                                        || value.documentUniqueIdentifier !== item.documentUniqueIdentifier;
+                                });
+
+                                props.updateEditingProperty(newValue);
+                            }}
+                        />);
+                    })}
+                </PopoverContent>
+            </Popover>);
         }
 
-        return (<Chip
-            size="sm"
+        return (<Button
             color="warning"
+            size="sm"
+            variant="flat"
+            isDisabled
         >
             No Reference
-        </Chip >);
+        </Button>);
     };
 
     if (props.editing) {
@@ -70,7 +106,9 @@ export const DocumentTableReferenceCell: FC<DocumentTableReferenceCellProps> = (
                 iconOnly
                 propertyKey={props.propertyKey}
                 currentProperty={{
-                    type: props.property.type,
+                    type: props.property
+                        ? props.property.type
+                        : IMBRICATE_PROPERTY_TYPE.REFERENCE,
                     value: updatedProperty,
                 }}
                 updateProperty={(newProperty) => {
