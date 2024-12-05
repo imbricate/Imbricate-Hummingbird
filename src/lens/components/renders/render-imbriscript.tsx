@@ -12,7 +12,7 @@ import { S_TextLoading, S_TextNotFound, S_TextNotInitialized, useText } from "..
 import { createMarkedSandbox } from "../../script/sandbox";
 import { LENS_CONFIG_SOURCE, LensConfigItem } from "../../types/lens-config";
 import { LensDefinition } from "../../types/lens-definition";
-import { LensBlocks } from "../block/lens-blocks";
+import { LensBlocks } from "../lens-blocks";
 
 export type RenderImbriscriptLensProps = {
 

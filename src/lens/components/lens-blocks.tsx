@@ -1,14 +1,15 @@
 /**
  * @author WMXPY
- * @namespace Lens_Components_Block
+ * @namespace Lens_Components
  * @description Lens Blocks
  */
 
 import React, { FC } from "react";
-import { LENS_BLOCK_TYPE, LensBlock, LensBlockDataColumns, LensBlockDataDocumentCard, LensBlockDataGroupHeader, LensDefinition } from "../../types/lens-definition";
-import { ColumnsBlock } from "./columns-block";
-import { LensDocumentCardBlockWrapper } from "./document-card-block-wrapper";
-import { GroupHeaderBlock } from "./group-header-block";
+import { LENS_BLOCK_TYPE, LensBlock, LensBlockDataActionButton, LensBlockDataColumns, LensBlockDataDocumentCard, LensBlockDataGroupHeader, LensDefinition } from "../types/lens-definition";
+import { ActionButtonBlock } from "./block/action-button-block";
+import { ColumnsBlock } from "./block/columns-block";
+import { LensDocumentCardBlockWrapper } from "./block/document-card-block-wrapper";
+import { GroupHeaderBlock } from "./block/group-header-block";
 
 export type LensBlocksProps = {
 
@@ -31,12 +32,21 @@ export const LensBlocks: FC<LensBlocksProps> = (
 
             switch (block.type) {
 
+                case LENS_BLOCK_TYPE.ACTION_BUTTON: {
+
+                    return <ActionButtonBlock
+                        key={key}
+                        block={block.data as LensBlockDataActionButton}
+                    />;
+                }
                 case LENS_BLOCK_TYPE.COLUMNS: {
 
                     return (<ColumnsBlock
                         key={key}
                         block={block.data as LensBlockDataColumns}
-                        renderBlocks={(blocks: LensBlock<LENS_BLOCK_TYPE>[]) => {
+                        renderBlocks={(
+                            blocks: LensBlock<LENS_BLOCK_TYPE>[],
+                        ) => {
                             return (<LensBlocks
                                 lensDefinition={{
                                     blocks,
