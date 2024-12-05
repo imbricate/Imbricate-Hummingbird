@@ -30,6 +30,25 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
     const [edited, setEdited] = React.useState<boolean>(false);
     const [saving, setSaving] = React.useState<boolean>(false);
 
+    const deleteProperty = (key: DocumentPropertyKey) => {
+
+        const newProperties: DocumentProperties = Object.keys(properties)
+            .filter((currentKey: DocumentPropertyKey) => currentKey !== key)
+            .reduce((previous: DocumentProperties, current: DocumentPropertyKey) => {
+                return {
+                    ...previous,
+                    [current]: properties[current],
+                };
+            }, {});
+
+        setProperties(newProperties);
+
+        if (edited) {
+            return;
+        }
+        setEdited(true);
+    };
+
     const updateProperty = (
         key: DocumentPropertyKey,
         value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>,
@@ -64,6 +83,9 @@ export const DocumentPropertyCards: React.FC<DocumentPropertyCardsProps> = (
                 documentUniqueIdentifier={props.documentUniqueIdentifier}
                 schema={propertySchema}
                 property={propertyValue}
+                deleteProperty={() => {
+                    deleteProperty(propertySchema.propertyIdentifier);
+                }}
                 updateProperty={(
                     value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>,
                 ) => {

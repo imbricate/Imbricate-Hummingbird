@@ -7,6 +7,21 @@
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
 import { DateValue } from "@nextui-org/react";
 
+export const stringDateToUIDate = (dateString: string): DateValue | null => {
+
+    if (!dateString) {
+        return null;
+    }
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        return null;
+    }
+
+    return dateToUIDate(date);
+};
+
 export const dateToUIDate = (date: Date): DateValue => {
 
     const paddedYear: string = date.getFullYear().toString().padStart(4, "0");

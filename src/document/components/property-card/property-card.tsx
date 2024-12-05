@@ -18,6 +18,7 @@ export type DocumentPropertyCardProps = {
 
     readonly schema: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
+    readonly deleteProperty: () => void;
     readonly updateProperty: (value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => void;
 };
 
@@ -69,6 +70,7 @@ export const DocumentPropertyCard: React.FC<DocumentPropertyCardProps> = (
                 documentUniqueIdentifier={props.documentUniqueIdentifier}
                 schema={props.schema}
                 property={props.property}
+                deleteProperty={props.deleteProperty}
                 updateProperty={props.updateProperty}
             />
         </CardBody>

@@ -25,6 +25,7 @@ export type DocumentPropertyCardContentProps = {
 
     readonly schema: ImbricateDatabaseSchemaProperty<IMBRICATE_PROPERTY_TYPE>;
     readonly property: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>;
+    readonly deleteProperty: () => void;
     readonly updateProperty: (value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => void;
 };
 
@@ -61,7 +62,8 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
             return (<DocumentDateValue
                 propertyKey={propertyIdentifier}
                 property={props.property as any}
-                updateProperty={props.updateProperty as any}
+                deleteProperty={props.deleteProperty}
+                updateProperty={props.updateProperty}
             />);
         case IMBRICATE_PROPERTY_TYPE.MARKDOWN:
             return (<DocumentMarkdownValue

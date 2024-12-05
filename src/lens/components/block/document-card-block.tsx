@@ -31,6 +31,25 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
     const [edited, setEdited] = React.useState<boolean>(false);
     const [saving, setSaving] = React.useState<boolean>(false);
 
+    const deleteProperty = (key: DocumentPropertyKey) => {
+
+        const newProperties: DocumentProperties = Object.keys(properties)
+            .filter((currentKey: DocumentPropertyKey) => currentKey !== key)
+            .reduce((previous: DocumentProperties, current: DocumentPropertyKey) => {
+                return {
+                    ...previous,
+                    [current]: properties[current],
+                };
+            }, {});
+
+        setProperties(newProperties);
+
+        if (edited) {
+            return;
+        }
+        setEdited(true);
+    };
+
     const updateProperty = (
         key: DocumentPropertyKey,
         value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>,
@@ -85,6 +104,9 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                     documentUniqueIdentifier={props.block.document}
                     schema={headerProperty}
                     property={propertyValue}
+                    deleteProperty={() => {
+                        deleteProperty(headerProperty.propertyIdentifier);
+                    }}
                     updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
                         updateProperty(headerProperty.propertyIdentifier, value);
                     }}
@@ -125,8 +147,10 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
                             documentUniqueIdentifier={props.block.document}
                             schema={schemaProperty}
                             property={propertyValue}
+                            deleteProperty={() => {
+                                deleteProperty(schemaProperty.propertyIdentifier);
+                            }}
                             updateProperty={(value: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE>) => {
-
                                 updateProperty(schemaProperty.propertyIdentifier, value);
                             }}
                         />
