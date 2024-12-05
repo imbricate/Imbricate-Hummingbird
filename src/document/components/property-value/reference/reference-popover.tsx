@@ -7,7 +7,7 @@
 import { DocumentPropertyValue, DocumentPropertyValueObjectReference, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaPropertyOptionsReference } from "@imbricate/core";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import React, { FC } from "react";
-import { FaCheck, FaPlus } from "react-icons/fa";
+import { FaCheck, FaLink, FaPlus } from "react-icons/fa";
 import { CommonDocumentSelect, CommonDocumentSelectResponse } from "../../../../common/components/document-selector";
 import { NextUIRadius, NextUISize } from "../../../../common/types/next-ui";
 
@@ -35,6 +35,9 @@ export const DocumentReferenceValueReferencePopover: FC<DocumentReferenceValueRe
         ? props.options.databases.map((each) => each.databaseUniqueIdentifier)
         : [];
 
+    const isSingleReference = !props.options.allowMultiple;
+    const shouldDisableLink = isSingleReference && props.currentProperty.value.length > 0;
+
     return (<Popover
         backdrop="blur"
         isOpen={isOpen}
@@ -42,15 +45,20 @@ export const DocumentReferenceValueReferencePopover: FC<DocumentReferenceValueRe
             setIsOpen(open);
         }}
     >
-        <PopoverTrigger>
+        <PopoverTrigger
+            disabled={shouldDisableLink}
+        >
             <Button
                 color="primary"
                 variant="flat"
+                isDisabled={shouldDisableLink}
                 radius={props.radius}
                 size={props.size}
                 isIconOnly={props.iconOnly}
             >
-                <FaPlus /> {props.iconOnly ? "" : "Link Document"}
+                {isSingleReference
+                    ? <FaLink />
+                    : <FaPlus />} {props.iconOnly ? "" : "Link Document"}
             </Button>
         </PopoverTrigger>
         <PopoverContent

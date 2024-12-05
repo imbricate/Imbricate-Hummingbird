@@ -30,11 +30,23 @@ export const CommonPropertyDocumentSelect: FC<CommonPropertyDocumentSelectProps>
         0,
     );
 
+    const isNoDocuments = Array.isArray(documents.documents) && documents.documents.length === 0;
+
     return (<Select
         label="Document"
-        isLoading={documents.documents.length === 0}
+        errorMessage={isNoDocuments
+            ? "No Documents available from the database"
+            : undefined}
+        color={isNoDocuments ? "danger" : undefined}
+        isLoading={documents.documents === null}
+        isInvalid={isNoDocuments}
+        isDisabled={isNoDocuments}
         selectedKeys={props.selectedDocument ? [props.selectedDocument.uniqueIdentifier] : []}
         onChange={(event) => {
+
+            if (!documents.documents) {
+                return;
+            }
 
             const selectedDocument = documents.documents.find((document) => {
                 return document.uniqueIdentifier === event.target.value;
@@ -43,7 +55,7 @@ export const CommonPropertyDocumentSelect: FC<CommonPropertyDocumentSelectProps>
             props.onSelectDocument(selectedDocument!);
         }}
     >
-        {documents.documents
+        {(documents.documents ?? [])
             .filter((document) => {
                 if (typeof props.filterDocument !== "function") {
                     return true;

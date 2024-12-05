@@ -12,7 +12,7 @@ import { ImbricateDatabasesObject, useDatabases } from "../../database/hooks/use
 export type ImbricateDocumentResponse = {
 
     readonly database: ImbricateDatabasesObject | null;
-    readonly documents: IImbricateDocument[];
+    readonly documents: IImbricateDocument[] | null;
 };
 
 export const useDocuments = (
@@ -55,7 +55,7 @@ export const useDocuments = (
     if (documentsRef.current !== databaseUniqueIdentifier) {
         return {
             database: targetDatabase ?? null,
-            documents: [],
+            documents: null,
         };
     }
 

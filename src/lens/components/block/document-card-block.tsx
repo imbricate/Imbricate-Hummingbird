@@ -5,10 +5,11 @@
  */
 
 import { DocumentProperties, DocumentPropertyKey, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, getImbricateDefaultValueOfProperty } from "@imbricate/core";
-import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from "@nextui-org/react";
+import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Divider } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaStar } from "react-icons/fa6";
 import { IoSaveSharp } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 import { DocumentPropertyCardContent } from "../../../document/components/property-card/property-card-content";
 import { UseDocumentResponse } from "../../../document/hooks/use-document";
 import { getPropertyIcon } from "../../../property/utils/get-icon";
@@ -136,22 +137,37 @@ export const LensDocumentCardBlock: FC<LensDocumentCardBlockProps> = (
         {edited && <React.Fragment>
             <Divider />
             <CardFooter>
-                <Button
-                    startContent={<IoSaveSharp />}
-                    variant="solid"
-                    color="primary"
-                    isLoading={saving}
-                    onClick={async () => {
+                <ButtonGroup>
+                    <Button
+                        startContent={<IoSaveSharp />}
+                        variant="solid"
+                        color="primary"
+                        isLoading={saving}
+                        onClick={async () => {
 
-                        setSaving(true);
-                        await props.document.document.putProperties(properties);
+                            setSaving(true);
+                            await props.document.document.putProperties(properties);
 
-                        setSaving(false);
-                        setEdited(false);
-                    }}
-                >
-                    Save Changes
-                </Button>
+                            setSaving(false);
+                            setEdited(false);
+                        }}
+                    >
+                        Save Changes
+                    </Button>
+                    <Button
+                        variant="flat"
+                        color="danger"
+                        isLoading={saving}
+                        isIconOnly
+                        onClick={async () => {
+
+                            setProperties(document.document.properties);
+                            setEdited(false);
+                        }}
+                    >
+                        <MdDelete />
+                    </Button>
+                </ButtonGroup>
             </CardFooter>
         </React.Fragment>}
     </Card>);
