@@ -50,6 +50,7 @@ export const OriginView: FC<OriginViewProps> = (
         className="flex flex-col gap-2"
     >
         <Navbar
+            maxWidth="full"
             isBordered
         >
             <NavbarBrand>

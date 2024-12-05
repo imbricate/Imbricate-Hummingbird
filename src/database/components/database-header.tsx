@@ -21,6 +21,7 @@ export const DatabaseHeader: FC<DatabaseHeaderProps> = (props: DatabaseHeaderPro
     const navigate = useNavigate();
 
     return (<Navbar
+        maxWidth="full"
         isBordered
     >
         <NavbarBrand>

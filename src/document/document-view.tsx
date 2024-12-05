@@ -60,6 +60,7 @@ export const DocumentView: FC = () => {
         className="h-full overflow-auto"
     >
         <Navbar
+            maxWidth="full"
             isBordered
         >
             <NavbarBrand>

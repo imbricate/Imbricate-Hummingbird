@@ -54,6 +54,7 @@ export const LensView: FC<LensViewProps> = (
         className="flex flex-col gap-2 pb-4 overflow-auto h-full min-h-full"
     >
         <Navbar
+            maxWidth="full"
             isBordered
         >
             <NavbarBrand>

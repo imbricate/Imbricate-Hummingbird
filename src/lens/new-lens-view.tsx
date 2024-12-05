@@ -34,6 +34,7 @@ export const NewLensView: FC<NewLensViewProps> = (
         className="flex flex-col gap-2"
     >
         <Navbar
+            maxWidth="full"
             isBordered
         >
             <NavbarBrand>
