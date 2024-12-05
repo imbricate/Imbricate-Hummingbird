@@ -4,8 +4,9 @@
  * @description Raw Database
  */
 
-import React, { FC, useReducer } from "react";
+import React, { FC } from "react";
 import { useParams } from "react-router-dom";
+import { useVersion } from "../common/hooks/use-version";
 import { DocumentsTable } from "../document/components/documents-table";
 import { ImbricateDocumentResponse, useDocuments } from "../document/hooks/use-documents";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
@@ -13,8 +14,8 @@ import { DatabaseHeader } from "./components/database-header";
 
 export const RawDatabase: FC = () => {
 
-    const [version, updateVersion] = useReducer((x) => x + 1, 0);
-    const [, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [version, updateVersion] = useVersion();
+    const [, forceUpdate] = useVersion();
 
     const params = useParams();
     const databaseUniqueIdentifier: string =
@@ -38,7 +39,7 @@ export const RawDatabase: FC = () => {
         [documents.database?.database.databaseName],
     );
 
-    if (!documents.database) {
+    if (!documents.database || !documents.documents) {
         return null;
     }
 

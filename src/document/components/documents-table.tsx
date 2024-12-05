@@ -13,6 +13,7 @@ import { ArrangeDocumentsResult, ArrangeDocumentsResultItem, arrangeDocuments } 
 import { createDocumentsTableCells } from "./table-cells";
 import { createDocumentsTableCellsCreate } from "./table-cells-create";
 import { DocumentsTableHeaderCell } from "./table-headers/document-table-header-cell";
+import { useForceUpdate } from "../../common/hooks/use-version";
 
 export type DocumentsTableProps = {
 
@@ -27,6 +28,8 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
     props: DocumentsTableProps,
 ) => {
 
+    const forceUpdate = useForceUpdate();
+
     const editingControllerRef = React.useRef<DocumentEditingController>();
 
     useEffect(() => {
@@ -40,7 +43,10 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
             props.updateVersion();
         });
 
+        forceUpdate();
+
         return () => {
+
             editingControllerRef.current = undefined;
             disposeStatusChange();
             disposeVersionChange();
