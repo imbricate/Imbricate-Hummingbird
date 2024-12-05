@@ -91,7 +91,7 @@ export const EditJsonEditor: FC<EditJsonEditorProps> = (props: EditJsonEditorPro
 
             props.getValueRef.current = null;
         };
-    }, [textContent]);
+    }, [typeof textContent]);
 
     return <div
         id="edit-view-monaco"

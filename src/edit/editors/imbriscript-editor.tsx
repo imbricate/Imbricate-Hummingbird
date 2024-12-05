@@ -91,7 +91,7 @@ export const EditImbriscriptEditor: FC<EditImbriscriptEditorProps> = (props: Edi
 
             props.getValueRef.current = null;
         };
-    }, [textContent]);
+    }, [typeof textContent]);
 
     return <div
         id="edit-view-monaco"

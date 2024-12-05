@@ -12,6 +12,7 @@ import { EditViewTitle } from "./components/edit-title";
 import { EditMagicButton } from "./components/magic-button";
 import { EditEditors } from "./edit-editors";
 import { GetValueRef } from "./types/editor-refs";
+import { useDirty } from "../common/hooks/use-dirty";
 
 export type EditViewProps = {
 
@@ -22,7 +23,9 @@ export type EditViewProps = {
 
 export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
 
-    const [loading, setLoading] = React.useState<boolean>(true);
+    const setIsDirty = useDirty();
+
+    const [loading, setLoading] = React.useState<boolean>(false);
     const [valueChanged, setValueChanged] = React.useState<boolean>(false);
 
     const property = useProperty(
@@ -65,6 +68,7 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
                         updatePropertyValue,
                     );
 
+                    setIsDirty(false);
                     setLoading(false);
                     setValueChanged(false);
                 }}
@@ -76,6 +80,7 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
             getValueRef={getValueRef}
             onValueChange={() => {
                 if (!valueChanged) {
+                    setIsDirty(true);
                     setValueChanged(true);
                 }
             }}
