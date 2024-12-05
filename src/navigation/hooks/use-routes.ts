@@ -53,7 +53,7 @@ export const useNavigateLensNewView = (): (
 };
 
 export const useNavigateLensView = (): (
-    originUniqueIdentifier: string,
+    lensUniqueIdentifier: string,
     options?: NavigateOptions,
 ) => void => {
 

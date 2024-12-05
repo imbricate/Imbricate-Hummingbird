@@ -7,12 +7,13 @@
 import { DocumentPropertyValueObjectReference } from "@imbricate/core";
 import { Button, Link } from "@nextui-org/react";
 import React, { FC } from "react";
+import { FaDatabase, FaExternalLinkAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { LoadingWrapper } from "../../../../common/components/loading-wrapper";
+import { useNavigateDocumentView } from "../../../../navigation/hooks/use-routes";
+import { getRouteDocumentView } from "../../../../navigation/util/routes";
 import { useDocument } from "../../../hooks/use-document";
 import { getDocumentPrimary } from "../../../util/primary";
-import { FaDatabase } from "react-icons/fa";
-import { useNavigateDocumentView } from "../../../../navigation/hooks/use-routes";
 
 export type DocumentReferenceValueSelectedReferenceProps = {
 
@@ -51,17 +52,31 @@ export const DocumentReferenceValueSelectedReference: FC<DocumentReferenceValueS
         <div
             className="flex-1"
         >
-            <Link
-                className="hover:cursor-pointer"
-                onClick={() => {
-                    navigateToDocument(
+            <div
+                className="flex gap-1 items-center"
+            >
+                <Link
+                    className="hover:cursor-pointer"
+                    onClick={() => {
+                        navigateToDocument(
+                            props.reference.databaseUniqueIdentifier,
+                            props.reference.documentUniqueIdentifier,
+                        );
+                    }}
+                >
+                    {displayKey}
+                </Link>
+                <Link
+                    href={getRouteDocumentView(
                         props.reference.databaseUniqueIdentifier,
                         props.reference.documentUniqueIdentifier,
-                    );
-                }}
-            >
-                {displayKey}
-            </Link>
+                    )}
+                    target="_blank"
+                >
+                    <FaExternalLinkAlt />
+                </Link>
+            </div>
+
             <div
                 className="text-tiny text-gray-600 flex gap-1 items-center"
             >
