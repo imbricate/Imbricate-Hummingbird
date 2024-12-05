@@ -6,13 +6,14 @@
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Divider } from "@nextui-org/react";
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
+import { useDirty } from "../common/hooks/use-dirty";
+import { useSaveKeys } from "../common/hooks/use-save-keys";
 import { useProperty } from "../property/hooks/use-property";
 import { EditViewTitle } from "./components/edit-title";
 import { EditMagicButton } from "./components/magic-button";
 import { EditEditors } from "./edit-editors";
 import { GetValueRef } from "./types/editor-refs";
-import { useDirty } from "../common/hooks/use-dirty";
 
 export type EditViewProps = {
 
@@ -36,6 +37,36 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
 
     const getValueRef: GetValueRef = React.useRef<(() => Promise<any>) | null>(null);
 
+    const savePropertyAction = useCallback(async () => {
+
+        if (!property || !getValueRef.current || !valueChanged) {
+            return;
+        }
+
+        if (!getValueRef.current) {
+            return;
+        }
+
+        setLoading(true);
+
+        const valueContent = await getValueRef.current();
+        const updatePropertyValue: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE> = {
+            type: property.schemaProperty.propertyType,
+            value: valueContent,
+        };
+
+        await property.document.document.putProperty(
+            property.schemaProperty.propertyIdentifier,
+            updatePropertyValue,
+        );
+
+        setIsDirty(false);
+        setLoading(false);
+        setValueChanged(false);
+    }, [typeof property, typeof getValueRef.current, valueChanged]);
+
+    useSaveKeys(savePropertyAction);
+
     if (!property) {
         return null;
     }
@@ -50,28 +81,7 @@ export const EditView: FC<EditViewProps> = (props: EditViewProps) => {
             <EditMagicButton
                 isLoading={loading}
                 valueChanged={valueChanged}
-                saveProperty={async () => {
-                    if (!getValueRef.current) {
-                        return;
-                    }
-
-                    setLoading(true);
-
-                    const valueContent = await getValueRef.current();
-                    const updatePropertyValue: DocumentPropertyValue<IMBRICATE_PROPERTY_TYPE> = {
-                        type: property.schemaProperty.propertyType,
-                        value: valueContent,
-                    };
-
-                    await property.document.document.putProperty(
-                        property.schemaProperty.propertyIdentifier,
-                        updatePropertyValue,
-                    );
-
-                    setIsDirty(false);
-                    setLoading(false);
-                    setValueChanged(false);
-                }}
+                saveProperty={savePropertyAction}
             />
         </div>
         <Divider />
