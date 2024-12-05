@@ -11,6 +11,8 @@ import { getPropertyIcon } from "../../property/utils/get-icon";
 import { stringifyPropertyValue } from "../../property/utils/stringify";
 import { FaDatabase } from "react-icons/fa";
 import { NavigationLogo } from "../../navigation/logo";
+import { Link } from "@nextui-org/react";
+import { getRouteDatabaseDocumentsView, getRouteDocumentView } from "../../navigation/util/routes";
 
 export type EditViewTitleProps = {
 
@@ -32,25 +34,34 @@ export const EditViewTitle: FC<EditViewTitleProps> = (
         const stringifiedValue = stringifyPropertyValue(primaryValue);
 
         return (<div
-            className="flex-1 ml-1.5 flex gap-4 items-center mr-5"
+            className="flex-1 ml-1.5 flex gap-4 items-center mr-5 min-h-0 min-w-0"
         >
             <NavigationLogo
                 size="tiny"
             />
             <div
-                className="flex-1"
+                className="flex-1 min-h-0 min-w-0"
             >
-                <div
-                    className="font-mono"
+                <Link
+                    className="block font-mono text-current overflow-hidden text-large whitespace-nowrap text-ellipsis"
+                    href={getRouteDocumentView(
+                        props.property.document.database.database.uniqueIdentifier,
+                        props.property.document.document.uniqueIdentifier,
+                    )}
+                    target="_blank"
                 >
                     {stringifiedValue}
-                </div>
-                <div
+                </Link>
+                <Link
                     className="text-tiny text-gray-600 flex gap-1 items-center"
+                    href={getRouteDatabaseDocumentsView(
+                        props.property.document.database.database.uniqueIdentifier,
+                    )}
+                    target="_blank"
                 >
                     <FaDatabase />
                     {props.property.document.database.database.databaseName}
-                </div>
+                </Link>
             </div>
             <div>
                 {getPropertyIcon(
