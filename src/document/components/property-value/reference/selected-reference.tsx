@@ -91,7 +91,9 @@ export const DocumentReferenceValueSelectedReference: FC<DocumentReferenceValueS
             radius="sm"
             onClick={props.onDelete}
         >
-            <MdDelete />
+            <MdDelete
+                className="text-large"
+            />
         </Button>
     </div>);
 };

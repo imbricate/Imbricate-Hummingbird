@@ -95,6 +95,7 @@ export const DocumentPropertyCardContent: React.FC<DocumentPropertyCardContentPr
             return (<DocumentLabelValue
                 propertyKey={propertyIdentifier}
                 property={props.property as any}
+                deleteProperty={props.deleteProperty}
                 updateProperty={props.updateProperty as any}
                 options={props.schema.propertyOptions as any}
             />);

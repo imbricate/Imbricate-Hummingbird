@@ -49,7 +49,7 @@ export const DocumentDateValue: FC<DocumentDateValueProps> = (
                 }}
             />
         </div>
-        <Button
+        {parsedDate !== null && <Button
             variant="flat"
             color="danger"
             isIconOnly
@@ -58,6 +58,6 @@ export const DocumentDateValue: FC<DocumentDateValueProps> = (
             <FaUnlink
                 className="text-large"
             />
-        </Button>
+        </Button>}
     </div>);
 };

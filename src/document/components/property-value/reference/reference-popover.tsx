@@ -57,8 +57,12 @@ export const DocumentReferenceValueReferencePopover: FC<DocumentReferenceValueRe
                 isIconOnly={props.iconOnly}
             >
                 {isSingleReference
-                    ? <FaLink />
-                    : <FaPlus />} {props.iconOnly ? "" : "Link Document"}
+                    ? <FaLink
+                        className={props.iconOnly ? "text-large" : undefined}
+                    />
+                    : <FaPlus
+                        className={props.iconOnly ? "text-large" : undefined}
+                    />} {props.iconOnly ? "" : "Link Document"}
             </Button>
         </PopoverTrigger>
         <PopoverContent
