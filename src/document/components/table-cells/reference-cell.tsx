@@ -49,7 +49,7 @@ export const DocumentTableReferenceCell: FC<DocumentTableReferenceCellProps> = (
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                    className="p-3"
+                    className="p-3 flex flex-col gap-1"
                 >
                     {fixedValue.map((item) => {
 
