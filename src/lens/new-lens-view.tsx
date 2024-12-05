@@ -8,13 +8,13 @@ import { IMBRICATE_PROPERTY_TYPE } from "@imbricate/core";
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Input, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import { UUIDVersion1 } from "@sudoo/uuid";
 import React, { FC } from "react";
+import { RiCameraLensFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { CommonPropertySelect, CommonPropertySelectResponse } from "../common/components/property-selector";
 import { useNavigateLensView } from "../navigation/hooks/use-routes";
 import { LensSlice } from "../store/feature/lens";
 import { readLendsConfig, writeLensConfig } from "./storage/lens-config";
 import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
-import { RiCameraLensFill } from "react-icons/ri";
 
 export type NewLensViewProps = {
 };
@@ -48,14 +48,19 @@ export const NewLensView: FC<NewLensViewProps> = (
                     Lens
                 </p>
             </NavbarBrand>
-            <NavbarContent>
+            <NavbarContent
+                justify="center"
+            >
                 <p className="font-bold text-xl">
                     Create New Lens
                 </p>
             </NavbarContent>
+            <NavbarContent
+                justify="end"
+            ></NavbarContent>
         </Navbar>
         <div
-            className="pr-2"
+            className="pr-2 flex flex-col gap-2"
         >
             <Card
                 className="border-1"

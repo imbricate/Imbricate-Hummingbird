@@ -64,11 +64,16 @@ export const OriginView: FC<OriginViewProps> = (
                     Origin
                 </p>
             </NavbarBrand>
-            <NavbarContent>
+            <NavbarContent
+                justify="center"
+            >
                 <p className="font-bold text-xl">
                     {targetOrigin.originName}
                 </p>
             </NavbarContent>
+            <NavbarContent
+                justify="end"
+            ></NavbarContent>
         </Navbar>
         <div
             className="pr-2"
