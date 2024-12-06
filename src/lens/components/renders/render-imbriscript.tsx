@@ -30,6 +30,7 @@ export const RenderImbriscriptLens: FC<RenderImbriscriptLensProps> = (
     const textContent = useText(
         props.property.origin.origin.uniqueIdentifier,
         props.textIdentifier,
+        [props.version],
     );
 
     const [executeResult, setExecuteResult] = React.useState<MarkedResult | null>(null);

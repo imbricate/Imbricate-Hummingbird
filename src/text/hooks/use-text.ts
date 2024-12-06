@@ -25,6 +25,7 @@ export type UseTextResponse =
 export const useText = (
     originUniqueIdentifier: string,
     textUniqueIdentifier?: string,
+    dependencies?: any[],
 ): UseTextResponse => {
 
     const origins: ImbricateOriginObject[] = useOrigins();
@@ -36,6 +37,8 @@ export const useText = (
     if (!targetOrigin) {
         return S_TextLoading;
     }
+
+    const fixedDependencies: any[] = dependencies ?? [];
 
     useEffect(() => {
 
@@ -67,7 +70,7 @@ export const useText = (
         };
 
         execute();
-    }, [originUniqueIdentifier, textUniqueIdentifier]);
+    }, [originUniqueIdentifier, textUniqueIdentifier, ...fixedDependencies]);
 
     if (typeof responseSymbol === "symbol") {
         return responseSymbol;
