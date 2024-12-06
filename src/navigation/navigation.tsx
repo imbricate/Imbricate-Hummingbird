@@ -6,8 +6,8 @@
 
 import { Button, Tab, Tabs } from "@nextui-org/react";
 import React, { FC } from "react";
-import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaCog, FaSearch } from "react-icons/fa";
+import { useNavigateConfigView, useNavigateSearchView } from "./hooks/use-routes";
 import { NavigationLogo } from "./logo";
 import { NavigationDatabases } from "./navigation-databases";
 import { NavigationLenses } from "./navigation-lenses";
@@ -15,9 +15,10 @@ import { NavigationOrigins } from "./navigation-origins";
 
 export const Navigation: FC = () => {
 
-    const navigate = useNavigate();
+    const navigateToSearch = useNavigateSearchView();
+    const navigateToConfig = useNavigateConfigView();
 
-    return (<div className="w-full max-w-[270px] p-1 overflow-auto relative">
+    return (<div className="w-full max-w-[270px] p-1 overflow-auto relative flex flex-col">
         <div className="w-full justify-center items-center flex my-2">
             <NavigationLogo />
         </div>
@@ -28,35 +29,52 @@ export const Navigation: FC = () => {
                 variant="solid"
                 fullWidth
                 onClick={() => {
-                    navigate("/search");
+                    navigateToSearch();
                 }}
             >
                 Search
             </Button>
         </div>
-        <Tabs
-            fullWidth
-            variant="solid"
-            defaultSelectedKey="lenses"
+        <div
+            className="flex-1 flex flex-col"
         >
-            <Tab
-                key="origins"
-                title="Origins"
+            <div
+                className="flex-1"
             >
-                <NavigationOrigins />
-            </Tab>
-            <Tab
-                key="lenses"
-                title="Lenses"
+                <Tabs
+                    fullWidth
+                    variant="solid"
+                    defaultSelectedKey="lenses"
+                >
+                    <Tab
+                        key="origins"
+                        title="Origins"
+                    >
+                        <NavigationOrigins />
+                    </Tab>
+                    <Tab
+                        key="lenses"
+                        title="Lenses"
+                    >
+                        <NavigationLenses />
+                    </Tab>
+                    <Tab
+                        key="databases"
+                        title="Databases"
+                    >
+                        <NavigationDatabases />
+                    </Tab>
+                </Tabs>
+            </div>
+            <Button
+                startContent={<FaCog />}
+                variant="light"
+                onClick={() => {
+                    navigateToConfig();
+                }}
             >
-                <NavigationLenses />
-            </Tab>
-            <Tab
-                key="databases"
-                title="Databases"
-            >
-                <NavigationDatabases />
-            </Tab>
-        </Tabs>
+                Imbricate Hummingbird
+            </Button>
+        </div>
     </div>);
 };

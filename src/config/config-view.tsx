@@ -4,9 +4,9 @@
  * @description Config View
  */
 
-import { Card, CardBody, CardHeader, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Divider, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaGithub } from "react-icons/fa";
 import { useTitle } from "../navigation/hooks/use-title";
 import { ConfigBrandBanner } from "./components/brand-banner";
 
@@ -50,24 +50,26 @@ const ConfigView: FC<ConfigViewProps> = (
         <div
             className="pr-2 flex-1 min-h-0 min-w-0 flex gap-2"
         >
-            <div
-                className="after:contents('')"
-            >
-                <ConfigBrandBanner />
-            </div>
+            <ConfigBrandBanner />
             <div
                 className="flex-1"
             >
-                <Card>
+                <Card
+                    shadow="none"
+                    className="border-1"
+                >
                     <CardHeader>
-                        <p>
-                            Config
-                        </p>
+                        Resources
                     </CardHeader>
+                    <Divider />
                     <CardBody>
-                        <p>
-                            Config
-                        </p>
+                        <Button
+                            fullWidth
+                            startContent={<FaGithub />}
+                            variant="light"
+                        >
+                            Github
+                        </Button>
                     </CardBody>
                 </Card>
             </div>

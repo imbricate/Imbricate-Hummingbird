@@ -6,6 +6,17 @@
 
 import { NavigateOptions, useNavigate } from "react-router-dom";
 
+export const useNavigateConfigView = (): (
+    options?: NavigateOptions,
+) => void => {
+
+    const navigate = useNavigate();
+
+    return (
+        options?: NavigateOptions,
+    ) => navigate("/config", options);
+};
+
 export const useNavigateSearchView = (): (
     options?: NavigateOptions,
 ) => void => {
