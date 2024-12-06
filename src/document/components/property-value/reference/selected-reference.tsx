@@ -53,7 +53,7 @@ export const DocumentReferenceValueSelectedReference: FC<DocumentReferenceValueS
             className="flex-1"
         >
             <div
-                className="flex gap-1 items-center"
+                className="flex gap-2 items-center"
             >
                 <Link
                     className="hover:cursor-pointer"
@@ -73,7 +73,9 @@ export const DocumentReferenceValueSelectedReference: FC<DocumentReferenceValueS
                     )}
                     target="_blank"
                 >
-                    <FaExternalLinkAlt />
+                    <FaExternalLinkAlt
+                        className="text-small"
+                    />
                 </Link>
             </div>
             <div
