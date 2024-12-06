@@ -12,7 +12,7 @@ export const useTitle = (
 
     const joinedTitle: string = [
         ...titles,
-        "Imbricate Hummingbird",
+        "Imbricate",
     ].join(" | ");
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export const useAsyncTitle = (
         const title = getTitle();
         document.title = [
             ...title,
-            "Imbricate Hummingbird",
+            "Imbricate",
         ].join(" | ");
     }, deps);
 };

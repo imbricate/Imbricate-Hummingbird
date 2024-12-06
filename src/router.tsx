@@ -8,6 +8,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
 import { Route, Routes, useHref, useNavigate } from "react-router-dom";
 import { ApplicationWrapper } from "./application/application-wrapper";
+import { ConfigViewWrapper } from "./config/config-view-wrapper";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
@@ -32,6 +33,10 @@ export const ApplicationRouter = () => {
             <Route path="/" element={<ApplicationWrapper />} errorElement={<div>
                 Not Found
             </div>}>
+                <Route
+                    path="config"
+                    element={<ConfigViewWrapper />}
+                />
                 <Route
                     path="search"
                     element={<SearchView />}
