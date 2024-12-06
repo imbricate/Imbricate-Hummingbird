@@ -15,15 +15,15 @@ export const ConfigBrandBanner: FC<ConfigBrandBannerProps> = (
 
     return (<div
         style={{
-            writingMode: "vertical-lr",
+            writingMode: "vertical-rl",
             textOrientation: "mixed",
         }}
-        className="h-full font-mono"
+        className="h-full font-mono text-tiny select-none pointer-events-none"
     >
         <div
             className="break-keep text-nowrap h-full overflow-hidden"
         >
-            R I C A T E {("IMBRICATE".repeat(12)).split("").join(" ")}
+            A T E {("IMBRICATE".repeat(12)).split("").join(" ")}
         </div>
         <div
             className="break-keep text-nowrap h-full overflow-hidden"
@@ -33,12 +33,12 @@ export const ConfigBrandBanner: FC<ConfigBrandBannerProps> = (
         <div
             className="break-keep text-nowrap h-full overflow-hidden"
         >
-            A T E {("IMBRICATE".repeat(12)).split("").join(" ")}
+            R I C A T E {("IMBRICATE".repeat(12)).split("").join(" ")}
         </div>
         <div
             className="break-keep text-nowrap h-full overflow-hidden"
         >
-            R I C A T E {("IMBRICATE".repeat(12)).split("").join(" ")}
+            A T E {("IMBRICATE".repeat(12)).split("").join(" ")}
         </div>
         <div
             className="break-keep text-nowrap h-full overflow-hidden"

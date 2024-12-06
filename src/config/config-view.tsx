@@ -4,7 +4,7 @@
  * @description Config View
  */
 
-import { Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaCog } from "react-icons/fa";
 import { useTitle } from "../navigation/hooks/use-title";
@@ -48,16 +48,31 @@ const ConfigView: FC<ConfigViewProps> = (
             </NavbarContent>
         </Navbar>
         <div
-            className="pr-2 flex flex-1 min-h-0 min-w-0"
+            className="pr-2 flex-1 min-h-0 min-w-0 flex gap-2"
         >
-            <div>
+            <div
+                className="after:contents('')"
+            >
                 <ConfigBrandBanner />
             </div>
-            <div>
-
+            <div
+                className="flex-1"
+            >
+                <Card>
+                    <CardHeader>
+                        <p>
+                            Config
+                        </p>
+                    </CardHeader>
+                    <CardBody>
+                        <p>
+                            Config
+                        </p>
+                    </CardBody>
+                </Card>
             </div>
         </div>
-    </div>);
+    </div >);
 };
 
 export default ConfigView;
