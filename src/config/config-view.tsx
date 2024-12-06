@@ -23,7 +23,7 @@ const ConfigView: FC<ConfigViewProps> = (
     ]);
 
     return (<div
-        className="flex flex-col gap-2 overflow-auto h-full min-h-full"
+        className="h-full min-h-full flex flex-col"
     >
         <Navbar
             maxWidth="full"
@@ -48,30 +48,34 @@ const ConfigView: FC<ConfigViewProps> = (
             </NavbarContent>
         </Navbar>
         <div
-            className="pr-2 flex-1 min-h-0 min-w-0 flex gap-2"
+            className="flex-1 min-h-0 min-w-0 flex gap-2 h-full"
         >
             <ConfigBrandBanner />
             <div
-                className="flex-1"
+                className="flex-1 h-full overflow-auto"
             >
-                <Card
-                    shadow="none"
-                    className="border-1"
+                <div
+                    className="flex flex-col gap-2 pr-2 py-2"
                 >
-                    <CardHeader>
-                        Resources
-                    </CardHeader>
-                    <Divider />
-                    <CardBody>
-                        <Button
-                            fullWidth
-                            startContent={<FaGithub />}
-                            variant="light"
-                        >
-                            Github
-                        </Button>
-                    </CardBody>
-                </Card>
+                    <Card
+                        shadow="none"
+                        className="border-1"
+                    >
+                        <CardHeader>
+                            Resources
+                        </CardHeader>
+                        <Divider />
+                        <CardBody>
+                            <Button
+                                fullWidth
+                                startContent={<FaGithub />}
+                                variant="light"
+                            >
+                                Github
+                            </Button>
+                        </CardBody>
+                    </Card>
+                </div>
             </div>
         </div>
     </div >);
