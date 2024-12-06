@@ -6,11 +6,13 @@
 
 import { Button, Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
+import { FaEdit } from "react-icons/fa";
 import { HiRefresh } from "react-icons/hi";
 import { RiCameraLensFill } from "react-icons/ri";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useVersion } from "../common/hooks/use-version";
 import { useAsyncTitle } from "../navigation/hooks/use-title";
+import { getRouteLensEditView } from "../navigation/util/routes";
 import { LensRender } from "./components/lens-render";
 import { useLensConfig } from "./hooks/use-lenses";
 import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-config";
@@ -71,10 +73,17 @@ const LensView: FC<LensViewProps> = (
             </NavbarBrand>
             <NavbarContent
                 justify="center"
+                className="flex flex-col gap-0"
             >
                 <p className="font-bold text-xl">
                     {targetLens.lensName}
                 </p>
+                <Link
+                    className="h-2 text-tiny flex gap-1 items-center"
+                    to={getRouteLensEditView(targetLens.lensIdentifier)}
+                >
+                    <FaEdit /><div>Edit Lens</div>
+                </Link>
             </NavbarContent>
             <NavbarContent
                 justify="end"

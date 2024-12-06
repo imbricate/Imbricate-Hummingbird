@@ -69,6 +69,7 @@ export const NewLensView: FC<NewLensViewProps> = (
                 <CardHeader>
                     Create Lens
                 </CardHeader>
+                <Divider />
                 <CardBody>
                     <Input
                         label="Lens Name"

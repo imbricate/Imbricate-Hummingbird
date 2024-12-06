@@ -30,10 +30,17 @@ export const getRouteLensNewView = (
 };
 
 export const getRouteLensView = (
-    originUniqueIdentifier: string,
+    lensUniqueIdentifier: string,
 ): string => {
 
-    return `/lens/${originUniqueIdentifier}`;
+    return `/lens/${lensUniqueIdentifier}`;
+};
+
+export const getRouteLensEditView = (
+    lensUniqueIdentifier: string,
+): string => {
+
+    return `/lens/${lensUniqueIdentifier}/edit`;
 };
 
 export const getRouteDatabasesView = (
