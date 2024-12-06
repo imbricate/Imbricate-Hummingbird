@@ -8,6 +8,7 @@ import { Navbar, NavbarBrand, NavbarContent, Spacer } from "@nextui-org/react";
 import React, { FC } from "react";
 import { FaCog } from "react-icons/fa";
 import { useTitle } from "../navigation/hooks/use-title";
+import { ConfigBrandBanner } from "./components/brand-banner";
 
 export type ConfigViewProps = {
 };
@@ -22,7 +23,7 @@ const ConfigView: FC<ConfigViewProps> = (
     ]);
 
     return (<div
-        className="flex flex-col gap-2 pb-4 overflow-auto h-full min-h-full"
+        className="flex flex-col gap-2 overflow-auto h-full min-h-full"
     >
         <Navbar
             maxWidth="full"
@@ -47,9 +48,14 @@ const ConfigView: FC<ConfigViewProps> = (
             </NavbarContent>
         </Navbar>
         <div
-            className="pr-2 h-full"
+            className="pr-2 flex flex-1 min-h-0 min-w-0"
         >
+            <div>
+                <ConfigBrandBanner />
+            </div>
+            <div>
 
+            </div>
         </div>
     </div>);
 };
