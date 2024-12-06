@@ -11,9 +11,9 @@ import { ApplicationWrapper } from "./application/application-wrapper";
 import { DatabasesView } from "./database/databases-view";
 import { RawDatabase } from "./database/raw-database";
 import { DatabasesSchemaView } from "./database/schema-view";
-import { DocumentView } from "./document/document-view";
+import { DocumentViewWrapper } from "./document/document-view-wrapper";
 import { EditWrapper } from "./edit/edit-wrapper";
-import { LensView } from "./lens/lens-view";
+import { LensViewWrapper } from "./lens/lens-view-wrapper";
 import { NewLensView } from "./lens/new-lens-view";
 import { NewOriginView } from "./origin/new-origin-view";
 import { OriginView } from "./origin/origin-view";
@@ -50,7 +50,7 @@ export const ApplicationRouter = () => {
                 />
                 <Route
                     path="lens/:lens-identifier"
-                    element={<LensView />}
+                    element={<LensViewWrapper />}
                 />
                 <Route
                     path="databases"
@@ -62,7 +62,7 @@ export const ApplicationRouter = () => {
                 />
                 <Route
                     path="database/:database-unique-identifier/document/:document-unique-identifier"
-                    element={<DocumentView />}
+                    element={<DocumentViewWrapper />}
                 />
                 <Route
                     path="database/:database-unique-identifier/schema"

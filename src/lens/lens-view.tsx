@@ -18,7 +18,8 @@ import { LENS_CONFIG_SOURCE, LensConfig, LensConfigItem } from "./types/lens-con
 export type LensViewProps = {
 };
 
-export const LensView: FC<LensViewProps> = (
+// LAZY LOAD ONLY
+const LensView: FC<LensViewProps> = (
     _props: LensViewProps,
 ) => {
 
@@ -102,3 +103,5 @@ export const LensView: FC<LensViewProps> = (
         </div>
     </div>);
 };
+
+export default LensView;

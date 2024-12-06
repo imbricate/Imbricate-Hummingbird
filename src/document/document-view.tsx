@@ -15,7 +15,8 @@ import { DocumentPropertyCards } from "./components/property-card/property-cards
 import { useDocument } from "./hooks/use-document";
 import { getDocumentPrimary } from "./util/primary";
 
-export const DocumentView: FC = () => {
+// LAZY LOAD ONLY
+const DocumentView: FC = () => {
 
     const params = useParams();
     const databaseUniqueIdentifier: string =
@@ -114,3 +115,5 @@ export const DocumentView: FC = () => {
         />
     </div>);
 };
+
+export default DocumentView;
