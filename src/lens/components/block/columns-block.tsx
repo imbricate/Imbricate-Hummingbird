@@ -4,7 +4,7 @@
  * @description Columns Block
  */
 
-import React, { FC } from "react";
+import React, { FC, JSX } from "react";
 import { LENS_BLOCK_TYPE, LensBlock, LensBlockDataColumns, LensBlockDataColumnsColumn } from "../../types/lens-definition";
 
 export type ColumnsBlockProps = {

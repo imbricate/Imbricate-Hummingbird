@@ -30,7 +30,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = (
 
     const forceUpdate = useForceUpdate();
 
-    const editingControllerRef = React.useRef<DocumentEditingController>();
+    const editingControllerRef = React.useRef<DocumentEditingController>(undefined);
 
     useEffect(() => {
 

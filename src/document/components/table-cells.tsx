@@ -6,7 +6,7 @@
 
 import { DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel, ImbricateDatabaseSchemaPropertyOptionsReference } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
-import React from "react";
+import React, { JSX } from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { ArrangeDocumentsResultItem } from "../util/arrange-documents";
 import { DocumentsTableEditingExtraCell } from "./extra-cell/editing-extra";

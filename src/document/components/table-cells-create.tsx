@@ -6,7 +6,7 @@
 
 import { DocumentProperties, DocumentPropertyValue, IMBRICATE_PROPERTY_TYPE, ImbricateDatabaseSchemaProperty, ImbricateDatabaseSchemaPropertyOptionsLabel, ImbricateDatabaseSchemaPropertyOptionsReference } from "@imbricate/core";
 import { TableCell } from "@nextui-org/react";
-import React from "react";
+import React, { JSX } from "react";
 import { DocumentEditingController } from "../controller/editing-controller";
 import { DocumentsTableCreatingExtraCell } from "./extra-cell/creating-extra";
 import { DocumentTableBooleanCell } from "./table-cells/boolean-cell";
