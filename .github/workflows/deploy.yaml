@@ -25,21 +25,12 @@ jobs:
         with:
           node-version: 20
           cache: "yarn"
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
       - name: Install Dependencies
         run: |
           yarn
       - name: Build Project
         run: |
           yarn build
-      - name: Copy Index
-        run: |
-          cp app/index.html app/404.html
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: app
   deploy:
     needs: build
     runs-on: ubuntu-latest
